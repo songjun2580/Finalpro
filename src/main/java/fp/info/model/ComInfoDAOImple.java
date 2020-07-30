@@ -24,5 +24,10 @@ public class ComInfoDAOImple implements ComInfoDAO {
 	      ComInfoDTO dto=sst.selectOne("comInfoForSession", usId);
 	      return dto;
 	   }
+	/**회사 등록*/
+	   public int coAdd(ComInfoDTO dto) {
+		 int result=sst.insert("coInsert", dto);
+		return result;
+	}
 
 }

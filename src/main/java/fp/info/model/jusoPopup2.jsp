@@ -60,7 +60,7 @@ function init(){
 		//document.form.action="http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do"; //모바일 웹인 경우, 인터넷망
 		document.form.submit();
 	}else{
-		opener.jusoCallBack("<%=roadAddrPart1%>","<%=zipNo%>","<%=roadAddrPart2%>","<%=addrDetail%>","<%=siNm%>","<%=sggNm%>");
+		opener.jusoCallBack2("<%=roadFullAddr%>","<%=zipNo%>");
 		window.close();
 		}
 }

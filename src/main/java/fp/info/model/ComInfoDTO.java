@@ -1,16 +1,19 @@
-package fp.info.model;
+	package fp.info.model;
 
 public class ComInfoDTO {
 
 	private int coIdx;
+	private int coType;
 	private String coName;
 	private String coEmail;
 	private String coPwd;
 	private String coTel;
-	private String coReq;
+	private String coRep;
 	private String coBsNum;
 	private String coCorNum;
 	private String coAddr;
+	private String coAddrDetail1;
+	private String coAddrDetail2;
 	private int coCpl;
 	private int coWrg;
 	
@@ -18,18 +21,22 @@ public class ComInfoDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ComInfoDTO(int coIdx, String coName, String coEmail, String coPwd, String coTel, String coReq,
-			String coBsNum, String coCorNum, String coAddr, int coCpl, int coWrg) {
+	public ComInfoDTO(int coIdx, int coType, String coName, String coEmail, String coPwd, String coTel, String coRep,
+			String coBsNum, String coCorNum, String coAddr, String coAddrDetail1, String coAddrDetail2, int coCpl,
+			int coWrg) {
 		super();
 		this.coIdx = coIdx;
+		this.coType = coType;
 		this.coName = coName;
 		this.coEmail = coEmail;
 		this.coPwd = coPwd;
 		this.coTel = coTel;
-		this.coReq = coReq;
+		this.coRep = coRep;
 		this.coBsNum = coBsNum;
 		this.coCorNum = coCorNum;
 		this.coAddr = coAddr;
+		this.coAddrDetail1 = coAddrDetail1;
+		this.coAddrDetail2 = coAddrDetail2;
 		this.coCpl = coCpl;
 		this.coWrg = coWrg;
 	}
@@ -40,6 +47,14 @@ public class ComInfoDTO {
 
 	public void setCoIdx(int coIdx) {
 		this.coIdx = coIdx;
+	}
+
+	public int getCoType() {
+		return coType;
+	}
+
+	public void setCoType(int coType) {
+		this.coType = coType;
 	}
 
 	public String getCoName() {
@@ -74,12 +89,12 @@ public class ComInfoDTO {
 		this.coTel = coTel;
 	}
 
-	public String getCoReq() {
-		return coReq;
+	public String getCoRep() {
+		return coRep;
 	}
 
-	public void setCoReq(String coReq) {
-		this.coReq = coReq;
+	public void setCoRep(String coRep) {
+		this.coRep = coRep;
 	}
 
 	public String getCoBsNum() {
@@ -106,6 +121,22 @@ public class ComInfoDTO {
 		this.coAddr = coAddr;
 	}
 
+	public String getCoAddrDetail1() {
+		return coAddrDetail1;
+	}
+
+	public void setCoAddrDetail1(String coAddrDetail1) {
+		this.coAddrDetail1 = coAddrDetail1;
+	}
+
+	public String getCoAddrDetail2() {
+		return coAddrDetail2;
+	}
+
+	public void setCoAddrDetail2(String coAddrDetail2) {
+		this.coAddrDetail2 = coAddrDetail2;
+	}
+
 	public int getCoCpl() {
 		return coCpl;
 	}
@@ -121,4 +152,7 @@ public class ComInfoDTO {
 	public void setCoWrg(int coWrg) {
 		this.coWrg = coWrg;
 	}
+
+	
+	
 }

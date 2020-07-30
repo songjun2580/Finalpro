@@ -45,7 +45,6 @@
   function show(){
 	  window.alert('가입 완료 되었습니다!');
 	  location.href="index.jsp"
-	  
   }
   // 이메일 직접입력폼
   function emailInput(){
@@ -107,12 +106,14 @@
 		var pop = window.open("jusoPopupCo.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	}
   	// 주소 값  가져오기
-	function jusoCallBack(coSaddr, cozipNo, coRaddr, corDaddr){	//출발지 주소
+	function jusoCallBack(coSaddr, cozipNo, coRaddr, corDaddr,coAddrDetail1,coAddrDetail2){	//출발지 주소
 		var addr=coSaddr+coRaddr;
 		document.getElementById('moSaddr').value=addr;
 		document.getElementById('szipNo').value=cozipNo;
 		document.getElementById('deAddr').value=corDaddr;
 		document.join.coAddr.value=coSaddr+' , '+corDaddr;
+		document.join.coAddrDetail1.value=coAddrDetail1;
+		document.join.coAddrDetail2.value=coAddrDetail2;
 	}
   	
 	
@@ -124,7 +125,7 @@
  <body>
  <article>
 	<section>
-	<form name="join">
+	<form name="join" action="">
  	<p/>
  	 <h3>기업회원 정보 입력</h3>
  	 <p class="signInfo" align="right">정보를 입력하신 후 가입완료 버튼을 눌러주십시오.</p>
@@ -185,6 +186,8 @@
 			<input type="text" id="moSaddr" size="50" placeholder="주소입력" class="signInputBox" readonly required>
 			 &nbsp;&nbsp;&nbsp; <input type="button" value="주소 검색" onclick="goPopup()">
 			 <input type="hidden" name="coAddr">
+			 <input type="hidden" name="coAddrDetail1">
+			 <input type="hidden" name="coAddrDetail2">
 			</p>
 		</td>
 		</tr>
@@ -232,7 +235,7 @@
                </select>&nbsp;-&nbsp;
                <input type="text" id="tel" name="ptel2" onkeyup="telMove()" size="5" maxlength="4" required class="signInputBox">&nbsp;-&nbsp;
                <input type="text" id="tel" name="ptel" size="5" maxlength="4" required class="signInputBox">
-               <input type="hidden" name="coPwd">     
+               <input type="hidden" name="coTel">     
 			</p>
 			</td>			
 			</tr>
@@ -240,7 +243,7 @@
 			<td class="signTableName" rowspan="1" colspan="1"><p>&nbsp;*비밀번호</p>
 			</td>
 			<td class="signTableInput" colspan="3" rowspan="1">
-			<p><input type="password" class="signInputBox" size="25"></p>
+			<p><input type="password" class="signInputBox" size="25" name="coPwd"></p>
 			</td>
 			</tr>
 		</tbody>
@@ -248,7 +251,7 @@
 		<p/>
 		<p/>
 		
-			<button type="submit"  class="btn btn-secondary btn-lg" style="margin-left:40%;" onclick="show()">가입완료</button>
+			<button type="submit"  class="btn btn-secondary btn-lg" style="margin-left:40%;" >가입완료</button>
 		</form>	
   </section>
  </article>

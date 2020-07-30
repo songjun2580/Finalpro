@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="fp.info"> 
+  	<insert id="coInsert" parameterType="fp.info.model.ComInfoDTO">
+  		insert into
+  			
+  	</insert>
  	<select id="comEmailSelect" parameterType="String" resultType="String">
 		select coPwd from com_Info where coEmail=#{coEmail}
     </select>
