@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="fp.estimate">
+	
+	<!-- 이사견적서 추가 -->
+	<insert id="moveestInsert" parameterType="fp.estimate.model.MoveEstimateDTO" >
+	insert into move_est values
+	(move_est_moIdx.nextval,#{uIdx},TO_DATE(#{moDate}, 'YYYY-MM-DD'),
+	#{moName},#{moTel},#{moConsult},
+	#{szipNo},#{moSaddr},#{moSfloor},#{moType},#{moSize},
+	#{ezipNo},#{moEaddr},#{moEfloor},#{moService1},#{moService2},
+	'승인대기')
+	</insert>
+	<!-- 전체 견적서 목록 및 페이징 -->
+	<select id="moveEstList" parameterType="Map" resultType="fp.estimate.model.MoveEstimateDTO">
+		select * from 
+		(select rownum as rnum,a.* from
+		(select * from move_est order by moIdx desc)a)b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
+	<select id="totalCnt" resultType="int">
+  		select count(*) from move_est
+  	</select>
+  	
+  	<!-- 승인대기 견적서 목록 및 페이징 -->
+  	<select id="moveEstWait" parameterType="Map" resultType="fp.estimate.model.MoveEstimateDTO">
+  		select * from 
+		(select rownum as rnum,a.* from
+		(select * from move_est where moStatus='승인대기')a)b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  	</select>
+  	<select id="totalCntwait" resultType="int">
+  		select count(*) from move_est where moStatus='승인대기'
+  	</select>
+  	
+  	<!-- 승인대기 견적서 목록 및 페이징 -->
+  	<select id="moveEstConfirm" parameterType="Map" resultType="fp.estimate.model.MoveEstimateDTO">
+  		select * from 
+		(select rownum as rnum,a.* from
+		(select * from move_est where moStatus='승인완료')a)b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  	</select>
+  	<select id="totalCntConfirm" resultType="int">
+  		select count(*) from move_est where moStatus='승인완료'
+  	</select>
+</mapper>

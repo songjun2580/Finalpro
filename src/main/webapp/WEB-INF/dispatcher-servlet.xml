@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- configs -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+	<property name="maxUploadSize">
+		<value>10485760</value>
+	</property>
+	</bean>
+
+<bean class="fp.view.DownloadView" id="fileDown"/>
+
+<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="yongJson"/>
+
+<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+<!-- dataSource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+<!-- add transactionManager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+<!-- myBatis setting -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"></constructor-arg>
+	</bean>	
+<!-- controller -->
+	<bean id="indexController" class="fp.controller.IndexController"></bean>
+	<bean id="admController" class="fp.controller.AdmController"></bean>
+	<bean id="empController" class="fp.controller.EmpController"></bean>
+	<bean id="userController" class="fp.controller.UserController"></bean>
+	<bean id="compController" class="fp.controller.CompController"></bean>
+
+<!-- services -->
+	<bean id="userDao" class="fp.info.model.UserInfoDAOImple">
+	 <constructor-arg>
+   		<ref bean="sqlSessionTemplate"></ref>
+   	 </constructor-arg>
+	</bean>
+	<bean id="comDao" class="fp.info.model.ComInfoDAOImple">
+	<constructor-arg>
+		<ref bean="sqlSessionTemplate"></ref>
+	</constructor-arg>
+	</bean>
+	<bean id="empDao" class="fp.info.model.EmpInfoDAOImple">
+	<constructor-arg>
+		<ref bean="sqlSessionTemplate"></ref>
+	</constructor-arg>
+	</bean>
+	<bean id="admDao" class="fp.info.model.AdmInfoDAOImple">
+	<constructor-arg>
+		<ref bean="sqlSessionTemplate"></ref>
+	</constructor-arg>
+	</bean>
+	<bean id="moveEstimateDao" class="fp.estimate.model.MoveEstimateDAOImple">
+      <constructor-arg>
+            <ref bean="sqlSessionTemplate"></ref>
+         </constructor-arg>
+     </bean>
+     <bean id="reviewDao" class="fp.bbs.model.ReviewBbsDAOImple">
+     	<constructor-arg>
+     		<ref bean="sqlSessionTemplate"/>
+     	</constructor-arg>
+     </bean>
+<!-- view -->
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+   		<property name="prefix">
+   			<value>/WEB-INF/views/</value>
+   		</property>
+   		<property name="suffix" value=".jsp"></property>
+   </bean>
+   <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<property name="order" value="0"/>
+	</bean>
+<!-- 회원가입 메일 인증 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" /><!-- 465 or 25 -->
+      <property name="username" value="moveandclean2424@gmail.com" />
+      <property name="password" value="move1234!" />
+      <property name="defaultEncoding" value="utf-8" />
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+   </bean>
+</beans>

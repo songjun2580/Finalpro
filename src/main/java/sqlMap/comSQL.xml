@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="fp.info"> 
+ 	<select id="comEmailSelect" parameterType="String" resultType="String">
+		select coPwd from com_Info where coEmail=#{coEmail}
+    </select>
+    <select id="comInfoForSession" parameterType="String" resultType="fp.info.model.ComInfoDTO">
+       select * from com_Info where coEmail=#{coEmail}
+    </select>
+  </mapper>

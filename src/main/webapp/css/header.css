@@ -1,0 +1,14 @@
+@charset "EUC-KR";
+header {
+   position: fixed;
+   width: 1500px;
+   z-index: 9999;
+   top: 0;
+   background-color: white;
+   margin: 0px auto;
+}
+body{
+	padding-top:85px;
+	width:1500px;
+	margin:0px auto;
+}
