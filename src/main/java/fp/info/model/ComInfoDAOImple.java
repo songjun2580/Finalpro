@@ -19,7 +19,7 @@ public class ComInfoDAOImple implements ComInfoDAO {
 		return Pwd;
 	}
 	
-	/**¼¼¼Ç°ª¿¡ ÀúÀåÇÒ »ç¿ëÀÚ Á¤º¸ È£Ãâ ¸Ş¼­µå*/
+	/**ì„¸ì…˜ê°’ì— ì €ì¥í•  ì‚¬ìš©ì ì •ë³´ í˜¸ì¶œ ë©”ì„œë“œ*/
 	   public ComInfoDTO comInfoForSession(String usId) {
 	      ComInfoDTO dto=sst.selectOne("comInfoForSession", usId);
 	      return dto;

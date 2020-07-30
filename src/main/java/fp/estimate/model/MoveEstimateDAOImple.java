@@ -15,13 +15,13 @@ public class MoveEstimateDAOImple implements MoveEstimateDAO {
 		this.sst = sst;
 	}
 	
-	/**ÀÌ»ç °ßÀû¼­ Ãß°¡*/
+	/**ì´ì‚¬ ê²¬ì ì„œ ì¶”ê°€*/
 	public int moveestAdd(MoveEstimateDTO dto) {
 		
 		int count=sst.insert("moveestInsert",dto);
 		return count; 
 	}
-	/**ÀÌ»ç °ßÀû¼­ ½ÅÃ» ¸ñ·Ï*/
+	/**ì´ì‚¬ ê²¬ì ì„œ ì‹ ì²­ ëª©ë¡*/
 	public List moveEstList(int cp,int ls) {
 		
 		int start=(cp-1)*ls+1;
@@ -39,7 +39,7 @@ public class MoveEstimateDAOImple implements MoveEstimateDAO {
 		return count==0?1:count;
 	}
 	
-	/**ÀÌ»ç °ßÀû¼­ ½ÂÀÎ´ë±â ¸ñ·Ï*/
+	/**ì´ì‚¬ ê²¬ì ì„œ ìŠ¹ì¸ëŒ€ê¸° ëª©ë¡*/
 	public List moveEstWait(int cp,int ls) {
 		
 		int start=(cp-1)*ls+1;
@@ -57,7 +57,7 @@ public class MoveEstimateDAOImple implements MoveEstimateDAO {
 	return count==0?1:count;
 	}
 
-	/**ÀÌ»ç °ßÀû¼­ ½ÂÀÎ¿Ï·á ¸ñ·Ï*/
+	/**ì´ì‚¬ ê²¬ì ì„œ ìŠ¹ì¸ì™„ë£Œ ëª©ë¡*/
 	public List moveEstConfirm(int cp, int ls) {
 	int start=(cp-1)*ls+1;
 	int end=cp*ls;

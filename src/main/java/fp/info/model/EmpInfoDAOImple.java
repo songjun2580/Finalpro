@@ -19,7 +19,7 @@ public class EmpInfoDAOImple implements EmpInfoDAO {
 	      }
 		return Pwd;
 	}
-	/**¼¼¼Ç°ª¿¡ ÀúÀåÇÒ »ç¿ëÀÚ Á¤º¸ È£Ãâ ¸Ş¼­µå*/
+	/**ì„¸ì…˜ê°’ì— ì €ì¥í•  ì‚¬ìš©ì ì •ë³´ í˜¸ì¶œ ë©”ì„œë“œ*/
 	   public EmpInfoDTO empInfoForSession(String empId) {
 	      EmpInfoDTO dto=sst.selectOne("empInfoForSession", empId);
 	      return dto;

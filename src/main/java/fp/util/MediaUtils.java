@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.MediaType;
 
-//¾÷·ÎµåÇÑ ÆÄÀÏÁß ÀÌ¹ÌÁö ÆÄÀÏ¸¸ °Å¸£´Â Å¬·¡½º
+//ì—…ë¡œë“œí•œ íŒŒì¼ì¤‘ ì´ë¯¸ì§€ íŒŒì¼ë§Œ ê±°ë¥´ëŠ” í´ë˜ìŠ¤
 public class MediaUtils {
 
 	private static Map<String, MediaType> mediaMap;
@@ -21,7 +21,7 @@ public class MediaUtils {
 		String formatName = getFormatName(fileName);
 		return mediaMap.get(formatName);
 	}	
-	//ÆÄÀÏ È®ÀåÀÚ ÃßÃâ
+	//íŒŒì¼ í™•ì¥ì ì¶”ì¶œ
 	public static String getFormatName(String fileName) {
 		return fileName.substring(fileName.lastIndexOf(".")+1).toUpperCase();
 	}

@@ -16,38 +16,38 @@ public class CompController {
 	@Autowired
 	private ComInfoDAO comInfoDao;
 	
-	/**¾÷Ã¼È¸¿ø°¡ÀÔ °ü·Ã ¸Ş¼­µå*/
+	/**ì—…ì²´íšŒì›ê°€ì… ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("/compSign.do")
 	public String compSign() {
 		return "com/compSign";
 	}
-	/**¾÷Ã¼ Á¤º¸ ¼öÁ¤ °ü·Ã ¸Ş¼­µå*/
+	/**ì—…ì²´ ì •ë³´ ìˆ˜ì • ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("/compMypage.do")
 	public String compMypage() {
 		return "com/compMypage";
 	}
-	/**¾÷Ã¼ ½ÇÀû Á¶È¸*/
+	/**ì—…ì²´ ì‹¤ì  ì¡°íšŒ*/
 	@RequestMapping("/compRecord.do")
 	public String compRecord() {
 		return "com/compRecord";
 	}
-	/**¾÷Ã¼ ÃÑ ½ÇÀû ±İ¾× È®ÀÎ*/
+	/**ì—…ì²´ ì´ ì‹¤ì  ê¸ˆì•¡ í™•ì¸*/
 	@RequestMapping("/compTotalPrice.do")
 	public String compTotalPrice() {
 		return "com/compTotalPrice";
 	}
-	/**¾÷Ã¼ ºí·Î±×*/
+	/**ì—…ì²´ ë¸”ë¡œê·¸*/
 	@RequestMapping("/compBlog.do")
 	public String compBlog() {
 		return "com/compBlog";
 	}
-	/**ÀÌ»ç °ßÀû¼­ Á¶È¸*/
+	/**ì´ì‚¬ ê²¬ì ì„œ ì¡°íšŒ*/
 	@RequestMapping("/compBid.do")
 	public String compBid() {
 		return "com/compBid";
 	}
 	
-	/**·Î±×ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("comLogin.do")
 	public ModelAndView comLogin(
 			@RequestParam("email_1") String email_1,
@@ -67,7 +67,7 @@ public class CompController {
 	          mav.setViewName("index");
 	          return mav;
 		}else {
-			msg="ÀÌ¸ŞÀÏ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+			msg="ì´ë©”ì¼ ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
 			mav.addObject("msg",msg);
 			mav.setViewName("com/comMsg");
 			return mav;
@@ -75,7 +75,7 @@ public class CompController {
 		
 	}
 	
-	/**·Î±×¾Æ¿ô °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì•„ì›ƒ ê´€ë ¨ ë©”ì„œë“œ*/
     @RequestMapping("comlogout.do")
     public String logout(
     		HttpSession session

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadFileUtils {
 
-	//ÆÄÀÏ ¾÷·Îµå
+	//íŒŒì¼ ì—…ë¡œë“œ
 		public String uploadFile(MultipartFile file, HttpServletRequest request) {
 			
 			try {
@@ -19,25 +19,25 @@ public class UploadFileUtils {
 			String originalFileName=file.getOriginalFilename(); //file name
 			byte[] fileData = file.getBytes(); //file data
 			
-			//ÆÄÀÏ¸í Áßº¹ ¹æÁö Ã³¸®
+			//íŒŒì¼ëª… ì¤‘ë³µ ë°©ì§€ ì²˜ë¦¬
 			String uuidFileName=getUuidFileName(originalFileName);
 			
-			// ÆÄÀÏ ¾÷·Îµå °æ·Î ¼³Á¤
-			String rootPath = getRootPath(originalFileName, request);  //±âº»°æ·Î ÃßÃâ
+			// íŒŒì¼ ì—…ë¡œë“œ ê²½ë¡œ ì„¤ì •
+			String rootPath = getRootPath(originalFileName, request);  //ê¸°ë³¸ê²½ë¡œ ì¶”ì¶œ
 			makeDir(rootPath,request);
 			 
-			// ¼­¹ö¿¡ ÆÄÀÏ ÀúÀå
+			// ì„œë²„ì— íŒŒì¼ ì €ì¥
 			File target = new File(rootPath,uuidFileName);
 			FileCopyUtils.copy(fileData, target);
 			
 			
 			/* String uploadedFileName = null;
-			// ÀÌ¹ÌÁöÆÄÀÏÀÏ °æ¿ì ½æ³×ÀÏÀÌ¹ÌÁö »ı¼º
+			// ì´ë¯¸ì§€íŒŒì¼ì¼ ê²½ìš° ì¸ë„¤ì¼ì´ë¯¸ì§€ ìƒì„±
 			if(MediaUtils.getMediaType(originalFileName)!=null) {
 				uuidFileName=makeThumbnail(rootPath, datePath, uuidFileName);
 			}*/
 			
-			//ÆÄÀÏ ÀúÀå °æ·Î Ä¡È¯
+			//íŒŒì¼ ì €ì¥ ê²½ë¡œ ì¹˜í™˜
 			return replaceSavedFilePath(rootPath, uuidFileName);
 			
 			} catch (Exception e) {
@@ -49,40 +49,40 @@ public class UploadFileUtils {
 			
 		}
 		
-		//±âº» °æ·Î ÃßÃâ
+		//ê¸°ë³¸ ê²½ë¡œ ì¶”ì¶œ
 		public static String getRootPath(String fileName, HttpServletRequest request) {
 			
 			String rootPath="/resources/upload";
-			MediaType mediaType = MediaUtils.getMediaType(fileName); //ÆÄÀÏÅ¸ºñ È®ÀÎ 
-			//ÀÌ¹ÌÁö ÆÄÀÏ
+			MediaType mediaType = MediaUtils.getMediaType(fileName); //íŒŒì¼íƒ€ë¹„ í™•ì¸ 
+			//ì´ë¯¸ì§€ íŒŒì¼
 			if(mediaType!=null) return request.getSession().getServletContext().getRealPath(rootPath+ File.separator +"images");
 			
-			//ÀÏ¹İÆÄÀÏ
+			//ì¼ë°˜íŒŒì¼
 			return request.getSession().getServletContext().getRealPath(rootPath+ File.separator +"files");
 			
 		}
-		//ÆÄÀÏ¸í Áßº¹¹æÁö
+		//íŒŒì¼ëª… ì¤‘ë³µë°©ì§€
 		private static String getUuidFileName(String originalFileName) {
 			return UUID.randomUUID().toString()+"_"+originalFileName;
 		}
 		
-		//°æ·Î ÇÕÄ¡±â
+		//ê²½ë¡œ í•©ì¹˜ê¸°
 		private static String replaceSavedFilePath(String rootPath,String fileName) {
 			String savedFilePath = rootPath+File.separator+fileName;
 			return savedFilePath.replace(File.separatorChar, '/');
 		}
 		
-		//ÆÄÀÏ »èÁ¦ÇÏ±â
+		//íŒŒì¼ ì‚­ì œí•˜ê¸°
 		public static void deleteFile(String fileName,HttpServletRequest request) {
 			String rootPath= getRootPath(fileName, request);
 			
-			//¿øº» ÀÌ¹ÌÁöÆÄÀÏ »èÁ¦
+			//ì›ë³¸ ì´ë¯¸ì§€íŒŒì¼ ì‚­ì œ
 			new File(rootPath + fileName.replace('/', File.separatorChar)).delete();
 			
 		}
 		
 		/*
-		//³¯Â¥ Æú´õ¸í ÃßÃâ
+		//ë‚ ì§œ í´ë”ëª… ì¶”ì¶œ
 		private static String getDatePath(String uploadPath) {
 			
 			Calendar calendar = Calendar.getInstance();
@@ -96,7 +96,7 @@ public class UploadFileUtils {
 		}
 		
 		*/
-		//Æú´õ »ı¼º ÇÔ¼ö
+		//í´ë” ìƒì„± í•¨ìˆ˜
 		private void makeDir(String uploadPath,HttpServletRequest req) {
 			
 			String rootPath="/resources/upload";			
@@ -120,22 +120,22 @@ public class UploadFileUtils {
 		}
 		
 		/*	
-		//½æ³×ÀÏ ÀÌ¹ÌÁö »ı¼º
+		//ì¸ë„¤ì¼ ì´ë¯¸ì§€ ìƒì„±
 		private static String makeThumbnail(String uploadRootPath, String datePath, String fileName) throws Exception {
 			
-			//¿øº»ÀÌ¹ÌÁö¸¦ ¸Ş¸ğ¸®»ó¿¡ ·Îµù
+			//ì›ë³¸ì´ë¯¸ì§€ë¥¼ ë©”ëª¨ë¦¬ìƒì— ë¡œë”©
 			BufferedImage sourceImg = ImageIO.read(new File(uploadRootPath+datePath, fileName));
-			//¿øº»ÀÌ¹ÌÁö¸¦ Ãà¼Ò
+			//ì›ë³¸ì´ë¯¸ì§€ë¥¼ ì¶•ì†Œ
 			BufferedImage thumbnailImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
-			//½æ³×ÀÏ ÆÄÀÏ¸í
+			//ì¸ë„¤ì¼ íŒŒì¼ëª…
 			String thumbnailName = "s_" + fileName;
-			//½æ³×ÀÏ  ¾÷·Îµå °æ·Î
+			//ì¸ë„¤ì¼  ì—…ë¡œë“œ ê²½ë¡œ
 			String fullPath= uploadRootPath + datePath+ File.separator + thumbnailName;
-			// ½æ³×ÀÏ ÆÄÀÏ °´Ã¼ »ı¼º
+			// ì¸ë„¤ì¼ íŒŒì¼ ê°ì²´ ìƒì„±
 			File newFile = new File(fullPath);
-			// ½æ³×ÀÏ ÆÄÀÏ È®ÀåÀÚ ÃßÃâ
+			// ì¸ë„¤ì¼ íŒŒì¼ í™•ì¥ì ì¶”ì¶œ
 			String formatName = MediaUtils.getFormatName(fileName);
-			// ½æ³×ÀÏ ÆÄÀÏ ÀúÀå
+			// ì¸ë„¤ì¼ íŒŒì¼ ì €ì¥
 			ImageIO.write(thumbnailImg, formatName, newFile);
 
 			return thumbnailName;

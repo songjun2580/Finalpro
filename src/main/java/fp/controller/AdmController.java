@@ -17,127 +17,127 @@ public class AdmController {
 	@Autowired
 	private AdmInfoDAO admInfoDao;
 
-	/**°ü¸®ÀÚ ·Î±×ÀÎ Æû ÀÌµ¿ ¸Ş¼­µå*/
+	/**ê´€ë¦¬ì ë¡œê·¸ì¸ í¼ ì´ë™ ë©”ì„œë“œ*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.GET)
 	public String admLogin() {
 		return "adm/adm_Login";
 	}
 	
-	/**½ÇÀû ÇöÈ² º¸±â °ü·Ã ¸Ş¼­µå*/
+	/**ì‹¤ì  í˜„í™© ë³´ê¸° ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admStatus.do")
 	public String admStatus() {
 		return "adm/admStatus";
 	}
 	
-	/**ÃÑ ½ÇÀû±İ¾× È®ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**ì´ ì‹¤ì ê¸ˆì•¡ í™•ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admProfit.do")
 	public String admProfit() {
 		return "adm/admProfit";
 	}
 	
-	/**¾÷Ã¼°ü¸® °ü·Ã ¸Ş¼­µå*/
+	/**ì—…ì²´ê´€ë¦¬ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCoManage.do")
 	public String admCoManage() {
 		return "adm/admCoManage";
 	}
 	
-	/**¾÷Ã¼ ½ÅÃ» ¸ñ·Ï °ü·Ã ¸Ş¼­µå*/
+	/**ì—…ì²´ ì‹ ì²­ ëª©ë¡ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCoAdd.do")
 	public String admCoAdd() {
 		return "adm/admCoAdd";
 	}
 	
-	/**»ç¿ø°ü¸® °ü·Ã ¸Ş¼­µå*/
+	/**ì‚¬ì›ê´€ë¦¬ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admEmpSel.do")
 	public String admEmpSelForm() {
 		return "adm/admEmpSel";
 	}
 	
-	/**»ç¿ø¼öÁ¤ °ü·Ã ¸Ş¼­µå*/
+	/**ì‚¬ì›ìˆ˜ì • ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admEmpUpd.do")
 	public String admEmpUpdForm() {
 		return "adm/admEmpUpd";
 	}
 	
-	/**»ç¿øµî·Ï °ü·Ã ¸Ş¼­µå*/
+	/**ì‚¬ì›ë“±ë¡ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admEmpAdd.do")
 	public String admEmpAddForm() {
 		return "adm/admEmpAdd";
 	}
 	
-	/**ÀÌ»ç°ßÀû¼­ ½ÅÃ» °ü·Ã ¸Ş¼­µå*/
+	/**ì´ì‚¬ê²¬ì ì„œ ì‹ ì²­ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admMest.do")
 	public String admMestForm() {
 		return "adm/admMest";
 	}
 	
-	/**ÀÌ»ç°ßÀû¼­ ½ÂÀÎ´ë±â °ü·Ã ¸Ş¼­µå*/
+	/**ì´ì‚¬ê²¬ì ì„œ ìŠ¹ì¸ëŒ€ê¸° ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admMest_wait.do")
 	public String admMest_waitForm() {
 		return "adm/admMest_wait";
 	}
 	
-	/**ÀÌ»ç°ßÀû¼­ ½ÂÀÎ¿Ï·á °ü·Ã ¸Ş¼­µå*/
+	/**ì´ì‚¬ê²¬ì ì„œ ìŠ¹ì¸ì™„ë£Œ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admMest_confirm.do")
 	public String admMest_confirmForm() {
 		return "adm/admMest_confirm";
 	}
 	
-	/**Ã»¼Ò°ßÀû¼­ ½ÅÃ» °ü·Ã ¸Ş¼­µå*/
+	/**ì²­ì†Œê²¬ì ì„œ ì‹ ì²­ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCest.do")
 	public String admCestForm() {
 		return "adm/admCest";
 	}
 	
-	/**Ã»¼Ò°ßÀû¼­ ½ÂÀÎ´ë±â °ü·Ã ¸Ş¼­µå*/
+	/**ì²­ì†Œê²¬ì ì„œ ìŠ¹ì¸ëŒ€ê¸° ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCest_wait.do")
 	public String admCest_waitForm() {
 		return "adm/admCest_wait";
 	}
 	
-	/**Ã»¼Ò°ßÀû¼­ ½ÂÀÎ¿Ï·á °ü·Ã ¸Ş¼­µå*/
+	/**ì²­ì†Œê²¬ì ì„œ ìŠ¹ì¸ì™„ë£Œ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCest_confirm.do")
 	public String admCest_confirmForm() {
 		return "adm/admCest_confirm";
 	}
 	
-	/**ºÒ¸¸»çÇ× ¸ñ·Ï °ü·Ã ¸Ş¼­µå*/
+	/**ë¶ˆë§Œì‚¬í•­ ëª©ë¡ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCplList.do")
 	public String admCpl() {
 		return "adm/admCplList";
 	}
 	
-	/*Ajax ±¸Çö*/
-	/**Ã»¼Ò¾÷Ã¼ ºÒ¸¸»çÇ× ¸®½ºÆ®*/
+	/*Ajax êµ¬í˜„*/
+	/**ì²­ì†Œì—…ì²´ ë¶ˆë§Œì‚¬í•­ ë¦¬ìŠ¤íŠ¸*/
 	
-	/**ÀÌ»ç¾÷Ã¼ ºÒ¸¸»çÇ× ¸®½ºÆ®*/
+	/**ì´ì‚¬ì—…ì²´ ë¶ˆë§Œì‚¬í•­ ë¦¬ìŠ¤íŠ¸*/
 	
 	
-	/**¾÷Ã¼º° ºÒ¸¸»çÇ× ¸ñ·Ï °ü·Ã ¸Ş¼­µå*/
+	/**ì—…ì²´ë³„ ë¶ˆë§Œì‚¬í•­ ëª©ë¡ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCplSubList.do")
 	public String admCplSubList() {
 		return "adm/admCplSubList";
 	}
 	
-	/**¾÷Ã¼º° ºÒ¸¸»çÇ× ³»¿ª º¸±â °ü·Ã ¸Ş¼­µå*/
+	/**ì—…ì²´ë³„ ë¶ˆë§Œì‚¬í•­ ë‚´ì—­ ë³´ê¸° ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admCplContent.do")
 	public String admCplContent() {
 		return "adm/admCplContent";
 	}
 	
-	/**ÀÚÁÖ¹¯´Â Áú¹® °ü·Ã ¸Ş¼­µå*/
+	/**ìì£¼ë¬»ëŠ” ì§ˆë¬¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admBbsQnA.do")
 	public String admBbsQnAForm() {
 		return "adm/admBbsQnA";
 	}
 
-	/**²ÜÆÁ°ü¸® °ü·Ã ¸Ş¼­µå*/
+	/**ê¿€íŒê´€ë¦¬ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("admBbsTip.do")
 	public String admBbsTipForm() {
 		return "adm/admBbsTip";
 	}
 	
-	/**·Î±×ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.POST)
 	public ModelAndView admLogin(
 			@RequestParam("adId") String adId,
@@ -153,14 +153,14 @@ public class AdmController {
 	          mav.setViewName("adm/admStatus");
 	          return mav;
 		}else {
-			msg="°ü¸®ÀÚ¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+			msg="ê´€ë¦¬ìë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.";
 			mav.addObject("msg",msg);
 			mav.setViewName("adm/admMsg");
 			return mav;
 		}
 	}
 	
-	/**·Î±×¾Æ¿ô °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì•„ì›ƒ ê´€ë ¨ ë©”ì„œë“œ*/
     @RequestMapping("admLogout.do")
     public String logout(
     		HttpSession session

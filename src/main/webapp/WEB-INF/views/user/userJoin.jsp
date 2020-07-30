@@ -78,6 +78,7 @@ function emailNumResult(){
 		}
 	}	
 }
+
 </script>
 </head>
 <body>

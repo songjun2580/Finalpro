@@ -29,29 +29,29 @@ public class UserInfoDAOImple implements UserInfoDAO {
 	}
 	@Autowired
 	private JavaMailSender mailSender;
-	/**È¸¿ø°¡ÀÔ °ü·Ã ¸Ş¼­µå*/
+	/**íšŒì›ê°€ì… ê´€ë ¨ ë©”ì„œë“œ*/
 	public int userAdd(UserInfoDTO dto) {
 		
 		int count=sst.insert("userInsert",dto);
 		return count;
 	}
 	
-	/**¾ÆÀÌµğ Áßº¹Ã¼Å© °ü·Ã ¸Ş¼­µå*/
+	/**ì•„ì´ë”” ì¤‘ë³µì²´í¬ ê´€ë ¨ ë©”ì„œë“œ*/
 	public boolean idCheck(String usId) {
 		int count=sst.selectOne("idCheck", usId);
 		boolean result=count==1?true:false;
-		System.out.println("¾ÆÀÌµğ Á¶È¸ °á°ú(true==¾ÆÀÌµğ ÀÖÀ½):"+result);
-		return result;//¾ÆÀÌµğ ¾øÀ½
+		System.out.println("ì•„ì´ë”” ì¡°íšŒ ê²°ê³¼(true==ì•„ì´ë”” ìˆìŒ):"+result);
+		return result;//ì•„ì´ë”” ì—†ìŒ
 
 	}
-	/**¸ŞÀÏ ÀÎÁõ °ü·Ã ¸Ş¼­µå*/
+	/**ë©”ì¼ ì¸ì¦ ê´€ë ¨ ë©”ì„œë“œ*/
 	public String mailsendkey(String email, HttpServletRequest request) throws Exception {
 		String key=getKey(false, 5);
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
-			String mailtext="<h2>È¸¿ø°¡ÀÔ ÀÎÁõ¸ŞÀÏÀÔ´Ï´Ù.</h2><br><br>"
-					+"<p>ÀÎÁõ¹øÈ£:"+key+"</p>";
-			message.setSubject("[º»ÀÎÀÎÁõ]ÀÌ»ç¸¸ÇØ?Ã»¼ÒµµÇØ! »çÀÌÆ® È¸¿ø°¡ÀÔ ÀÎÁõ¸ŞÀÏÀÔ´Ï´Ù","utf-8");
+			String mailtext="<h2>íšŒì›ê°€ì… ì¸ì¦ë©”ì¼ì…ë‹ˆë‹¤.</h2><br><br>"
+					+"<p>ì¸ì¦ë²ˆí˜¸:"+key+"</p>";
+			message.setSubject("[ë³¸ì¸ì¸ì¦]ì´ì‚¬ë§Œí•´?ì²­ì†Œë„í•´! ì‚¬ì´íŠ¸ íšŒì›ê°€ì… ì¸ì¦ë©”ì¼ì…ë‹ˆë‹¤","utf-8");
 			message.setText(mailtext,"utf-8", "html");
 			message.addRecipient(RecipientType.TO, new InternetAddress(email));
 			mailSender.send(message);
@@ -62,7 +62,7 @@ public class UserInfoDAOImple implements UserInfoDAO {
 		return key;
 		
 	}
-	// ÀÌ¸ŞÀÏ ³­¼ö ¸¸µå´Â ¸Ş¼­µå
+	// ì´ë©”ì¼ ë‚œìˆ˜ ë§Œë“œëŠ” ë©”ì„œë“œ
 		public String init() {
 			Random ran = new Random();
 			StringBuffer sb = new StringBuffer();
@@ -81,7 +81,7 @@ public class UserInfoDAOImple implements UserInfoDAO {
 			return sb.toString();
 		}
 
-		// ³­¼ö¸¦ ÀÌ¿ëÇÑ Å° »ı¼º
+		// ë‚œìˆ˜ë¥¼ ì´ìš©í•œ í‚¤ ìƒì„±
 		private boolean lowerCheck;
 		private int size;
 
@@ -90,7 +90,7 @@ public class UserInfoDAOImple implements UserInfoDAO {
 			this.size = size;
 			return init();
 		}
-	/**·Î±×ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
    public String userLogin(String usId) {
    
       String Pwd=sst.selectOne("userIdSelect", usId);
@@ -99,7 +99,7 @@ public class UserInfoDAOImple implements UserInfoDAO {
       }
       return Pwd;
    }
-   /**¼¼¼Ç°ª¿¡ ÀúÀåÇÒ »ç¿ëÀÚ Á¤º¸ È£Ãâ ¸Ş¼­µå*/
+   /**ì„¸ì…˜ê°’ì— ì €ì¥í•  ì‚¬ìš©ì ì •ë³´ í˜¸ì¶œ ë©”ì„œë“œ*/
    public UserInfoDTO userInfoForSession(String usId) {
       UserInfoDTO dto=sst.selectOne("userInfoForSession", usId);
       return dto;
@@ -115,13 +115,13 @@ public class UserInfoDAOImple implements UserInfoDAO {
 		return -1;
 	}
 }
-   /**È¸¿øÁ¤º¸ °¡Á®¿À±â °ü·Ã ¸Ş¼Òµå*/
+   /**íšŒì›ì •ë³´ ê°€ì ¸ì˜¤ê¸° ê´€ë ¨ ë©”ì†Œë“œ*/
    public List userInfo(int uIdx) {
 	List lists=sst.selectList("userInfo",uIdx);
 	
 	return lists;
 }
-   /**ºñ¹Ğ¹øÈ£ ¼öÁ¤ °ü·Ã ¸Ş¼­µå*/
+   /**ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì • ê´€ë ¨ ë©”ì„œë“œ*/
    public String pwdCheck(int uIdx) {
 	 String Pwd= sst.selectOne("pwdCheck",uIdx);
 	   if(Pwd==null||Pwd.equals("")) {
@@ -129,14 +129,14 @@ public class UserInfoDAOImple implements UserInfoDAO {
 	      }
 	return Pwd;
 }
-   /**È¸¿øÁ¤º¸ ÀúÀå °ü·Ã ¸Ş¼­µå*/
+   /**íšŒì›ì •ë³´ ì €ì¥ ê´€ë ¨ ë©”ì„œë“œ*/
    public int userInfoSave(UserInfoDTO dto, int uIdx) {
 	   dto.setuIdx(uIdx);
 	   int count=sst.update("userUpdate",dto);
 	   return count;
 	
 }
-   /**ÀÌ»ç °ßÀû¼­ ³»¿ëº¸±â °ü·Ã ¸Ş¼Òµå*/
+   /**ì´ì‚¬ ê²¬ì ì„œ ë‚´ìš©ë³´ê¸° ê´€ë ¨ ë©”ì†Œë“œ*/
    public List moveEst(int uIdx) {
 	   List list=sst.selectList("userEst",uIdx);
 	return list;

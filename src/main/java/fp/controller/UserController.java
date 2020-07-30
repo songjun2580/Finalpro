@@ -34,43 +34,43 @@ public class UserController {
 	private String key;
 
 	
-	@RequestMapping("/userJoin.do")//È¸¿ø°¡ÀÔ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userJoin.do")//íšŒì›ê°€ì… í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userJoin() {
 		
 		return "user/userJoin";
 	}
 	
-	@RequestMapping("/userCleanChoice.do")//Ã»¼Ò¾÷Ã¼¼±ÅÃ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userCleanChoice.do")//ì²­ì†Œì—…ì²´ì„ íƒ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userCleanChoice() {
 		
 		return "user/userCleanChoice";
 	}
 	
-	@RequestMapping("/userCleanEstimateWrite.do")//Ã»¼Ò°ßÀû¼­ ÀÛ¼º ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userCleanEstimateWrite.do")//ì²­ì†Œê²¬ì ì„œ ì‘ì„± í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userCleanEstimateWrite() {
 		
 		return "user/userCleanEstimateWrite";
 	}
 	
-	@RequestMapping("/userMoveEstimateWrite.do")//ÀÌ»ç°ßÀû¼­ ÀÛ¼º ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userMoveEstimateWrite.do")//ì´ì‚¬ê²¬ì ì„œ ì‘ì„± í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userMoveEstimateWrite() {
 		
 		return "user/userMoveEstimateWrite";
 	}
 
-	@RequestMapping("/userCleanList.do")//Ã»¼Ò³»¿ª Á¶È¸ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userCleanList.do")//ì²­ì†Œë‚´ì—­ ì¡°íšŒ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userCleanList() {
 		
 		return "user/userCleanList";
 	}
 	
-	@RequestMapping("/userCompWrite.do")//ºÒÆí»çÇ× ½Å°í ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userCompWrite.do")//ë¶ˆí¸ì‚¬í•­ ì‹ ê³  í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userCompWrite() {
 		
 		return "user/userCompWrite";
 	}
 	
-	@RequestMapping("/userEmailCheck.do")//¸ŞÀÏÀÎÁõ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userEmailCheck.do")//ë©”ì¼ì¸ì¦ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public ModelAndView userEmailCheck() {
 		
 		ModelAndView mav = new ModelAndView();
@@ -78,20 +78,20 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping("/userEstimateView.do")//°ßÀû¼­ Á¶È¸ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userEstimateView.do")//ê²¬ì ì„œ ì¡°íšŒ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userEstimateView() {
 		
 		return "user/userEstimateView";
 	}
 	
-	@RequestMapping(value="/userInfoCheck.do", method = RequestMethod.GET)//È¸¿øÁ¤º¸ È®ÀÎ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping(value="/userInfoCheck.do", method = RequestMethod.GET)//íšŒì›ì •ë³´ í™•ì¸ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userInfoCheck() {
 		
 		return "user/userInfoCheck";
 		
 	}
 	
-	@RequestMapping("/userInfoModi.do")//È¸¿øÁ¤º¸ ¼öÁ¤ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userInfoModi.do")//íšŒì›ì •ë³´ ìˆ˜ì • í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public ModelAndView userInfoModi(
 			HttpSession session
 			) {
@@ -105,7 +105,7 @@ public class UserController {
 	}
 
 	
-	@RequestMapping("/userMoveList.do")//ÀÌ»ç³»¿ª Á¶È¸ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userMoveList.do")//ì´ì‚¬ë‚´ì—­ ì¡°íšŒ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userMoveList(
 			HttpSession session
 			) {
@@ -119,20 +119,20 @@ public class UserController {
 		return "user/userMoveList";
 	}
 	
-	/**¸®ºäÀÛ¼º ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå*/
-	@RequestMapping("/userReviewWrite.do")//¸®ºäÀÛ¼º ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	/**ë¦¬ë·°ì‘ì„± í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ*/
+	@RequestMapping("/userReviewWrite.do")//ë¦¬ë·°ì‘ì„± í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	   public String userReviewWrite() {
 	      
 	      return "user/userReviewWrite";
 	   }
 	
-	/**¸®ºäÀÛ¼º °ü·Ã ¸Ş¼­µå*/
+	/**ë¦¬ë·°ì‘ì„± ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping(value="/userReviewWriteSubmit.do")
 	   public ModelAndView userReviewWriteSubmit(
 			   @RequestParam(value = "revImgs" ,required = false ) List<MultipartFile> file , 
 			   ReviewBbsDTO dto,
 			   HttpServletRequest req) {
-		System.out.println("¸®ºäÀÛ¼º ¸Ş¼­µå µé¾î¿È!");
+		System.out.println("ë¦¬ë·°ì‘ì„± ë©”ì„œë“œ ë“¤ì–´ì˜´!");
 		
 		 
 	      UploadFileUtils upLoad = new UploadFileUtils();
@@ -155,39 +155,38 @@ public class UserController {
 	      int count=reviewDao.reviewWrite(dto);
 	      ModelAndView mav=new ModelAndView();
 	      if(count>0) {
-	    	  mav.addObject("msg","¼º°ø");
+	    	  mav.addObject("msg","ì„±ê³µ");
 	      }else {
-	    	  mav.addObject("msg","½ÇÆĞ");
+	    	  mav.addObject("msg","ì‹¤íŒ¨");
 	      }
 	      mav.addObject("gopage", "userMoveList.do");
 	      mav.setViewName("user/userMsg");
 	      return mav;
 	   }
 	
-	@RequestMapping("/userTermsOfService.do")//ÀÌ¿ë¾à°ü µ¿ÀÇ ÆäÀÌÁö ÀÌµ¿ °ü·Ã ¸Ş¼­µå
+	@RequestMapping("/userTermsOfService.do")//ì´ìš©ì•½ê´€ ë™ì˜ í˜ì´ì§€ ì´ë™ ê´€ë ¨ ë©”ì„œë“œ
 	public String userTermsOfService() {
 		
 		return "user/userTermsOfService";
 	}
 	
-	/**È¸¿ø°¡ÀÔ °ü·Ã ¸Ş¼Òµå*/
+	/**íšŒì›ê°€ì… ê´€ë ¨ ë©”ì†Œë“œ*/
 	@RequestMapping(value="/userAdd.do", method = RequestMethod.POST)
 	public ModelAndView UserAdd(UserInfoDTO dto, HttpServletRequest request) {
 		int result=userInfoDao.userAdd(dto);
 		ModelAndView mav=new ModelAndView();
-		String msg=result>0?"È¸¿ø°¡ÀÔ ¼º°ø":"È¸¿ø°¡ÀÔ ½ÇÆĞ";
+		String msg=result>0?"íšŒì›ê°€ì… ì„±ê³µ":"íšŒì›ê°€ì… ì‹¤íŒ¨";
 		mav.addObject("msg",msg);
 		mav.addObject("gopage","index.do");
 		mav.setViewName("user/userMsg");
 		
 		return mav;
 	}
-	  /**ÀÌ¸ŞÀÏ ÀÎÁõ¹øÈ£ Àü¼Û °ü·Ã ¸Ş¼Òµå */
+	  /**ì´ë©”ì¼ ì¸ì¦ë²ˆí˜¸ ì „ì†¡ ê´€ë ¨ ë©”ì†Œë“œ */
 	   @RequestMapping(value="emailAuth.do",method = RequestMethod.GET)
 	   public ModelAndView emailAuth(
 		@RequestParam("uEmail1") String uEmail1,
 		@RequestParam("uEmail2") String uEmail2,
-		UserInfoDTO dto,
 		HttpServletRequest request,
 		HttpSession session
 		 ) throws Exception {
@@ -195,12 +194,12 @@ public class UserController {
 		   key=userInfoDao.mailsendkey(email, request);
 		   session.setAttribute("email", email);
 		   ModelAndView mav=new ModelAndView();
-		   mav.addObject("msg","ÀÎÁõ¹øÈ£¸¦ º¸³Â½À´Ï´Ù.");
+		   mav.addObject("msg","ì¸ì¦ë²ˆí˜¸ë¥¼ ë³´ëƒˆìŠµë‹ˆë‹¤.");
 		   mav.setViewName("user/userEmailMsg");
 		   return mav;
 	   }
 	   
-	   /**ÀÌ¸ŞÀÏ ÀÎÁõ¹øÈ£ ÀÏÄ¡ °ü·Ã ¸Ş¼­µå*/
+	   /**ì´ë©”ì¼ ì¸ì¦ë²ˆí˜¸ ì¼ì¹˜ ê´€ë ¨ ë©”ì„œë“œ*/
 	   @RequestMapping(value="emailNumAuth.do",method = RequestMethod.GET)
 	   public ModelAndView emailNumAuth(
 			   @RequestParam("userkey") String userkey
@@ -209,9 +208,9 @@ public class UserController {
 		   ModelAndView mav=new ModelAndView();
 		   
 		   if(userkey.equals(key)) {
-			   msg="<span style='color:blue'>ÀÎÁõ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù.</span>";
+			   msg="<span style='color:blue'>ì¸ì¦ë²ˆí˜¸ê°€ ì¼ì¹˜í•©ë‹ˆë‹¤.</span>";
 		   }else {
-			   msg="<span style='color:red'>ÀÎÁõ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.</span>";
+			   msg="<span style='color:red'>ì¸ì¦ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</span>";
 		   }
 		   mav.addObject("msg",msg);
 		   
@@ -219,19 +218,19 @@ public class UserController {
 		   return mav;
 	   }
 	
-	/**¾ÆÀÌµğ Áßº¹Ã¼Å© °ü·Ã ¸Ş¼­µå*/
+	/**ì•„ì´ë”” ì¤‘ë³µì²´í¬ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("/idCheck.do")
 	public ModelAndView idCheck(
 			@RequestParam(value="usId")String usId) {
 		boolean result=userInfoDao.idCheck(usId);
-		String msg=result==true?"Áßº¹µÈ ¾ÆÀÌµğ ÀÔ´Ï´Ù":"»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù.";
+		String msg=result==true?"ì¤‘ë³µëœ ì•„ì´ë”” ì…ë‹ˆë‹¤":"ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤.";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.setViewName("user/idCheck");
 		return mav;
 	}
 	
-	/**·Î±×ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
     @RequestMapping("/userLogin.do")
     public ModelAndView userLogin(
           @RequestParam(value="usId", required=false, defaultValue="") String usId,
@@ -248,7 +247,7 @@ public class UserController {
           mav.setViewName("index");
           return mav;
        }else {
-          msg="¾ÆÀÌµğ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù~";
+          msg="ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤~";
           mav.addObject("msg",msg);
           mav.setViewName("user/userMsg");
           mav.addObject("gopage","index.do");
@@ -257,7 +256,7 @@ public class UserController {
 
     }
     
-    /**·Î±×¾Æ¿ô °ü·Ã ¸Ş¼­µå*/
+    /**ë¡œê·¸ì•„ì›ƒ ê´€ë ¨ ë©”ì„œë“œ*/
     @RequestMapping("userlogout.do")
     public String logout(
     		HttpSession session
@@ -266,17 +265,17 @@ public class UserController {
     	return "index";
     } 
     
-    /**ÀÌ»ç°ßÀû¼­ ½ÅÃ» ÁÖ¼Ò ÆË¾÷ ÀÌµ¿ °ü·Ã ¸Ş¼­µå*/
+    /**ì´ì‚¬ê²¬ì ì„œ ì‹ ì²­ ì£¼ì†Œ íŒì—… ì´ë™ ê´€ë ¨ ë©”ì„œë“œ*/
     @RequestMapping("/jusoPopup.do")
 	public String jusoPopup() {
 		return "user/jusoPopup";
 	}
 	
-    /**°ßÀû¼­ Á¦Ãâ °ü·Ã ¸Ş¼­µå*/
+    /**ê²¬ì ì„œ ì œì¶œ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("/movingEstimateWrite.do")	
 	public ModelAndView moveestAdd(MoveEstimateDTO dto){
 		int result=moveEstimateDao.moveestAdd(dto);
-		String msg=result>0?"°ßÀû¼­ Á¦ÃâÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù":"°ßÀû¼­ Á¦Ãâ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù";
+		String msg=result>0?"ê²¬ì ì„œ ì œì¶œì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤":"ê²¬ì ì„œ ì œì¶œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg",msg);
 		mav.addObject("gopage","index.do");
@@ -284,7 +283,7 @@ public class UserController {
 		return mav;
 	}
 	
-	/**È¸¿øÁ¤º¸ È®ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**íšŒì›ì •ë³´ í™•ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("infoCheck.do")
 	public ModelAndView infoCheck(
 			@RequestParam("usId") String usId,
@@ -302,13 +301,13 @@ public class UserController {
 		
 		String msg="";
 		if(idx==uIdx) {
-			msg="È¸¿øÁ¤º¸ ÀÎÁõ¼º°ø!";
+			msg="íšŒì›ì •ë³´ ì¸ì¦ì„±ê³µ!";
 			mav.addObject("msg",msg);
 			mav.addObject("gopage","userInfoModi.do");
 			mav.setViewName("user/userMsg");
 			return mav;
 		}else {
-			msg="È¸¿øÁ¤º¸ Æ²¸®¼Ì½À´Ï´Ù.";
+			msg="íšŒì›ì •ë³´ í‹€ë¦¬ì…¨ìŠµë‹ˆë‹¤.";
 			mav.addObject("msg",msg);
 			mav.addObject("gopage","userInfoCheck.do");
 			mav.setViewName("user/userMsg");
@@ -317,7 +316,7 @@ public class UserController {
 
 	}
 	
-	/**È¸¿øÁ¤º¸¼öÁ¤ ºñ¹Ğ¹øÈ£ È®ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**íšŒì›ì •ë³´ìˆ˜ì • ë¹„ë°€ë²ˆí˜¸ í™•ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("infoModi.do")
 	public ModelAndView infoModi(
 			@RequestParam("uPwd") String uPwd,
@@ -339,7 +338,7 @@ public class UserController {
 		return mav;
 	}
 	
-	/**È¸¿øÁ¤º¸¼öÁ¤ ¾÷µ¥ÀÌÆ® °ü·Ã ¸Ş¼­µå*/
+	/**íšŒì›ì •ë³´ìˆ˜ì • ì—…ë°ì´íŠ¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping("infoUpdate.do")
 	public ModelAndView infoUpdate(
 			UserInfoDTO dto,
@@ -352,11 +351,11 @@ public class UserController {
 		
 		int count=userInfoDao.userInfoSave(dto, uIdx);
 		if(count>0) {
-			mav.addObject("msg","È¸¿øÁ¤º¸¼öÁ¤ ¿Ï·á");
+			mav.addObject("msg","íšŒì›ì •ë³´ìˆ˜ì • ì™„ë£Œ");
 			mav.addObject("gopage","userInfoModi.do");
 			mav.setViewName("user/userMsg");
 		}else {
-			mav.addObject("msg","È¸¿øÁ¤º¸¼öÁ¤ ½ÇÆĞ!");
+			mav.addObject("msg","íšŒì›ì •ë³´ìˆ˜ì • ì‹¤íŒ¨!");
 			mav.addObject("gopage","userInfoModi.do");
 			mav.setViewName("user/userMsg");
 		}

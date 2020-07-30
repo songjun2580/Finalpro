@@ -17,7 +17,7 @@ public class EmpController {
 	@Autowired
 	private EmpInfoDAO EmpInfoDao;
 	
-	/**ÆÄ°ßÁ÷¿ø ·Î±×ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**íŒŒê²¬ì§ì› ë¡œê·¸ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping(value="empLogin.do", method = RequestMethod.GET)
 	public String empLogin() {
 		return "emp/emp_Login";
@@ -55,7 +55,7 @@ public class EmpController {
 	public String emp_CompanyList() {
 		return "emp/emp_MoveCompanyList";
 	}
-	/**·Î±×ÀÎ °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì¸ ê´€ë ¨ ë©”ì„œë“œ*/
 	@RequestMapping(value="empLogin.do", method = RequestMethod.POST)
 	public ModelAndView admLogin(
 			@RequestParam("empId") String empId,
@@ -72,14 +72,14 @@ public class EmpController {
 	          mav.setViewName("emp/emp_Contracting");
 	          return mav;
 		}else {
-			msg="ÆÄ°ßÁ÷¿ø¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+			msg="íŒŒê²¬ì§ì›ë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.";
 			mav.addObject("msg",msg);
 			mav.setViewName("emp/empMsg");
 			return mav;
 		}
 	}
 	
-	/**·Î±×¾Æ¿ô °ü·Ã ¸Ş¼­µå*/
+	/**ë¡œê·¸ì•„ì›ƒ ê´€ë ¨ ë©”ì„œë“œ*/
     @RequestMapping("empLogout.do")
     public String logout(
     		HttpSession session
