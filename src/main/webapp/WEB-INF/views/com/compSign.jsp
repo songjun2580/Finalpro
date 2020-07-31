@@ -41,11 +41,6 @@
   </style>
   <script type="text/javascript" src="js/httpRequest.js"></script>
   <script>
-  //가입 완료
-  function show(){
-	  window.alert('가입 완료 되었습니다!');
-	  location.href="index.jsp"
-  }
   // 이메일 직접입력폼
   function emailInput(){
 	  var e_sub_val=document.getElementById('email_sub_val');
@@ -63,6 +58,7 @@
 		var uEmail1=document.getElementById('email_main').value;
 		var param="uEmail1="+uEmail1+"&uEmail2="+uEmail2;
 		sendRequest('emailAuth.do',param,emailResult,'GET');
+		alert('인증메시지를 보냈습니다.');
 	}
 	function emailResult(){
 		if(XHR.readyState==4){
@@ -96,9 +92,9 @@
   }
   //핸드폰 번호 자동이동
   function telMove(){
-	   var telSize=document.join.ptel2.value.length;
+	   var telSize=document.getElementById('ptel2').value.length;
 	   if(telSize==4){
-	      document.join.ptel.focus();
+	      document.getElementById('ptel').focus();
 	   }
   }
 	// 주소 팝업
@@ -116,7 +112,12 @@
 		document.join.coAddrDetail2.value=coAddrDetail2;
 	}
   	
-	
+	onsubmit=function(){
+		var b=document.getElementById('ptel2').value;
+		var c=document.getElementById('ptel').value;
+		var a=document.getElementById('ptel1').value;
+		document.join.coTel.value=a+'-'+b+'-'+c;
+	}
 
 	
   </script>
@@ -125,7 +126,7 @@
  <body>
  <article>
 	<section>
-	<form name="join" action="">
+	<form name="join" action="comSignSubmit.do">
  	<p/>
  	 <h3>기업회원 정보 입력</h3>
  	 <p class="signInfo" align="right">정보를 입력하신 후 가입완료 버튼을 눌러주십시오.</p>
@@ -217,7 +218,7 @@
 					<p><b class="signInputBox">이메일 인증번호:</b> <input type="text" id="userkey" size="7">
 						<input type="button" value="인증확인" onclick="emailNumAuth();" class="signInputBox" ><br>
 						<span id="ckEmailNumMsg"></span>
-						<input type="hidden" id="email" name="coEmail">
+						<input type="hidden" id="email" name="coEmail" value="${sessionScope.email}">
 					</p>
 				</td>
 			</tr>	
@@ -228,13 +229,13 @@
 			</td>
 				<td class="signTableInput" colspan="3" rowspan="1">
 			<p>
-				<select name="ptel1" class="signInputBox">
+				<select id="ptel1" class="signInputBox">
                   <option value="010" selected>010
                   <option value="011">011
                   <option value="012">012
                </select>&nbsp;-&nbsp;
-               <input type="text" id="tel" name="ptel2" onkeyup="telMove()" size="5" maxlength="4" required class="signInputBox">&nbsp;-&nbsp;
-               <input type="text" id="tel" name="ptel" size="5" maxlength="4" required class="signInputBox">
+               <input type="text"  id="ptel2" onkeyup="telMove()" size="5" maxlength="4" required class="signInputBox">&nbsp;-&nbsp;
+               <input type="text"  id="ptel" size="5" maxlength="4" required class="signInputBox">
                <input type="hidden" name="coTel">     
 			</p>
 			</td>			

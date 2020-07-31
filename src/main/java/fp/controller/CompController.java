@@ -21,6 +21,16 @@ public class CompController {
 	public String compSign() {
 		return "com/compSign";
 	}
+	
+	@RequestMapping("/comSignSubmit.do")
+	public ModelAndView compSignSubmit(ComInfoDTO dto) {
+		ModelAndView mav=new ModelAndView();
+		int result=comInfoDao.coAdd(dto);
+		mav.addObject("msg", "회원가입 하셨습니다. 승인을 기다려주세요");
+		mav.setViewName("com/comMsg");;
+		return mav;
+	}
+	
 	/**업체 정보 수정 관련 메서드*/
 	@RequestMapping("/compMypage.do")
 	public String compMypage() {
