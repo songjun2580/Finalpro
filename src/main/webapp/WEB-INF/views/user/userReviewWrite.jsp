@@ -105,7 +105,7 @@ function checkFile(Inputobj){
 <br><br>
    <section>
       <article>
-	      <form name="review" id="reviewForm" action="userReviewWriteSubmit.do" method="post" enctype="multipart/form-data">
+	      <form name="bbsTipWrite" id="reviewForm" action="userReviewWriteSubmit.do" method="post" enctype="multipart/form-data">
 		      <h2 style="text-align: left;">리뷰 작성</h2>
 	            <table border="1">
 	               <tr>

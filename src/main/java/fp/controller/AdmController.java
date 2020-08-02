@@ -136,6 +136,16 @@ public class AdmController {
 	public String admBbsTipForm() {
 		return "adm/admBbsTip";
 	}
+	/**게시판 작성폼 관련 메서드*/
+	@RequestMapping("admBbsTipWrite.do")
+	public String admBbsTipWrite() {
+		return "adm/admBbsTipWrite";
+	}
+	/**게시판 작성 관련 메서드*/
+	@RequestMapping("admBbsTipWriteSubmit.do")
+	public String admBbsTipWriteSubmit() {
+		return "adm/admBbsTipWrite";
+	}
 	
 	/**로그인 관련 메서드*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.POST)
