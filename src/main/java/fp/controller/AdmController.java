@@ -1,5 +1,8 @@
 package fp.controller;
 
+import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +10,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import fp.bbs.model.ReviewBbsDTO;
+import fp.bbs.model.TipBbsDAO;
+import fp.bbs.model.TipBbsDTO;
 import fp.info.model.*;
+import fp.util.UploadFileUtils;
 
 @Controller
 public class AdmController {
 
 	@Autowired
 	private AdmInfoDAO admInfoDao;
+	@Autowired
+	private TipBbsDAO bbsTipDao;
+	@Autowired MappingJackson2JsonView yongJson;
 
 	/**관리자 로그인 폼 이동 메서드*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.GET)
@@ -136,14 +149,58 @@ public class AdmController {
 	public String admBbsTipForm() {
 		return "adm/admBbsTip";
 	}
+	/**꿀팁게시판 파일업로드 관련 메서드*/
+	@RequestMapping(value="/bbsTipUpload.do" ,produces="text/plain")
+	public ModelAndView bbsTipUpload(MultipartHttpServletRequest request) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		mav.setView(yongJson);
+		Iterator<String> itr =  request.getFileNames();
+		UploadFileUtils upl=new UploadFileUtils();
+		upl.getRootPath(itr, request);
+		if(itr.hasNext()) { 
+			List mpf = request.getFile(itr.next()); // 임시 파일을 복사한다. 
+		}
+		for(int i = 0; i < mpf.size(); i++) { 
+			File file = new File(PATH + mpf.get(i).getOriginalFilename()); 
+			logger.info(file.getAbsolutePath()); mpf.get(i).transferTo(file);
+		}
+
+		
+		return mav;
+	}
+	/**꿀팁게시판 작성완료 관련 메서드*/
+	@RequestMapping("admBbsTipWriteSubmit.do")
+	public ModelAndView admBbsTipWriteSubmit(TipBbsDTO dto,
+			@RequestParam(value = "revImgs" ,required = false ) List<MultipartFile> file ,
+			   HttpServletRequest req) {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		UploadFileUtils upLoad = new UploadFileUtils();
+	      String originName="";
+	      String dbName="";
+	      System.out.println(file.size());
+	      if(file.size()!=0) {
+	    	  for(int i=0;i< file.size();i++) {
+	   	       originName +=file.get(i).getOriginalFilename();
+	   	       dbName += upLoad.uploadFile(file.get(i), req);
+		   	       if(i != file.size()-1) {
+		   	          originName +=",";
+		   	          dbName+=",";
+		   	       }
+	    	  }
+	      }
+	      System.out.println(dbName);
+	      System.out.println(originName);
+	      int result=bbsTipDao.insertTip(dto);
+		String msg=result>0?"게시판을 등록하셨습니다":"게시판 등록 실패";
+		mav.addObject("msg", msg);
+		mav.setViewName("adm/admMsg");
+		return mav;
+	}
 	/**게시판 작성폼 관련 메서드*/
 	@RequestMapping("admBbsTipWrite.do")
 	public String admBbsTipWrite() {
-		return "adm/admBbsTipWrite";
-	}
-	/**게시판 작성 관련 메서드*/
-	@RequestMapping("admBbsTipWriteSubmit.do")
-	public String admBbsTipWriteSubmit() {
 		return "adm/admBbsTipWrite";
 	}
 	

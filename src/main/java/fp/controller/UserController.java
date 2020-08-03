@@ -132,9 +132,7 @@ public class UserController {
 			   @RequestParam(value = "revImgs" ,required = false ) List<MultipartFile> file , 
 			   ReviewBbsDTO dto,
 			   HttpServletRequest req) {
-		System.out.println("리뷰작성 메서드 들어옴!");
-		
-		 
+	 
 	      UploadFileUtils upLoad = new UploadFileUtils();
 	      String originName="";
 	      String dbName="";

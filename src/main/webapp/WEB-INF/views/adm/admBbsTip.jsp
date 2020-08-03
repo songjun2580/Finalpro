@@ -113,9 +113,6 @@ section {
       </div>
     </div>
   </header>
-  
-
-
   <div class="row">
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="width:300px;">
@@ -124,16 +121,12 @@ section {
     </div>
   </div>
 <!-- end of top nav  -->
-
 <div class="tab-content" id="pills-tabContent">
 <!-- -직원정보수정 시작 -->
   <div class="tab-pane fade show active" id="pills-mypage" role="tabpanel" aria-labelledby="pills-mypage-tab"><!-- Main Content -->
   <div class="container">
     <div class="row">
       <div class=" mx-auto" style="margin-right: 200px;">
-
-      
-  
   <!-- 2top nav -->
  <ul class="nav nav-tabs">
   <li class="nav-item">

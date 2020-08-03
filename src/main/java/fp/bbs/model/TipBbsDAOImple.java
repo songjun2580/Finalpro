@@ -16,8 +16,8 @@ private SqlSessionTemplate sst;
 	
 	
 	public int insertTip(TipBbsDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=sst.insert("TipInsert", dto);
+		return result;
 	}
 	
 

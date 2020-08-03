@@ -44,6 +44,13 @@ td{
     height:100px;
 }
 </style>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $( document ).ready( function() {
+    var jbText = $( 'div' ).text();
+    alert( jbText );
+  } );
+</script>
 <script>
 function checkFile(Inputobj){
 	var imageType = /image.*/;

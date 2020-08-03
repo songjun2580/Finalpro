@@ -23,7 +23,48 @@
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
 <style>
 </style>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+$( document ).ready( function() {
+	
+	
+	$("#btn").on("click",function(){
+        var Text = $("#preview_con").html();
+        $("#tcontents").val(Text);
+        console.log($("#tcontents").val());
+        alert('a');
+    });
+	
+	$(document).on("change","#revImg1",function () {
+		alert('a');
+	    var formData = new FormData();      
+	    for(var i=0; i<$('#revImg1')[0].files.length; i++){
+	        formData.append('uploadFile', $('#revImg1')[0].files[i]);
+	    }
+	    for (var pair of formData.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+
+	  
+	    $.ajax({
+	        url: '/upload',
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        type: 'POST',
+	        success: function (data) {
+	            alert("이미지 업로드 성공");
+	        }
+	    });
+	});
+  
+	
+  } 	
+);
+
+
+
+
+출처: https://lordpark.tistory.com/8 [The World of Web]
+
 function checkFile(Inputobj){
 	var imageType = /image.*/;
 	if(File&&FileReader){
@@ -31,11 +72,11 @@ function checkFile(Inputobj){
 			var files=Inputobj.files
 			
 	        var preview = document.getElementById("preview_con"); 
-            var newDivNode = document.createElement('p');
-            newDivNode.id='preview';
+            var newDivNode = document.createElement('div');
+            newDivNode.name='preview';
             newDivNode.style.width= 200+'px';
 			newDivNode.style.height=200+'px';
-			newDivNode.style.display='inline';
+			newDivNode.style.display='block';
             preview.appendChild(newDivNode);
             
 			for( var i=0; i<files.length;i++){
@@ -59,10 +100,14 @@ function checkFile(Inputobj){
 						};
 					})(img);
 					reader.readAsDataURL(file);
-				
 			}
 		}
 	}
+}
+onsubmit= function submitCheck(){
+		document.BbsTip.t_type.value=document.getElementById('seltype').value;
+		document.BbsTip.t_contents.value=document.getElementById('preview_con').value;
+		alert(document.getElementById('preview_con').value);
 }
 </script>
 </head>
@@ -76,7 +121,7 @@ function checkFile(Inputobj){
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>게시판 관리</h1>
-            <span class="subheading"></span>
+            <span  class="subheading"></span>
           </div>
         </div>
       </div>
@@ -84,45 +129,53 @@ function checkFile(Inputobj){
   </header>
 <article>
 	<section>
-		<form name="BbsTip" action="admBbsTipWriteSubmit.do">
+		<form id="tip_bbs" name="BbsTip" action="admBbsTipWriteSubmit.do" method="post" enctype="multipart/form-data">
 			<table border="1" style=" width:750px; margin: 0px auto;" >
+			
 				<tr>
 					<td>
 						<div>
-							<label >제목</label>
+							<label >제목</label> <input type="text" name="t_subject">
 							<div style="float: right;">
 							<label for="seltype" >게시글 종류</label >
-							<select id="seltype" style="margin-right: 150px;">
+							<select id="seltype"  style="margin-right: 150px;">
 							<option value="1">가정이사 꿀팁</option>
 							<option value="2">생활꿀팁</option>
-							</select> 
+							</select>
+							<input type="hidden" name="t_type">
 							</div>
 						</div>
 					</td>
 				</tr>
 				<tr>
+				
 					<td>
+					
 						<div>
 							<label>이미지 올리기</label>
-							<div style="float: right;">
-							사진 첨부하기 &nbsp;&nbsp;&nbsp;
-							<input type="file" id="revImg1" name="revImgs"  style="float: right;" onchange="checkFile(this)" multiple="multiple"  accept="image/*"> 
-							</div>
+							
+								<div style="float: right;">
+								사진 첨부하기 &nbsp;&nbsp;&nbsp;
+								<input type="file" id="revImg1" name="revImgs"  style="float: right;" accept="image/*"> 
+								</div>
+							
 						</div>
-						
+					
 					</td>
+						
 				</tr>
 				<tr>
 					<td height="600px;">
 						<div contenteditable="true" style="border: 1px solid gold; padding: 10px; height: 500px; min-height: 100px; overflow: auto;" id="preview_con">
 							<p id="preview" style="width: 600px; height: 350px; display: inline;"></p>	
 						</div>
+						<input type="hidden" name="t_contents" id="tcontents">
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: center;">
 						<div >
-							<input type="submit"  value="작성완료" > <input type="reset" value="다시 작성하기">
+							<input type="submit"  value="작성완료" id="btn"> <input type="reset" value="다시 작성하기">
 						</div>
 					</td>
 				</tr>

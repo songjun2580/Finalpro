@@ -4,84 +4,87 @@ import java.sql.*;
 
 public class TipBbsDTO {
 
-	private int tIdx;
-	private String tSubject;
-	private String tContents;
-	private String tImg;
-	private Date tDate;
-	private int tRef;
-	private int tType;
+	private int t_idx;
+	private String t_subject;
+	private String t_contents;
+	private String t_img;
+	private Date t_date;
+	private int t_ref;
+	private int t_type;
 	
 	public TipBbsDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TipBbsDTO(int tIdx, String tSubject, String tContents, String tImg, Date tDate, int tRef, int tType) {
+	public TipBbsDTO(int t_idx, String t_subject, String t_contents, String t_img, Date t_date, int t_ref, int t_type) {
 		super();
-		this.tIdx = tIdx;
-		this.tSubject = tSubject;
-		this.tContents = tContents;
-		this.tImg = tImg;
-		this.tDate = tDate;
-		this.tRef = tRef;
-		this.tType = tType;
+		this.t_idx = t_idx;
+		this.t_subject = t_subject;
+		this.t_contents = t_contents;
+		this.t_img = t_img;
+		this.t_date = t_date;
+		this.t_ref = t_ref;
+		this.t_type = t_type;
 	}
 
-	public int gettIdx() {
-		return tIdx;
+	public int getT_idx() {
+		return t_idx;
 	}
 
-	public void settIdx(int tIdx) {
-		this.tIdx = tIdx;
+	public void setT_idx(int t_idx) {
+		this.t_idx = t_idx;
 	}
 
-	public String gettSubject() {
-		return tSubject;
+	public String getT_subject() {
+		return t_subject;
 	}
 
-	public void settSubject(String tSubject) {
-		this.tSubject = tSubject;
+	public void setT_subject(String t_subject) {
+		this.t_subject = t_subject;
 	}
 
-	public String gettContents() {
-		return tContents;
+	public String getT_contents() {
+		return t_contents;
 	}
 
-	public void settContents(String tContents) {
-		this.tContents = tContents;
+	public void setT_contents(String t_contents) {
+		this.t_contents = t_contents;
 	}
 
-	public String gettImg() {
-		return tImg;
+	public String getT_img() {
+		return t_img;
 	}
 
-	public void settImg(String tImg) {
-		this.tImg = tImg;
+	public void setT_img(String t_img) {
+		this.t_img = t_img;
 	}
 
-	public Date gettDate() {
-		return tDate;
+	public Date getT_date() {
+		return t_date;
 	}
 
-	public void settDate(Date tDate) {
-		this.tDate = tDate;
+	public void setT_date(Date t_date) {
+		this.t_date = t_date;
 	}
 
-	public int gettRef() {
-		return tRef;
+	public int getT_ref() {
+		return t_ref;
 	}
 
-	public void settRef(int tRef) {
-		this.tRef = tRef;
+	public void setT_ref(int t_ref) {
+		this.t_ref = t_ref;
 	}
 
-	public int gettType() {
-		return tType;
+	public int getT_type() {
+		return t_type;
 	}
 
-	public void settType(int tType) {
-		this.tType = tType;
+	public void setT_type(int t_type) {
+		this.t_type = t_type;
 	}
+
+	
+	
 	
 	
 }

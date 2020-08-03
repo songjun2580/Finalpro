@@ -38,7 +38,7 @@ public class UploadFileUtils {
 			}*/
 			
 			//파일 저장 경로 치환
-			return replaceSavedFilePath(rootPath, uuidFileName);
+			return uuidFileName;
 			
 			} catch (Exception e) {
 				e.printStackTrace();
