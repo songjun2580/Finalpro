@@ -28,7 +28,6 @@ public class AdmController {
 	private AdmInfoDAO admInfoDao;
 	@Autowired
 	private TipBbsDAO bbsTipDao;
-	@Autowired MappingJackson2JsonView yongJson;
 
 	/**관리자 로그인 폼 이동 메서드*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.GET)
@@ -149,24 +148,16 @@ public class AdmController {
 	public String admBbsTipForm() {
 		return "adm/admBbsTip";
 	}
+	
 	/**꿀팁게시판 파일업로드 관련 메서드*/
-	@RequestMapping(value="/bbsTipUpload.do" ,produces="text/plain")
-	public ModelAndView bbsTipUpload(MultipartHttpServletRequest request) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		mav.setView(yongJson);
-		Iterator<String> itr =  request.getFileNames();
-		UploadFileUtils upl=new UploadFileUtils();
-		upl.getRootPath(itr, request);
-		if(itr.hasNext()) { 
-			List mpf = request.getFile(itr.next()); // 임시 파일을 복사한다. 
-		}
-		for(int i = 0; i < mpf.size(); i++) { 
-			File file = new File(PATH + mpf.get(i).getOriginalFilename()); 
-			logger.info(file.getAbsolutePath()); mpf.get(i).transferTo(file);
-		}
-
+	@RequestMapping(value="/bbsTipUpload.do" )
+	public String bbsTipUpload(@RequestParam(value = "uploadFile" ,required = false ) 
+	MultipartFile file, HttpServletRequest request) throws Exception{
 		
-		return mav;
+		UploadFileUtils upl=new UploadFileUtils();
+		String dbName=upl.uploadFile(file, request);
+		
+		return dbName;
 	}
 	/**꿀팁게시판 작성완료 관련 메서드*/
 	@RequestMapping("admBbsTipWriteSubmit.do")

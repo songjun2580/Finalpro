@@ -40,6 +40,16 @@ public class UserController {
 		return "user/userJoin";
 	}
 	
+    /**업체블로그 이동 메서드(for 사용자)*/
+    @RequestMapping("userBlogView.do")
+    public ModelAndView userBlogView(@RequestParam(value="coIdx",defaultValue = "2")int coIdx) {
+       ModelAndView mav=new ModelAndView();
+       //sst.로 업체정보 select 해오기
+       //mav.addObject("", attributeValue);
+       mav.setViewName("user/userBlogView");
+       return mav;
+    }
+	
 	@RequestMapping("/userCleanChoice.do")//청소업체선택 페이지 이동 관련 메서드
 	public String userCleanChoice() {
 		

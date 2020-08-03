@@ -25,45 +25,6 @@
 </style>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-$( document ).ready( function() {
-	
-	
-	$("#btn").on("click",function(){
-        var Text = $("#preview_con").html();
-        $("#tcontents").val(Text);
-        console.log($("#tcontents").val());
-        alert('a');
-    });
-	
-	$(document).on("change","#revImg1",function () {
-		alert('a');
-	    var formData = new FormData();      
-	    for(var i=0; i<$('#revImg1')[0].files.length; i++){
-	        formData.append('uploadFile', $('#revImg1')[0].files[i]);
-	    }
-	    for (var pair of formData.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
-
-	  
-	    $.ajax({
-	        url: '/upload',
-	        data: formData,
-	        processData: false,
-	        contentType: false,
-	        type: 'POST',
-	        success: function (data) {
-	            alert("이미지 업로드 성공");
-	        }
-	    });
-	});
-  
-	
-  } 	
-);
-
-
-
-
-출처: https://lordpark.tistory.com/8 [The World of Web]
 
 function checkFile(Inputobj){
 	var imageType = /image.*/;
@@ -104,6 +65,43 @@ function checkFile(Inputobj){
 		}
 	}
 }
+
+$( document ).ready( function() {
+	
+	
+	$("#btn").on("click",function(){
+        var Text = $("#preview_con").html();
+        $("#tcontents").val(Text);
+        console.log($("#tcontents").val());
+        alert('a');
+    });
+	
+	$(document).on("change","#revImg1",function () {
+		alert('a');
+	    var formData = new FormData();      
+	    for(var i=0; i<$('#revImg1')[0].files.length; i++){
+	        formData.append('uploadFile', $('#revImg1')[0].files[i]);
+	    }
+	    
+	    for (var pair of formData.entries()) { console.log(pair[0]+ ', ' + pair[1]); }
+
+	    $.ajax({
+	        url: "bbsTipUpload.do",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        type: "POST",
+	        success: function (data) {
+	            alert(data);
+	          checkFile(data);
+	        }
+	    });
+	});
+  
+	
+  } 	
+);
+
 onsubmit= function submitCheck(){
 		document.BbsTip.t_type.value=document.getElementById('seltype').value;
 		document.BbsTip.t_contents.value=document.getElementById('preview_con').value;

@@ -205,36 +205,28 @@ function preview(Inputobj,id){
          </div>
          <hr>
          <div class="review_info_main">
-      <form name="coBlogImg" action="coBlogImgUpdate.do" method="post" enctype="multipart/form-data">
-      현장 사진  <input type="submit" value="이미지 저장">
-            <div class="row">
+         현장 사진 
+             <div class="row">
                 
                  <div class="col-md-4" id="1">
                     <input type="file" name="file1"  style="display: none;" onchange="preview(this,1)"> 
-                    <div>
-                       <a onclick="document.all.file1.click();">
-                          <div style="text-align:center; border:1px solid black; padding: 50px 0px 50px 0px; width:150px;" id="preview1">현장 이미지</div>
-                       </a>
+                    <div id="preview1">
+                    <img src="<%=request.getContextPath()%>/resources/img/isa_pic.png" alt="현장이미지" onclick="document.all.file1.click();">
                     </div>
                  </div>
-                 <div class="col-md-4" id="2">    
+                 <div class="col-md-4" id="2"> 	
                     <input type="file" name="file2" style="display: none;" onchange="preview(this,2)"> 
-                    <div>
-                       <a onclick="document.all.file2.click();">
-                          <div style="text-align:center; border:1px solid black; padding: 50px 0px 50px 0px; width:150px;" id="preview2">현장 이미지</div>
-                       </a>
+                    <div  id="preview2">
+                    <img src="<%=request.getContextPath()%>/resources/img/isa_pic.png" alt="현장이미지" onclick="document.all.file2.click();">
                     </div>
                  </div>
                  <div class="col-md-4" id="3">
-                       <input type="file" name="file3"  style="display: none;" onchange="preview(this,3)"> 
-                    <div>
-                       <a onclick="document.all.file3.click();">
-                          <div style="text-align:center; border:1px solid black; padding: 50px 0px 50px 0px; width:150px;" id="preview3">현장 이미지</div>
-                       </a>
+	                    <input type="file" name="file3"  style="display: none;" onchange="preview(this,3)"> 
+	                <div  id="preview3">
+	                    <img src="<%=request.getContextPath()%>/resources/img/isa_pic.png" alt="현장이미지" id="work_img" onclick="document.all.file3.click();">
                     </div>
-                </div>
-            </div>
-         </form>   
+             	</div>
+         </div>
          <hr>
          <div align="">
          </div>

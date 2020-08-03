@@ -57,7 +57,8 @@ function checkFile(Inputobj){
 	if(File&&FileReader){
 		if (Inputobj.files && Inputobj.files[0]) {
 			var files=Inputobj.files
-			
+			alert(Inputobj);
+			alert(Inputobj.value);
 			var preview_con= document.getElementById("preview_con"); 
 	        var preview = document.getElementById("preview"); 
             var newDivNode = document.createElement('div');

@@ -60,37 +60,33 @@ h4{
 }
 </style>
 <script>
-function preview(Inputobj,id){
+function checkFile(Inputobj,idname){
       var imageType = /image.*/;
       if(File&&FileReader){
          if (Inputobj.files && Inputobj.files[0]) {
             var files=Inputobj.files
-            alert(id);
             
-               var preview = document.getElementById(id);
-               var oldDivNode=document.getElementById('preview'+id);
+              var preview = document.getElementById("preview_con"); 
                var newDivNode = document.createElement('div');
-               oldDivNode.remove();
-               newDivNode.id='preview'+id;
+               newDivNode.name='preview';
                newDivNode.style.width= 200+'px';
-               newDivNode.style.height=200+'px';
-               newDivNode.style.display='block';
+            newDivNode.style.height=200+'px';
+            newDivNode.style.display='block';
                preview.appendChild(newDivNode);
                
-            for(var i=0; i<files.length;i++){
+            for( var i=0; i<files.length;i++){
                var file = files[i];
                if (!file.type.match(imageType))
-                  continue            
-                  var img=document.createElement("img");
+                         continue            
+                     var img=document.createElement("img");
                   img.id="imagePreview"+i;
                   img.name="imagePreview";
                   img.alt="image files";
                   img.classList.add("obj")
                   img.file=file;
-                  img.style.width= 200+'px';
-                  img.style.height=200+'px';
-                  img.setAttribute('onclick','document.all.file'+id+'.click();')
-                  document.getElementById('preview'+id).appendChild(img);
+                  img.style.width= 600+'px';
+                  img.style.height=350+'px';
+                  document.getElementById('preview').appendChild(img);
                   
                   var reader = new FileReader();
                   reader.onloadend = (function(aImg){
@@ -204,37 +200,32 @@ function preview(Inputobj,id){
             </table>
          </div>
          <hr>
-         <div class="review_info_main">
-      <form name="coBlogImg" action="coBlogImgUpdate.do" method="post" enctype="multipart/form-data">
-      현장 사진  <input type="submit" value="이미지 저장">
-            <div class="row">
-                
-                 <div class="col-md-4" id="1">
-                    <input type="file" name="file1"  style="display: none;" onchange="preview(this,1)"> 
-                    <div>
-                       <a onclick="document.all.file1.click();">
-                          <div style="text-align:center; border:1px solid black; padding: 50px 0px 50px 0px; width:150px;" id="preview1">현장 이미지</div>
-                       </a>
+         <form name="fieldImg" action="fieldImgUpload.do">
+            <div class="review_info_main">
+            현장 사진
+<script>
+function fileUpload(img){
+   window.alert(img);
+   document.getElementById(img).click();
+}
+</script>
+            <img src='이미지경로' border='0' > 
+                <div class="row">
+                    <div class="col-md-4" id="img1"> 
+                       <input type="file" style="float:right;  display: none;" id="img1"  name="사진 등록"> 
+                       <img src="<%=request.getContextPath()%>/resources/img/isa_pic.png" alt="현장이미지" onclick='fileUpload("img1")'>
                     </div>
-                 </div>
-                 <div class="col-md-4" id="2">    
-                    <input type="file" name="file2" style="display: none;" onchange="preview(this,2)"> 
-                    <div>
-                       <a onclick="document.all.file2.click();">
-                          <div style="text-align:center; border:1px solid black; padding: 50px 0px 50px 0px; width:150px;" id="preview2">현장 이미지</div>
-                       </a>
+                    <div class="col-md-4" id="img2"> 
+                       <input type="file" style="float:right;  display: none;" id="img2"  name="사진 등록"> 
+                       <img src="<%=request.getContextPath()%>/resources/img/isa_pic.png" alt="현장이미지" onclick='fileUpload("img2")'>
                     </div>
-                 </div>
-                 <div class="col-md-4" id="3">
-                       <input type="file" name="file3"  style="display: none;" onchange="preview(this,3)"> 
-                    <div>
-                       <a onclick="document.all.file3.click();">
-                          <div style="text-align:center; border:1px solid black; padding: 50px 0px 50px 0px; width:150px;" id="preview3">현장 이미지</div>
-                       </a>
+                    <div class="col-md-4" id="img3"> 
+                       <input type="file" style="float:right;  display: none;" id="img3"  name="사진 등록"> 
+                       <img src="<%=request.getContextPath()%>/resources/img/isa_pic.png" alt="현장이미지" onclick='fileUpload("img3")'>
                     </div>
                 </div>
             </div>
-         </form>   
+         </form>
          <hr>
          <div align="">
          </div>
