@@ -6,11 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+<link rel="stylesheet" href="css/selectbox.css">
 <style>
-body {
-	width: 80%;
-	margin: 0px auto;
-}	
 .nav nav-pills mb-3{
   -ms-flex-pack: center !important;
   justify-content: center !important;
@@ -62,23 +59,25 @@ h4{
 </head>
 <body>
 
-<%@include file="comp_Header.jsp" %>
+<%@include file="../header.jsp" %>
     <div class="row">
       <div class="col-2">
-      <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-mypage-tab" data-toggle="pill" href="compMypage.do" role="tab" aria-selected="true">마이페이지</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="pills-record-tab" data-toggle="pill" href="empRecord.do" role="tab" aria-selected="false">실적조회</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" data-toggle="pill" href="companyBlog.do" aria-selected="false">업체블로그</a>
-        </li>
-         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-bid-tab" data-toggle="pill" href="empBid.do" role="tab" aria-selected="false">이사견적서조회</a>
-        </li>
-      </ul>
+     <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+		  <li class="nav-item" role="presentation">
+		    <a class="nav-link" id="pills-mypage-tab" data-toggle="pill" href="compMypage.do" role="tab" aria-selected="true">마이페이지</a>
+		  </li>
+		  <li class="nav-item" role="presentation">
+		    <a class="nav-link" id="pills-record-tab" data-toggle="pill" href="compRecord.do" role="tab" aria-selected="false">실적조회</a>
+		  </li>
+		  <li class="nav-item" role="presentation">
+		    <a class="nav-link" data-toggle="pill" href="compBlog.do" aria-selected="false">업체블로그</a>
+		  </li>
+		   <li class="nav-item" role="presentation">
+		    <a class="nav-link active" id="pills-bid-tab" data-toggle="pill" href="compBid.do" role="tab" aria-selected="false">견적서 조회(입찰)</a>
+		  </li><li class="nav-item" role="presentation">
+		    <a class="nav-link" id="pills-bid-tab" data-toggle="pill" href="compConfirm.do" role="tab" aria-selected="false">견적서 조회(확정) </a>
+		  </li>
+		</ul>
    </div> 
    <!-- 실적조회 -->
       <div>

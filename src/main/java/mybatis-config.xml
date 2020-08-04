@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <configuration>
-  	<settings>
+ 	<settings>
         <setting name="cacheEnabled" value="false" />
         <setting name="jdbcTypeForNull" value="NULL" />
     </settings>
@@ -13,5 +13,7 @@
   		<mapper resource="sqlMap/comSQL.xml"/>
   		<mapper resource="sqlMap/admSQL.xml"/>
   		<mapper resource="sqlMap/empSQL.xml"/>
+  		<mapper resource="sqlMap/bidSQL.xml"/>
+  		<mapper resource="sqlMap/locationSQL.xml"/>
   	</mappers>
   </configuration>

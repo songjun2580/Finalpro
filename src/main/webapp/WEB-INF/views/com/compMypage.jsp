@@ -20,14 +20,10 @@
 
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
-
+  <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+  <link rel="stylesheet" href="css/selectbox.css">
 <style>
-body{
- 	width: 80%;
-	margin: 0px auto;
-	font-family:sans-serif;
-}
+
 .col-6{
 	 margin:0px auto;
 }
@@ -56,7 +52,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<%@include file="comp_Header.jsp" %>
+<%@include file="../header.jsp" %>
 <body>
     <div class="row">
       <div class="col-2">
@@ -77,7 +73,7 @@ $(document).ready(function() {
    </div> 
 <!-- 업체 정보 수정 시작 -->
 	
-      <div class="col-5 ">
+      <div class="col-9 ">
         <div class="alert alert-secondary" role="alert">
 			업체정보 수정
 		</div>

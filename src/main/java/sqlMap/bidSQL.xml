@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper  namespace="fp.company">
+     <insert id="bidAdd" parameterType="fp.company.model.MoveBidDTO">
+     insert into move_bid values(move_bid_mbIdx.nextval,#{coIdx},#{moIdx},#{mbMoney})
+     </insert>
+     <!--승인완료된 모든 이사견적서 조회하기 -->
+    <select id="allEstConfirm" parameterType="int" resultType="fp.company.model.MoveTotalDTO">
+      select X.*,y.mbMoney from move_est X, move_bid Y 
+       where X.moIdx=Y.moIdx and x.moStatus='승인완료' 
+       and y.coIdx=#{coIdx}
+    </select>
+    <select id="allEstConfirm2" parameterType="int" resultType="fp.estimate.model.MoveEstimateDTO">
+      select * from move_est where moIdx NOT IN(select moIdx from move_bid where coIdx=#{coIdx}) and moStatus='승인완료' 
+    </select>
+  </mapper>

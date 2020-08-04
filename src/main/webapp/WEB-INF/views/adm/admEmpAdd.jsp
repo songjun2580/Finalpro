@@ -64,34 +64,45 @@ body{
                 <div class="text-white-50 small"></div>
              </div>
         </div>
-    	
+    	<form name="admEmpAdd" action="admEmpAddAction.do">
     	<div class="input-group mb-3" style="margin-top: 10%; margin-left: 30%">
-		  <div class="input-group-prepend">
-		    <span style="width: 150px;">사원번호</span>
-		  </div>
-		  <input type="text" style="width: 250px;;margin-left: 50px;">
-		</div>
-		
-		<div class="input-group mb-3" style="margin-top: 6%; margin-left: 30%">
 		  <div class="input-group-prepend">
 		    <span style="width: 150px;">이름</span>
 		  </div>
-		  <input type="text" style="width: 250px;;margin-left: 50px;">
+		  <input type="text" style="width: 250px;margin-left: 50px;" name="empName">
 		</div>
 		
-		<div class="input-group mb-3" style="margin-top: 6%; margin-left: 30%">
+		<div class="input-group mb-3" style="margin-left: 30%">
+		  <div class="input-group-prepend">
+		    <span style="width: 150px;">아이디</span>
+		  </div>
+		  <input type="text" style="width: 250px;margin-left: 50px;" name="empId">
+		</div>
+		
+		<div class="input-group mb-3" style="margin-left: 30%">
 		  <div class="input-group-prepend">
 		    <span style="width: 150px;">비밀번호</span>
 		  </div>
-		  <input type="text" style="width: 250px;;margin-left: 50px;">
+		  <input type="text" style="width: 250px;margin-left: 50px;" name="empPwd">
+		</div>
+		<div class="input-group mb-3" style="margin-left: 30%">
+		  <div class="input-group-prepend">
+		    <span style="width: 150px;">전화번호</span>
+		  </div>
+		  <input type="text" style="width: 250px;margin-left: 50px;" name="empTel">
 		</div>
 		
-		
-		<div align="center" style="margin-top: 10%;">
-            <button type="button" class="btn btn-primary" style="margin-right: 5%; ">등록하기</button>
-            <button type="button" class="btn btn-warning">취소하기</button>
-        </div>
-     
+		<div class="input-group mb-3" style="margin-left: 30%">
+		  <div class="input-group-prepend">
+		    <span style="width: 150px;">이메일</span>
+		  </div>
+		  <input type="text" style="width: 250px;margin-left: 50px;" name="empEmail">
+		</div>
+		<div class="input-group mb-3" style="margin-top: 5%; margin-left: 35%">
+		 <input type="submit" class="btn btn-primary" style="margin-right: 5%;"value=>등록하기</button>
+         <button type="button" class="btn btn-warning">취소하기</button>    
+		</div>
+		</form>
      </div>
     
     </div>

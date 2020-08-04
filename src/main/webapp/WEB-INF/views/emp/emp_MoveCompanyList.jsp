@@ -28,8 +28,12 @@ body{
 .col-6{
 	 margin:0px auto;
 }
+th,td{
+	text-align:center;
+}
 </style>
 </head>
+<c:set var="moIdx" value="${requestScope.moIdx }"></c:set>
 <body>
 <%@include file="emp_header.jsp" %>
    <header class="masthead"  style="background-image: url('resources/img/emp_main.png');">
@@ -54,60 +58,67 @@ body{
 	    </div>
     </div>
     
-       	 <div class="col-lg-9 mb-4">
-                  <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
+       	 <div class="col-9">
+            <div class="card bg-secondary text-white shadow">
+               <div class="card-body">
                       김무순 고객님 이사업체 목록
-                      <div class="text-white-50 small"></div>
-                    </div>
-                  </div>
-                  <div class="container">
-                  <br>                                         
-         
-         	<div class="row">
-<table class="table table-striped">
-<thead _ngcontent-mxf-c15=""><tr _ngcontent-mxf-c15="">
-<th _ngcontent-mxf-c15="" scope="col">업체명</th>
-<th _ngcontent-mxf-c15="" sbsortable="name" scope="col">
-<span _ngcontent-mxf-c15="">담당자</span></th>
-<th _ngcontent-mxf-c15="" sbsortable="area" scope="col">
-<span _ngcontent-mxf-c15="">담당자 연락처</span></th>
-<th _ngcontent-mxf-c15="" sbsortable="population" scope="col">
-<span _ngcontent-mxf-c15="">가격</span></th>
-<th _ngcontent-mxf-c15="" sbsortable="population" scope="col">
-<span _ngcontent-mxf-c15="">견적서</span></th>
-<th _ngcontent-mxf-c15="" sbsortable="population" scope="col">
-<span _ngcontent-mxf-c15="">선택</span></th>
+               <div class="text-white-50 small"></div>
+               </div>
+            </div>
+                 
+			<table class="table table-striped">
+				<thead>
+				<tr>
+				<th scope="col">업체명</th>
+				<th sbsortable="name" scope="col">
+				<span>담당자</span></th>
+				<th sbsortable="area" scope="col">
+				<span >담당자 연락처</span></th>
+				<th sbsortable="population" scope="col">
+				<span >주소지</span></th>
+				<th sbsortable="population" scope="col">
+				<span>가격</span></th>
+				<th  sbsortable="population" scope="col">
+				<span >업체 선정</span></th>
+				
+				</tr>
+				</thead>
+				<hr>
+				<tbody>
+				<c:forEach var="dto" items="${list }">
+					<tr>
+					<th scope="row">${dto.coName }</th>
+					<td><ngb-highligh>${dto.coRep}</ngb-highlight></td>
+					<td><ngb-highlight>${dto.coTel }</ngb-highlight></td>
+					<td><ngb-highlight>${dto.coAddr}</ngb-highlight></td>
+					<td><ngb-highlight>${dto.mbMoney}원</ngb-highlight></td>
+					<td>
+					<c:if test="${Idx==0}">
+						<ngb-highlight>
+						<button type="button" class="btn btn-primary btn-sm" onclick="location.href='comConfirm.do?coIdx=${dto.coIdx}&moIdx=${moIdx}'">확정하기</button>
+						</ngb-highlight>
+					</c:if>
+					<c:if test="${Idx!=0}">
+						<c:if test="${dto.coIdx==Idx}">
+						<ngb-highlight>
+						<b>확정완료</b>
+						</ngb-highlight>
+						</c:if>
+						<c:if test="${dto.coIdx!=Idx}">
+						<ngb-highlight>
+						확정불가
+						</ngb-highlight>
+					</c:if>
+					</c:if>
+					</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+</div>
+</div>
 
-</tr>
-</thead>
-<hr>
-<tbody _ngcontent-mxf-c15="">
-<!---->
-<tr _ngcontent-mxf-c15="">
-<th _ngcontent-mxf-c15="" scope="row">24press</th>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15="">홍길동</ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15="">010-1687-1358</ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15="">3,456,789</ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15=""><button type="button" class="btn btn-secondary btn-sm" >견적서 보기</button></ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15=""><button type="button" class="btn btn-primary btn-sm">확정하기</button></ngb-highlight></td>
-</tr>
 
-<tr _ngcontent-mxf-c15="">
-<th _ngcontent-mxf-c15="" scope="row">24press</th>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15="">이태훈</ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15="">010-4268-4712</ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15="">3,248,321</ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15=""><button type="button" class="btn btn-secondary btn-sm" >견적서 보기</button></ngb-highlight></td>
-<td _ngcontent-mxf-c15=""><ngb-highlight _ngcontent-mxf-c15=""><button type="button" class="btn btn-primary btn-sm">확정하기</button></ngb-highlight></td>
-</tr>
-
-		</tbody>
-	</table>
-</div>
-</div>
-</div>
-</div>
   <hr>
   <%@include file="../footer.jsp" %>
   </body>

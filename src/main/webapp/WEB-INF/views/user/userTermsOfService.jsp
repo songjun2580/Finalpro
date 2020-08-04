@@ -6,7 +6,51 @@
 <meta charset="UTF-8">
 <title>이용 약관</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 <style>
+
+input[type=checkbox]{
+	display: none;
+}
+
+input[type=checkbox] + label{
+	display :inline-bloc;
+	cursor:pointer;
+	position: relative;
+	padding-left: 25px;
+	margin-right:15px;
+	font-size:13px;
+}
+input[type=checkbox]+label:before{
+	
+	content:"";
+	display:inline-block;
+	
+	width:20px;
+	height:20px;
+	
+	margin-right:10px;
+	position: absolute;
+	left: 0;
+	bottom: 1px;
+	background-color: #ccc;
+	border-radius: 2px;
+	box-shadow: inset 0px 1px 1px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+}
+
+input[type=checkbox]:checked + label:before {
+	content:"\2713"; /*check shape*/
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+	font-size: 18px;
+	font-weight:800;
+	color: #fff;
+	background: #2f87c1;
+	text-align:center;
+	line-height: 18px;
+}
+
+
 body{
 	padding-top:30px;
 	width:1155px;
@@ -25,10 +69,31 @@ textarea{
 	margin-left:37%;
 }
 </style>
+<script type="text/javascript">
+
+function check(){
+	
+	if($("#c1").is(":checked")==false) {
+		alert("필수 약관에 동의하셔야 견적서 제출이 가능합니다");
+		return;	
+	}else if($("#c2").is(":checked")==false){
+		alert("필수 약관에 동의하셔야 견적서 제출이 가능합니다");
+		return;
+	}
+	else{
+	self.close();
+	window.opener.document.getElementById("r12").checked=true;
+	window.opener.show();
+	}
+}
+
+</script>
+
 </head>
 <body>
 <h3 style="text-align:center;">회원가입을 위해서는 아래 "회원약관" 및 "개인정보 수집 및 이용에 대한 안내"를 읽고,<br>동의해 주시기 바랍니다.</h3><br>
-<form name="" action="">
+<form name="termsOfService">
+<input type="hidden" name="agreement" value="r12">
 	<label>▶ 회원약관</label><br>
 	<textarea rows="8" cols="140">
 	 제 1 장 총칙
@@ -94,7 +159,7 @@ textarea{
 			1. 이사만해?청소도해! 사이트와 이용자 간에 발생한 서비스 이용에 관한 분쟁에 대하여는 대한민국 법을 적용하며, 본 분쟁으로 인한 소는 대한민국의 법원에 제기합니다.
 	</textarea>
 	<br>
-	<input type="checkbox" id="c1" name="이용약관"><label for="c1">&nbsp;&nbsp;이용약관에 동의합니다. (필수)</label><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="c1" name="이용약관"><label for="c1">&nbsp;&nbsp;이용약관에 동의합니다. (필수)</label><br>
 	
 	<label>▶ 개인정보 수집 및 이용 동의</label><br>
 	<textarea rows="8" cols="140">
@@ -133,7 +198,7 @@ textarea{
 		정보주체는 개인정보 수집에 동의를 거부할 권리가 있습니다. 다만, 필수 항목에 대한 동의를 거부할 시 저희가 제공하는 서비스를 이용할 수 없습니다.
 	</textarea>
 	<br>
-	<input type="checkbox" id="c2" name="개인정보"><label for="c2">&nbsp;&nbsp;개인정보 수집ㆍ이용에 동의합니다. (필수)</label><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="c2" name="개인정보"><label for="c2">&nbsp;&nbsp;개인정보 수집ㆍ이용에 동의합니다. (필수)</label><br>
 	
 	<label>▶ 마케팅/홍보의 수집 및 이용 동의</label><br>
 	<textarea rows="8" cols="140"> 
@@ -149,8 +214,9 @@ textarea{
 		4. 동의거부권 및 불이익
 			개인정보의 마케팅/홍보의 수집 및 이용 동의를 거부하시더라도 회원 가입 시 제한은 없습니다. 다만, 마케팅 활용 서비스 안내 및 참여에 제한이 있을 수 있습니다.
 	</textarea><br>
-	<input type="checkbox" id="c3" name="마케팅/홍보"><label for="c3">&nbsp;&nbsp;마케팅/홍보를 위하여 귀하의 개인정보를 이용하는데 동의합니다. (선택)</label><br>
-	<div class="button"><button type="submit" class="btn btn-danger" style="width:150px; height:55px;">동의함</button>&nbsp;&nbsp;<button type="reset" class="btn btn-light" style="width:150px; height:55px;">동의안함</button></div>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="c3" name="마케팅/홍보"><label for="c3">&nbsp;&nbsp;마케팅/홍보를 위하여 귀하의 개인정보를 이용하는데 동의합니다. (선택)</label><br>
+	<div class="button"><button type="button" class="btn btn-danger" style="width:150px; height:55px;" onclick="check()">동의함</button>&nbsp;&nbsp;
+	<button type="reset" class="btn btn-light" style="width:150px; height:55px;">동의안함</button></div>
 </form>
 <br>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

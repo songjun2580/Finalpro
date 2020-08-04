@@ -141,5 +141,10 @@ public class UserInfoDAOImple implements UserInfoDAO {
 	   List list=sst.selectList("userEst",uIdx);
 	return list;
 }
+   /**마이페이지 이사견적서 조회 버튼 관련 메서드*/
+   public MoveEstimateDTO moveEstView(int moIdx) {
+	  MoveEstimateDTO dto=sst.selectOne("userEstView",moIdx);
+	return dto;
+}
    
 }

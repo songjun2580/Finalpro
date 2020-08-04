@@ -1,40 +1,37 @@
 package fp.controller;
 
-import java.util.*;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import fp.bbs.model.ReviewBbsDTO;
-import fp.bbs.model.TipBbsDAO;
-import fp.bbs.model.TipBbsDTO;
-import fp.info.model.*;
-import fp.util.UploadFileUtils;
+import fp.estimate.model.MoveEstimateDAO;
+import fp.estimate.model.MoveEstimateDTO;
+import fp.info.model.AdmInfoDAO;
+import fp.info.model.EmpInfoDTO;
 
 @Controller
 public class AdmController {
 
 	@Autowired
 	private AdmInfoDAO admInfoDao;
+	
 	@Autowired
-	private TipBbsDAO bbsTipDao;
-
+	private MoveEstimateDAO moveEstimateDao;
+	
 	/**관리자 로그인 폼 이동 메서드*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.GET)
 	public String admLogin() {
 		return "adm/adm_Login";
 	}
-	
 	/**실적 현황 보기 관련 메서드*/
 	@RequestMapping("admStatus.do")
 	public String admStatus() {
@@ -71,28 +68,119 @@ public class AdmController {
 		return "adm/admEmpUpd";
 	}
 	
-	/**사원등록 관련 메서드*/
-	@RequestMapping("admEmpAdd.do")
+	/**사원등록 페이지 관련 메서드*/
+	@RequestMapping(value="admEmpAdd.do", method = RequestMethod.GET)
 	public String admEmpAddForm() {
 		return "adm/admEmpAdd";
+	}	
+	
+	/**이사견적서 총 목록 메서드*/
+	@RequestMapping("/admMest.do")
+	public ModelAndView admMestForm(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		
+		int totalCnt=moveEstimateDao.getTotalCnt();
+		int listSize=5;
+		int pageSize=5;
+		
+		List lists=moveEstimateDao.moveEstList(cp,listSize);
+		String pageStr=page.PageModule.pageMake("admMest.do", totalCnt, listSize, pageSize, cp);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pageStr", pageStr);
+		mav.addObject("lists", lists);
+		mav.setViewName("adm/admMest");
+		return mav;
 	}
 	
-	/**이사견적서 신청 관련 메서드*/
-	@RequestMapping("admMest.do")
-	public String admMestForm() {
-		return "adm/admMest";
+	/**이사견적서 승인대기목록 관련 메서드*/
+	@RequestMapping("/admMest_wait.do")
+	public ModelAndView admMest_waitForm(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+				
+		int totalCnt=moveEstimateDao.getTotalCntwait();
+		int listSize=5;
+		int pageSize=5;
+		
+		List moveEstWait=moveEstimateDao.moveEstWait(cp,listSize);
+		String pageStr=page.PageModule.pageMake("admMest_wait.do", totalCnt, listSize, pageSize, cp);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("pageStr", pageStr);
+		mav.addObject("moveEstWait",moveEstWait);
+		mav.setViewName("adm/admMest_wait");
+		return mav;
 	}
 	
-	/**이사견적서 승인대기 관련 메서드*/
-	@RequestMapping("admMest_wait.do")
-	public String admMest_waitForm() {
-		return "adm/admMest_wait";
+	/**이사견적서 승인완료목록 관련 메서드*/
+	@RequestMapping("/admMest_confirm.do")
+	public ModelAndView admMest_confirmForm(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		int totalCnt=moveEstimateDao.getTotalCntConfirm();
+		int listSize=5;
+		int pageSize=5;
+		
+		
+		List moveEstConfirm=moveEstimateDao.moveEstConfirm(cp, listSize);
+		String pageStr=page.PageModule.pageMake("admMest_confirm.do", totalCnt, listSize, pageSize, cp);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("pageStr", pageStr);
+		mav.addObject("moveEstConfirm", moveEstConfirm);
+		mav.setViewName("adm/admMest_confirm");
+		return mav;
 	}
 	
-	/**이사견적서 승인완료 관련 메서드*/
-	@RequestMapping("admMest_confirm.do")
-	public String admMest_confirmForm() {
-		return "adm/admMest_confirm";
+	/**이사 견적서 보기*/
+	@RequestMapping("/admMoveEstimate")
+	public ModelAndView admMoveEstimate(int moIdx) {
+		
+		MoveEstimateDTO dto=moveEstimateDao.moveEstimate(moIdx);
+		ModelAndView mav= new ModelAndView();
+		
+		if(dto==null) {
+			mav.addObject("msg","잘못된 접근입니다");
+			mav.setViewName("user/userMsg");
+		}else {
+			mav.addObject("dto",dto);
+			mav.setViewName("adm/admMoveEstimate");
+		}
+		return mav;
+	}
+	
+	/**이사 견적서 승인하기*/
+	@RequestMapping("/admMoveEstimateAccept.do")
+	public ModelAndView admMoveEstimateAccept(HttpServletRequest req) {
+		String moIdx_s=req.getParameter("moIdx");
+		int moIdx=Integer.parseInt(moIdx_s);
+		int result=moveEstimateDao.moveEstimateAccept(moIdx);
+		String msg=result>0?"승인이 완료되었습니다":"승인이 실패되었습니다";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.setViewName("adm/admPopupMsg");
+		return mav;
+	}
+	/**이사 매칭 사원보기*/
+	@RequestMapping("/admEmpList.do")
+	public ModelAndView admEmpList(int moIdx) {
+		
+		List admEmpList=moveEstimateDao.admEmpList();
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("moIdx",moIdx);
+		mav.addObject("admEmpList",admEmpList);
+		mav.setViewName("adm/admEmpList");
+		return mav;		
+	}
+	
+	/**이사 견적서 사원 매칭하기*/
+	@RequestMapping("/moveEstimateMatch.do")
+	public ModelAndView moveEstimateMatch(int empIdx,int moIdx) {
+		int result=moveEstimateDao.moveEstimateMatch(empIdx,moIdx);
+		String msg=result>0?"매칭이 완료되었습니다":"매칭에 실패하였습니다";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.setViewName("adm/admPopupMsg");
+		return mav;
 	}
 	
 	/**청소견적서 신청 관련 메서드*/
@@ -142,59 +230,12 @@ public class AdmController {
 	public String admBbsQnAForm() {
 		return "adm/admBbsQnA";
 	}
-
+		
 	/**꿀팁관리 관련 메서드*/
 	@RequestMapping("admBbsTip.do")
 	public String admBbsTipForm() {
 		return "adm/admBbsTip";
-	}
-	
-	/**꿀팁게시판 파일업로드 관련 메서드*/
-	@RequestMapping(value="/bbsTipUpload.do" )
-	public String bbsTipUpload(@RequestParam(value = "uploadFile" ,required = false ) 
-	MultipartFile file, HttpServletRequest request) throws Exception{
-		
-		UploadFileUtils upl=new UploadFileUtils();
-		String dbName=upl.uploadFile(file, request);
-		
-		return dbName;
-	}
-	/**꿀팁게시판 작성완료 관련 메서드*/
-	@RequestMapping("admBbsTipWriteSubmit.do")
-	public ModelAndView admBbsTipWriteSubmit(TipBbsDTO dto,
-			@RequestParam(value = "revImgs" ,required = false ) List<MultipartFile> file ,
-			   HttpServletRequest req) {
-		
-		ModelAndView mav=new ModelAndView();
-		
-		UploadFileUtils upLoad = new UploadFileUtils();
-	      String originName="";
-	      String dbName="";
-	      System.out.println(file.size());
-	      if(file.size()!=0) {
-	    	  for(int i=0;i< file.size();i++) {
-	   	       originName +=file.get(i).getOriginalFilename();
-	   	       dbName += upLoad.uploadFile(file.get(i), req);
-		   	       if(i != file.size()-1) {
-		   	          originName +=",";
-		   	          dbName+=",";
-		   	       }
-	    	  }
-	      }
-	      System.out.println(dbName);
-	      System.out.println(originName);
-	      int result=bbsTipDao.insertTip(dto);
-		String msg=result>0?"게시판을 등록하셨습니다":"게시판 등록 실패";
-		mav.addObject("msg", msg);
-		mav.setViewName("adm/admMsg");
-		return mav;
-	}
-	/**게시판 작성폼 관련 메서드*/
-	@RequestMapping("admBbsTipWrite.do")
-	public String admBbsTipWrite() {
-		return "adm/admBbsTipWrite";
-	}
-	
+	}	
 	/**로그인 관련 메서드*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.POST)
 	public ModelAndView admLogin(
@@ -202,7 +243,6 @@ public class AdmController {
 			@RequestParam("adPwd") String adPwd,
 			HttpSession session
 			) {
-		System.out.println("dfs");
 		ModelAndView mav=new ModelAndView();
 		String Pwd=admInfoDao.admLogin(adId);
 		String msg=null;
@@ -213,6 +253,7 @@ public class AdmController {
 		}else {
 			msg="관리자만 사용할 수 있습니다.";
 			mav.addObject("msg",msg);
+			mav.addObject("gopage","index.do");
 			mav.setViewName("adm/admMsg");
 			return mav;
 		}
@@ -226,12 +267,5 @@ public class AdmController {
     	session.invalidate();
     	return "index";
     } 
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

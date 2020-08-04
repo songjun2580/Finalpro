@@ -3,19 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="fp.info"> 
- <insert  id="TipInsert" parameterType="fp.bbs.model.TipBbsDTO" >
-    	insert into 
-    		tip_bbs 
-    	values (
-			tip_bbs_tidx.nextval,
-			#{t_subject},
-			#{t_contents},
-			#{t_img},
-			sysdate,
-			0 , 
-			#{t_type}
-			)
-    	</insert>
  	<select id="admIdSelect" parameterType="String" resultType="String">
 		select adPwd from adm_Info where adId=#{adId}
     </select>

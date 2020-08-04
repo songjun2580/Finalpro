@@ -90,7 +90,7 @@ h2{
 </div>
 <div class="rewrite">
    <button type="button" class="btn btn-primary">게시글삭제</button>
-   <button type="button" class="btn btn-primary">수정완료</button>
+   <button type="button" class="btn btn-primary">목록으로</button>
 </div><br>
 </div>
 </div>

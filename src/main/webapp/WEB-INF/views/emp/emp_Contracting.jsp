@@ -26,6 +26,12 @@ body{
 	font-family:sans-serif;
 }
 </style>
+<script>
+function openMoveEst(moIdx){	//이사견적서 보기
+	var url = 'admMoveEstimate.do?moIdx='+moIdx;
+	window.open(url,'moveEstimate','width=600,height=600,left=30');	
+}
+</script>
 </head>
 <body>
 <%@include file="emp_header.jsp" %>
@@ -46,9 +52,9 @@ body{
    <div class="row">
   <div class="col-2">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link active" id="v-pills-home-tab"  href="emp_Year.do" role="tab" aria-controls="v-pills-home" aria-selected="false">연간 실적</a>
+      <a class="nav-link" id="v-pills-home-tab"  href="emp_Year.do" role="tab" aria-controls="v-pills-home" aria-selected="false">연간 실적</a>
       <a class="nav-link" id="v-pills-profile-tab"  href="emp_Month.do" role="tab" aria-controls="v-pills-profile" aria-selected="false">월별 실적</a>
-      <a class="nav-link" id="v-pills-profile-tab"  href="emp_MoveCustomerList.do" role="tab" aria-controls="v-pills-profile" aria-selected="true">진행중인 계약</a>
+      <a class="nav-link active" id="v-pills-profile-tab"  href="emp_Contracting.do" role="tab" aria-controls="v-pills-profile" aria-selected="true">진행중인 계약</a>
     </div>
   </div>
 	
@@ -59,27 +65,24 @@ body{
                       <div class="text-white-50 small"></div>
                     </div>
                   </div>
-                  <div class="container">
-                  <br>                          
-
+ <c:forEach var="dto" items="${lists }">
+<div class="container">
+<br>                          
 <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">1</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">${dto.moIdx}번 견적서</h6>
                 </div>
                 <div class="card-body">
-                  고객명:홍길동
-                  <p>상세 주소:판교역로 245 1층 102호</p>
-                  <p>위치:서울 -> 판교</p>
-                  <p>가격:4,500,000</p>
-                  <p>담당 이사업체:24 express</p>
-                  <p>담당자:김무순</p>
-                  <p>담당자 연락처: 010-8372-2093</p>
-                  <button type="button" class="btn btn-outline-secondary">견적서 보기</button>
-                </div>
-              </div>
-              
-              
+                	<p>고객명: ${dto.moName }</p>
+                	<p>주소:${dto.moSaddr }</p>
+                    <p>예상가격:${dto.motempPrice }</p>
+                    <p>이사유형:${dto.moType}</p>
+                    <p>평수:${dto.moSize }</p>
+                    <input type="button" name="admMoveEstimate" value="견적서 보기" onClick="openMoveEst(${dto.moIdx})">                
+       </div>
+   </div>           
 </div>
+</c:forEach>
 </div>
 </div>
   <hr>

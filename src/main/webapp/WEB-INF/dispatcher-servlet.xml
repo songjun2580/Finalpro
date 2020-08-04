@@ -43,7 +43,7 @@
 	<bean id="compController" class="fp.controller.CompController"></bean>
 
 <!-- services -->
-	<bean id="userDao" class="fp.info.model.UserInfoDAOImple">
+		<bean id="userDao" class="fp.info.model.UserInfoDAOImple">
 	 <constructor-arg>
    		<ref bean="sqlSessionTemplate"></ref>
    	 </constructor-arg>
@@ -73,11 +73,17 @@
      		<ref bean="sqlSessionTemplate"/>
      	</constructor-arg>
      </bean>
-     <bean id="bbsTipDao" class="fp.bbs.model.TipBbsDAOImple">
+     <bean id="MoveBidDao" class="fp.company.model.MoveBidDAOImple">
      	<constructor-arg>
      		<ref bean="sqlSessionTemplate"/>
      	</constructor-arg>
      </bean>
+     <bean id="locationDao" class="fp.location.model.LocationDAOImple">
+       <constructor-arg>
+         <ref bean="sqlSessionTemplate"></ref>
+       </constructor-arg>   
+     </bean>
+
 <!-- view -->
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
    		<property name="prefix">

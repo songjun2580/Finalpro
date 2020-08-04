@@ -113,6 +113,9 @@ section {
       </div>
     </div>
   </header>
+  
+
+
   <div class="row">
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style="width:300px;">
@@ -121,12 +124,16 @@ section {
     </div>
   </div>
 <!-- end of top nav  -->
+
 <div class="tab-content" id="pills-tabContent">
 <!-- -직원정보수정 시작 -->
   <div class="tab-pane fade show active" id="pills-mypage" role="tabpanel" aria-labelledby="pills-mypage-tab"><!-- Main Content -->
   <div class="container">
     <div class="row">
       <div class=" mx-auto" style="margin-right: 200px;">
+
+      
+  
   <!-- 2top nav -->
  <ul class="nav nav-tabs">
   <li class="nav-item">
@@ -161,8 +168,43 @@ section {
   </div>
 </div>
 
+<div class="card" style="width: 18rem; margin-right: 25px; margin-bottom: 10px;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">수정하기</a>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem; margin-right: 25px; margin-bottom: 10px;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">수정하기</a>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem; margin-right: 25px; margin-bottom: 10px;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">수정하기</a>
+  </div>
+</div>
+
+<div class="card" style="width: 18rem; margin-right: 25px; margin-bottom: 10px;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">수정하기</a>
+  </div>
+</div>
 </form>
-			 <button  style="margin-left: 65%" class="btn btn-primary" onclick="javascript:location.href='admBbsTipWrite.do'" >게시글 작성</button>
+
 <!-- end of article manage -->
       </div>
     </div>

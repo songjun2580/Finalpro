@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import fp.info.model.*;
+import fp.location.model.LocationDAO;
 import fp.util.UploadFileUtils;
 import fp.bbs.model.*;
 import fp.estimate.model.*;
@@ -31,6 +32,13 @@ public class UserController {
 	@Autowired
 	private MoveEstimateDAO moveEstimateDao;
 	
+	@Autowired
+    private LocationDAO locationDao;
+	
+    @Autowired
+	private ComInfoDAO comInfoDao;
+	
+	
 	private String key;
 
 	
@@ -39,16 +47,6 @@ public class UserController {
 		
 		return "user/userJoin";
 	}
-	
-    /**업체블로그 이동 메서드(for 사용자)*/
-    @RequestMapping("userBlogView.do")
-    public ModelAndView userBlogView(@RequestParam(value="coIdx",defaultValue = "2")int coIdx) {
-       ModelAndView mav=new ModelAndView();
-       //sst.로 업체정보 select 해오기
-       //mav.addObject("", attributeValue);
-       mav.setViewName("user/userBlogView");
-       return mav;
-    }
 	
 	@RequestMapping("/userCleanChoice.do")//청소업체선택 페이지 이동 관련 메서드
 	public String userCleanChoice() {
@@ -142,7 +140,9 @@ public class UserController {
 			   @RequestParam(value = "revImgs" ,required = false ) List<MultipartFile> file , 
 			   ReviewBbsDTO dto,
 			   HttpServletRequest req) {
-	 
+		System.out.println("리뷰작성 메서드 들어옴!");
+		
+		 
 	      UploadFileUtils upLoad = new UploadFileUtils();
 	      String originName="";
 	      String dbName="";
@@ -195,6 +195,7 @@ public class UserController {
 	   public ModelAndView emailAuth(
 		@RequestParam("uEmail1") String uEmail1,
 		@RequestParam("uEmail2") String uEmail2,
+		UserInfoDTO dto,
 		HttpServletRequest request,
 		HttpSession session
 		 ) throws Exception {
@@ -273,6 +274,68 @@ public class UserController {
     	return "index";
     } 
     
+    /**이사업체검색 페이지 이동*/
+    @RequestMapping("userMoveCoSearch.do")
+    public String moveCoSearchView() {
+       return "user/userMoveCoSearchMain";
+    }
+    
+    /**이사업체 검색 메서드*/
+    @RequestMapping("moSearchEngine.do")
+    public ModelAndView moveCoSearchAction(
+          @RequestParam(value="mo_search",defaultValue="")String mo_search) {
+       List lists=comInfoDao.searchMoveCom(mo_search);
+       ModelAndView mav=new ModelAndView();
+       mav.addObject("lists", lists);
+       mav.setViewName("user/userMoveCoSearch");
+       return mav;
+    }
+    /**json메뉴바 출력 메서드*/
+    @RequestMapping("getAddr.do")
+   public ModelAndView studentSubmit() {
+       
+       List seoulList=locationDao.addrList("서울");
+       List kyeongkiList=locationDao.addrList("경기");
+       List IncheonList=locationDao.addrList("인천"); 
+       List BusanList=locationDao.addrList("부산");
+       List DaeguList=locationDao.addrList("대구");
+       List GwangjuList=locationDao.addrList("광주");
+       List DaejeonList=locationDao.addrList("대전");
+       List UlsanList=locationDao.addrList("울산");
+       List KangwonList=locationDao.addrList("강원");
+       List KyeongnamList=locationDao.addrList("경남");
+       List KyeongbookList=locationDao.addrList("경북");
+       List JeonnamList=locationDao.addrList("전남");
+       List JeonbookList=locationDao.addrList("전북");
+       List ChungnamList=locationDao.addrList("충남");
+       List ChungBookList=locationDao.addrList("충북");
+       List JejuList=locationDao.addrList("제주");
+       List SejongList=locationDao.addrList("세종");
+       //System.out.println(seoulList);
+       
+      ModelAndView mav=new ModelAndView();
+      mav.addObject("seoul", seoulList);
+      mav.addObject("kyeongki", kyeongkiList);
+      mav.addObject("Incheon", IncheonList);
+      mav.addObject("Busan", BusanList);
+      mav.addObject("Daegu", DaeguList);
+      mav.addObject("Gwangju", GwangjuList);
+      mav.addObject("Daejeon", DaejeonList);
+      mav.addObject("Ulsan", UlsanList);
+      mav.addObject("Kangwon", KangwonList);
+      mav.addObject("Kyeongnam", KyeongnamList);
+      mav.addObject("Kyeongbook", KyeongbookList);
+      mav.addObject("Jeonnam", JeonnamList);
+      mav.addObject("Jeonbook", JeonbookList);
+      mav.addObject("Chungnam", ChungnamList);
+      mav.addObject("ChungBook", ChungBookList);
+      mav.addObject("Jeju", JejuList);
+      mav.addObject("Sejong", SejongList);
+      mav.setViewName("fpJson");
+      return mav;
+   }
+    
+    
     /**이사견적서 신청 주소 팝업 이동 관련 메서드*/
     @RequestMapping("/jusoPopup.do")
 	public String jusoPopup() {
@@ -281,8 +344,95 @@ public class UserController {
 	
     /**견적서 제출 관련 메서드*/
 	@RequestMapping("/movingEstimateWrite.do")	
-	public ModelAndView moveestAdd(MoveEstimateDTO dto){
-		int result=moveEstimateDao.moveestAdd(dto);
+	public ModelAndView moveestAdd(
+			MoveEstimateDTO dto,
+			HttpSession session){
+		
+		String uIdx_s=session.getAttribute("uIdx").toString();
+		if(uIdx_s==null||uIdx_s.equals("")) {
+			uIdx_s="0";
+		}
+		int uIdx=Integer.parseInt(uIdx_s);
+		moveEstimateDao.moveestAdd(dto); 
+		
+		MoveEstimateDTO dto2=moveEstimateDao.moIdxMax(uIdx);
+		int motempPrice=0;
+		
+		//가족 수 비용 계산
+		int fmp=0;
+		String moFamily=dto2.getMoFamily();
+		if(moFamily.equals("1")) {
+			fmp=100000;
+		}else if(moFamily.equals("2")) {
+			fmp=200000;
+		}else if(moFamily.equals("3")) {
+			fmp=300000;
+		}else {
+			fmp=400000;
+		}
+		//층수 비용 계산
+		int flp=0;
+		int moFloor=dto2.getMoSfloor();
+		if(moFloor<=5) {
+			flp=30000;
+		}else if(moFloor<=10) {
+			flp=50000;
+		}else if(moFloor<=15) {
+			flp=70000;
+		}else if(moFloor<=20) {
+			flp=90000;
+		}
+		//이사유형 비용 계산
+		int mt=0;
+		String moType=dto2.getMoType();
+		if(moType.equals("가정이사")) {
+			mt=200000;
+		}else if(moType.equals("사무실이사")) {
+			mt=150000;
+		}else if(moType.equals("소형이사")) {
+			mt=100000;
+		}
+		//평수 비용 계산
+		int ms=0;
+		int moSize=dto2.getMoSize();
+		if(moSize==10) {
+			ms=200000;
+		}else if(moSize==17) {
+			ms=220000;
+		}else if(moSize==25) {
+			ms=240000;
+		}else if(moSize==35) {
+			ms=260000;
+		}else if(moSize==45) {
+			ms=280000;
+		}else if(moSize==55) {
+			ms=300000;
+		}else if(moSize==60) {
+			ms=350000;
+		}
+		
+		//특수 이삿짐 비용 계산
+		int mz=0;
+		String str=dto2.getMoZim();
+		String moZim[]=str.split(",");
+		for(int i=0; i<moZim.length; i++) {
+			if(moZim[i].equals("피아노")) {
+				mz+=50000;
+			}else if(moZim[i].equals("붙박이장")) {
+				mz+=70000;
+			}else if(moZim[i].equals("돌침대")) {
+				mz+=90000;
+			}else if(moZim[i].equals("에어컨")) {
+				mz+=110000;
+			}else if(moZim[i].equals("벽걸이TV")) {
+				mz+=130000;
+			}
+		}
+		System.out.println(mz);
+		motempPrice=fmp+flp+mt+ms+mz;
+		
+		int result=moveEstimateDao.updateTempPrice(motempPrice);
+		
 		String msg=result>0?"견적서 제출이 완료되었습니다":"견적서 제출에 실패하였습니다";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg",msg);
@@ -306,9 +456,12 @@ public class UserController {
 			uIdx_s="0";
 		}
 		int uIdx=Integer.parseInt(uIdx_s);
-		
+		System.out.println(usId);
+		System.out.println(uPwd);
+		System.out.println(idx);
+		System.out.println(uIdx);
 		String msg="";
-		if(idx==uIdx) {
+		if(uIdx==idx) {
 			msg="회원정보 인증성공!";
 			mav.addObject("msg",msg);
 			mav.addObject("gopage","userInfoModi.do");
@@ -367,6 +520,18 @@ public class UserController {
 			mav.addObject("gopage","userInfoModi.do");
 			mav.setViewName("user/userMsg");
 		}
+		return mav;
+	}
+	/**이사 견적서 조회 관련 메서드*/
+	@RequestMapping(value="estimatePopup.do", method = RequestMethod.GET)
+	public ModelAndView estimatePopup(
+			@RequestParam("moIdx") int moIdx
+			) {
+		
+		MoveEstimateDTO dto=userInfoDao.moveEstView(moIdx);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto",dto);
+		mav.setViewName("user/estimatePopup");
 		return mav;
 	}
  

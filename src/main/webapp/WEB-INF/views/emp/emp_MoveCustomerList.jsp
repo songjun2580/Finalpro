@@ -28,9 +28,11 @@ body{
 .col-6{
 	 margin:0px auto;
 }
+th,td{
+	text-align:center;
+}
 </style>
 </head>
-
 <body>
 <%@include file="emp_header.jsp" %>
    <header class="masthead"  style="background-image: url('resources/img/emp_main.png');">
@@ -39,7 +41,7 @@ body{
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>업체 조회</h1>
+            <h1>고객 조회</h1>
             <span class="subheading"></span>
           </div>
         </div>
@@ -62,35 +64,33 @@ body{
                   </div>
     
      <div class="card-body">
+		     <div style="padding-bottom: 15px;">
+		     	<button type="button" class="btn btn-warning" style="font-weight:bolder;">고객 조회</button>
+		     </div>
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>NO.</th>
                       <th>고객명</th>
-                      <th>연락처</th>
-                      <th>지역</th>
                       <th>날짜</th>
+                      <th>지역</th>
+                      <th>연락처</th>
                       <th>이사업체 리스트</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <c:set var="list" value="${lists}"></c:set>
+                  <c:forEach var="dto" items="${list }">
                     <tr>
-                      <td>1</td>
-                      <td>김숙주</td>
-                      <td>010-7892-4524</td>
-                      <td>서울 강북구 -> 부산 해운대구</td>
-                      <td>2020-08-23</td>
-                      <td><a href="emp_MoveCompanyList.do"><button type="button" class="btn btn-primary btn-block">보기</button></a></td>
+                      <td>${dto.moIdx }</td>
+                      <td>${dto.moName }</td>
+                      <td>${dto.moDate }</td>
+                      <td>${dto.moSaddr }</td>
+                      <td>${dto.moTel }</td>
+                      <td><a href="emp_MoveCompanyList.do?moIdx=${dto.moIdx }"><button type="button" class="btn btn-primary btn-block">보기</button></a></td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>이무진</td>
-                      <td>010-3512-4568</td>
-                      <td>충북 충주시 -> 울산 마리구</td>
-                      <td>2020-09-12</td>
-                      <td><button type="button" class="btn btn-primary btn-block ">보기</button></td>
-                    </tr>
+                  </c:forEach>
                   </tbody>
                 </table>
               </div>

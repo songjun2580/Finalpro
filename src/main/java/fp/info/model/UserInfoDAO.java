@@ -12,6 +12,7 @@ public interface UserInfoDAO {
 	public UserInfoDTO userInfoForSession(String usId);
 	public int infoCheck(String usId, String uPwd);
 	public List moveEst(int uIdx);
+	public MoveEstimateDTO moveEstView(int moIdx);
 	public List userInfo(int uIdx);
 	public String pwdCheck(int uIdx);
 	public int userInfoSave(UserInfoDTO dto, int uIdx);

@@ -2,23 +2,28 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="fp.info"> 
-  	<insert id="coInsert" parameterType="fp.info.model.ComInfoDTO">
-  			insert into 
-  				com_Info 
-  			values (
-			com_info_coIdx.nextval,
-			#{coType},
-			#{coName},#{coEmail},
-			#{coPwd},#{coTel},
-			#{coRep},#{coBsNum},
-			#{coCorNum},#{coAddr},0,0,#{coAddrDetail1},#{coAddrDetail2} ,0
-			)
-  	</insert>
- 	<select id="comEmailSelect" parameterType="String" resultType="String">
-		select coPwd from com_Info where coEmail=#{coEmail}
+  <mapper namespace="fp.info">
+  <insert id="coInsert" parameterType="fp.info.model.ComInfoDTO">
+           insert into 
+              com_Info 
+           values (
+         com_info_coIdx.nextval,
+         #{coType},
+         #{coName},#{coEmail},
+         #{coPwd},#{coTel},
+         #{coRep},#{coBsNum},
+         #{coCorNum},#{coAddr},0,0,#{coAddrDetail1},#{coAddrDetail2} ,0
+         )
+     </insert>
+   
+    <select id="comEmailSelect" parameterType="String" resultType="String">
+      select coPwd from com_Info where coEmail=#{coEmail}
     </select>
     <select id="comInfoForSession" parameterType="String" resultType="fp.info.model.ComInfoDTO">
        select * from com_Info where coEmail=#{coEmail}
     </select>
+    <select id="comLIstSelect" parameterType="int" resultType="fp.info.model.ComListDTO">
+    select x.*, y.mbMoney from com_Info x, move_bid y where x.coIdx=y.coIdx and moIdx=#{moIdx}
+    </select>
+    
   </mapper>

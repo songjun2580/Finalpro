@@ -22,11 +22,33 @@
   <link href="css/clean-blog.min.css" rel="stylesheet">
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
 <style>
+.preview_cl{
+width:200px;
+height:200px;
+display:block;
+}
+.imagePreview{
+width:200px;
+height:200px;
+}
 </style>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-
-function checkFile(Inputobj){
+$(document).ready(function() {
+		$("#tip_bbs").submit(function(){
+			alert('abc2');
+	        var Text123 = $("#preview_con").html();
+	        alert(Text123);
+	        document.BbsTip.t_contents.value=Text123;
+	       alert('a');
+	       alert( document.BbsTip.t_contents.value);
+	        alert('jquery submit');
+	    });
+	}
+);
+</script>
+<script>
+var checkFile= function(Inputobj){
 	var imageType = /image.*/;
 	if(File&&FileReader){
 		if (Inputobj.files && Inputobj.files[0]) {
@@ -34,10 +56,8 @@ function checkFile(Inputobj){
 			
 	        var preview = document.getElementById("preview_con"); 
             var newDivNode = document.createElement('div');
-            newDivNode.name='preview';
-            newDivNode.style.width= 200+'px';
-			newDivNode.style.height=200+'px';
-			newDivNode.style.display='block';
+            newDivNode.class='preview_cl';
+            newDivNode.id='preview';
             preview.appendChild(newDivNode);
             
 			for( var i=0; i<files.length;i++){
@@ -46,14 +66,13 @@ function checkFile(Inputobj){
 		                continue				
 		            var img=document.createElement("img");
 					img.id="imagePreview"+i;
-					img.name="imagePreview";
+					img.class="imagePreview";
 					img.alt="image files";
-					img.classList.add("obj")
 					img.file=file;
-					img.style.width= 600+'px';
-					img.style.height=350+'px';
 					document.getElementById('preview').appendChild(img);
 					
+					/*var output=document.getElementById('imagePreview'+i);
+					output.src=URL.createObjectURL(file);*/
 					var reader = new FileReader();
 					reader.onloadend = (function(aImg){
 						return function(e){
@@ -61,21 +80,13 @@ function checkFile(Inputobj){
 						};
 					})(img);
 					reader.readAsDataURL(file);
+					
 			}
 		}
 	}
 }
 
-$( document ).ready( function() {
-	
-	
-	$("#btn").on("click",function(){
-        var Text = $("#preview_con").html();
-        $("#tcontents").val(Text);
-        console.log($("#tcontents").val());
-        alert('a');
-    });
-	
+	/**
 	$(document).on("change","#revImg1",function () {
 		alert('a');
 	    var formData = new FormData();      
@@ -97,15 +108,13 @@ $( document ).ready( function() {
 	        }
 	    });
 	});
-  
-	
-  } 	
-);
+	*/
 
 onsubmit= function submitCheck(){
 		document.BbsTip.t_type.value=document.getElementById('seltype').value;
 		document.BbsTip.t_contents.value=document.getElementById('preview_con').value;
-		alert(document.getElementById('preview_con').value);
+		alert('abs3');
+		alert(document.getElementById('t_contents').value);
 }
 </script>
 </head>
@@ -148,13 +157,12 @@ onsubmit= function submitCheck(){
 				<tr>
 				
 					<td>
-					
 						<div>
 							<label>이미지 올리기</label>
 							
 								<div style="float: right;">
 								사진 첨부하기 &nbsp;&nbsp;&nbsp;
-								<input type="file" id="revImg1" name="revImgs"  style="float: right;" accept="image/*"> 
+								<input type="file" id="revImg1" name="revImgs"  style="float: right;" accept="image/*" onchange="checkFile(this)"> 
 								</div>
 							
 						</div>
@@ -164,8 +172,7 @@ onsubmit= function submitCheck(){
 				</tr>
 				<tr>
 					<td height="600px;">
-						<div contenteditable="true" style="border: 1px solid gold; padding: 10px; height: 500px; min-height: 100px; overflow: auto;" id="preview_con">
-							<p id="preview" style="width: 600px; height: 350px; display: inline;"></p>	
+						<div contenteditable="true" id="preview_con" style="border: 1px solid gold; padding: 10px; height: 500px; min-height: 100px; overflow: auto;" >
 						</div>
 						<input type="hidden" name="t_contents" id="tcontents">
 					</td>

@@ -6,19 +6,21 @@
 <meta charset="UTF-8">
 <title>청소 견적서 작성</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+<link rel="stylesheet" href="css/selectbox.css">
 <style>
 header {
    position: fixed;
-   width: 1155px;
+   width: 100%;
    z-index: 9999;
    top: 0;
    background-color: white;
    margin: 0px auto;
+   align: right;
 }
 body{
-	padding-top:85px;
-	width:1155px;
-	margin:0px auto;
+   padding-top:85px;
+   width:100%;
+   margin:0px auto;
 }
 .question{
 	font-weight: bold;

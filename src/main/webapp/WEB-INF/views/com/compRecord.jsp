@@ -6,15 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+<link rel="stylesheet" href="css/selectbox.css">
 <style>
 .nav nav-pills mb-3{
   -ms-flex-pack: center !important;
   justify-content: center !important;
 	}
-body {
-	width: 80%;
-	margin: 0px auto;
-}	
+
 h4{
 	font-size: 11px;
 	font-family: Georgia, "Malgun Gothic", serif;
@@ -59,7 +57,7 @@ h4{
 	height:200px;
 }
 </style>
-<%@include file="comp_Header.jsp" %>
+<%@include file="../header.jsp" %>
 </head>
 <body>
 	<div class="row">
@@ -80,7 +78,7 @@ h4{
 		</ul>
 	</div>
 	<!-- 실적조회 -->
-		<div>
+		<div  class="col-9">
 		 <div class="alert alert-secondary" role="alert">
 			실 적 관 리 
 		</div>
@@ -89,13 +87,13 @@ h4{
 		<table border="0" cellspacing="0" cellpadding="0" class="__se_tbl_review" style="text-align: center;">
 		<tbody>
 		<tr>
-		<td style="top; width: 183px; height: 51px;" class="se2_editarea pcol2 m-tcol-c" rowspan="1" colspan="2">
+		<td style="top; width: 183px; height: 51px; text-align:center" class="se2_editarea pcol2 m-tcol-c" rowspan="1" colspan="2">
 			<button type="button" class="btn btn-secondary btn-lg" onclick="compRecord.do">&nbsp;실적 현황 내용 보기&nbsp;</button>
-			</td>
+		</td>
 			
-				<td style=width: 184px; height: 51px;" class="se2_editarea pcol2 m-tcol-c" rowspan="1" colspan="2">
-				<button type="button" class="btn btn-secondary btn-lg" onclick="javascript:location.href='compTotalPrice.do'">&nbsp;총 실적 금액 확인하기&nbsp;</button>
-			</td>
+		<td style="width:184px; height:51px; text-align:center" class="se2_editarea pcol2 m-tcol-c" rowspan="1" colspan="2">
+			<button type="button" class="btn btn-secondary btn-lg" onclick="javascript:location.href='compTotalPrice.do'">&nbsp;총 실적 금액 확인하기&nbsp;</button>
+		</td>
 				
 			</tr>
 		<tr>
@@ -127,9 +125,9 @@ h4{
 					  <thead class="thead-light">
 					    <tr>
 					      <th scope="col">번호</th>
-					      <th scope="col">분류</th>
-					      <th scope="col">업체명</th>
-					      <th scope="col">견적 가격</th>
+					      <th scope="col">고객명</th>
+					      <th scope="col">파견직원</th>
+					      <th scope="col">견적 예상 가격</th>
 					      <th scope="col">계약 가격</th>
 					      <th scope="col">날짜</th>
 					    </tr>

@@ -35,7 +35,7 @@ body{
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>실적 관리</h1>
+            <h1>연간실적</h1>
             <span class="subheading"></span>
           </div>
         </div>
@@ -48,6 +48,7 @@ body{
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <a class="nav-link active" id="v-pills-home-tab"  href="emp_Year.do" role="tab" aria-controls="v-pills-home" aria-selected="false">연간 실적</a>
       <a class="nav-link" id="v-pills-profile-tab"  href="emp_Month.do" role="tab" aria-controls="v-pills-profile" aria-selected="true">월별 실적</a>
+  	  <a class="nav-link" id="v-pills-profile-tab"  href="emp_Contracting.do" role="tab" aria-controls="v-pills-profile" aria-selected="true">진행중인 계약</a>  
     </div>
   </div>
 	

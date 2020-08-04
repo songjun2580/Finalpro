@@ -7,22 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="/finalproject/css/header.css"> 
+<link rel="stylesheet" href="css/selectbox.css">
 </head>
 <style>
-header {
-   position: fixed;
-   width: 1500px;
-   z-index: 9999;
-   top: 0;
-   background-color: white;
-   margin: 0px auto;
-}
-body{
-	padding-top:85px;
-	width:1500px;
-	margin:0px auto;
-}
 h3{
 	width:650px;
  	text-align:center;

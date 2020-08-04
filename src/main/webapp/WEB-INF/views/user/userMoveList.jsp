@@ -7,22 +7,10 @@
 <meta charset="UTF-8">
 <title>이사내역 조회</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+<link rel="stylesheet" href="css/selectbox.css">
 <style>
-header {
-   position: fixed;
-   width: 1500px;
-   z-index: 9999;
-   top: 0;
-   background-color: white;
-   margin: 0px auto;
-}
-body{
-	padding-top:85px;
-	width:1500px;
-	margin:0px auto;
-}
 .left-nav{
-	width:150px;
+	width:300px;
 	margin-right:5px;
 }
 #v-pills-home{
@@ -47,8 +35,10 @@ th, td{
 }
 </style>
 <script>
-function estimatePopup(){
-	window.open('estimatePopup.jsp','estimatePopup','width=400,height=500')
+function estimatePopup(moIdx){
+	var url='estimatePopup.do?moIdx='+moIdx;
+	window.open(url,'estimatePopup','width=600,height=600,left="30"')
+	
 }
 </script>
 </head>
@@ -73,11 +63,12 @@ function estimatePopup(){
 							<th>이사날짜</th>
 							<th>업체명</th>
 							<th>출발지</th>
-							<th>확정가격</th>
+							<th>예상가격</th>
 							<th>상담유형</th>
 							<th>진행상태</th>	
 							<th>견적서 조희</th>
-							<th>리뷰작성</th>												
+							<th>리뷰작성</th>	
+							<th>불만신고</th>											
 						</tr>
 					</thead>
 					<tfoot>
@@ -104,22 +95,29 @@ function estimatePopup(){
 						</tr>
 					</tfoot>	
 					<tbody>
-					<c:forEach var="list" items="${list}">
+					<c:if test="${!empty list }">
+						<c:forEach var="dto" items="${list}">
+					
 						<tr>
-							<td>${list.moDate }</td>
-							<td>업체명</td>
-							<td>${list.moSaddr }</td>
-							<td>확정가격</td>
-							<td>${list.moConsult }</td>
+							<td>${dto.moDate }</td>
+							<td>미정</td>
+							<td>${dto.moSaddr }</td>
+							<td>${dto.motempPrice }원</td>
+							<td>${dto.moConsult }</td>
 							<td>진행상태</td>
-							<td><button type="button" class="btn btn-warning" onclick="javascript:estimatePopup();">조회</button></td>
+							<td><button type="button" class="btn btn-warning" onclick="javascript:estimatePopup(${dto.moIdx });">조회</button></td>
 							<td>
 								<button type="button" class="btn btn-primary" onclick="location.href='userReviewWrite.do'">리뷰</button>
-								<br>
+						    </td>
+						    <td>
 								<button type="button" class="btn btn-danger" style="margin-top: 2px;">신고</button>
 							</td>						
 						</tr>
 						</c:forEach>
+					</c:if>
+					<c:if test="${empty list }">
+					<tr><td>견적서가 없습니다.</td></tr>
+					</c:if>
 					</tbody>
 				</table>
 			</div>

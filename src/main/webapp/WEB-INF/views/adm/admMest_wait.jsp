@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>adm_header</title>
+  <title>이사견적서 승인대기</title>
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -36,6 +37,12 @@ table{
 	
 }
 </style>
+<script>
+function openMoveEst(moIdx){	//이사견적서 보기
+	var url = 'admMoveEstimate.do?moIdx='+moIdx;
+	window.open(url,'moveEstimate','width=600,height=600,left=30');	
+}
+</script>
 </head>
 <body>
 <%@include file="adm_header.jsp" %>
@@ -80,18 +87,31 @@ table{
 				          <th>휴대폰번호</th>
 				          <th>이사날짜</th>
 				          <th>견적서 상세 보기</th>
+				          <th>상담 방법</th>
+				          <th>진행 상태</th>
 		                  </tr>
 		             </thead>
 					 <tfoot>
 		             </tfoot>
 		             <tbody>
+		             <c:if test="${empty moveEstWait }">
+		             <tr>
+						<td colspan="7" align="center">
+							승인대기중인 견적서가 없습니다.
+						</td>
+					</tr>
+					</c:if>					
+					<c:forEach var="dto" items="${moveEstWait}">
 			               <tr>
-			               <td>Name</td>
-			               <td>Position</td>
-		                   <td>Office</td>
-			               <td>Age</td>
-			               <td>Start date</td>
+			               <td>${dto.moIdx }</td>
+			               <td>${dto.moName }</td>
+		                   <td>${dto.moTel }</td>
+		                   <td>${dto.moDate }</td>
+			               <td><input type="button" name="admMoveEstimate" value="견적서 보기" onClick="openMoveEst(${dto.moIdx})"></td>
+			               <td>${dto.moConsult }</td> 
+			               <td>${dto.moStatus}</td>
 			             </tr>
+			        </c:forEach>
 		           </tbody>
 		         </table>
 		       </div>
@@ -100,7 +120,7 @@ table{
 	</div>
 </div>
 <div class="page">
-	 페이징하는 자리 
+	 ${pageStr } 
 </div>
   <%@include file="../footer.jsp" %>
 </body>

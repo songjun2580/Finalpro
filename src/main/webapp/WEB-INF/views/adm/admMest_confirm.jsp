@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,16 @@ table{
 	padding:20px;
 }
 </style>
+<script>
+function openEmpList(moIdx){	//사원 매칭 리스트
+	var url='admEmpList.do?moIdx='+moIdx;
+	window.open(url,'admEmpList','width=600,height=300,left=30');	
+}
+function openMoveEst(moIdx){	//이사견적서 보기
+	var url = 'admMoveEstimate.do?moIdx='+moIdx;
+	window.open(url,'moveEstimate','width=600,height=700,left=30');	
+}
+</script>
 </head>
 <body>
 <%@include file="adm_header.jsp" %>
@@ -79,20 +90,36 @@ table{
 				          <th>휴대폰번호</th>
 				          <th>이사날짜</th>
 				          <th>견적서 상세 보기</th>
-				          <th>사원매칭</th>
+				          <th>담당 사원</th>
 		                  </tr>
 		             </thead>
 					 <tfoot>
 		             </tfoot>
 		             <tbody>
+		             <c:if test="${empty moveEstConfirm }">
+		             <tr>
+						<td colspan="6" align="center">
+							완료된 견적서가 없습니다.
+						</td>
+					</tr>
+					</c:if>
+					<c:forEach var="dto" items="${moveEstConfirm}">
 			               <tr>
-			               <td>Name</td>
-			               <td>Position</td>
-		                   <td>Office</td>
-			               <td>Age</td>
-			               <td>Start date</td>
-			               <td><a class="btn btn-primary" href="#" role="button">사원매칭</a></td>
+			               <td>${dto.moIdx }</td>
+			               <td>${dto.moName }</td>
+			               <td>${dto.moTel }</td>
+		                   <td>${dto.moDate }</td>
+			              <td><input type="button" name="admMoveEstimate" value="견적서 보기" onClick="openMoveEst(${dto.moIdx})"></td>
+			              <c:choose>
+			               	<c:when test="${0 ne dto.empIdx}">
+			               		<td>${dto.empName}</td>
+			               	</c:when>
+			               	<c:otherwise>
+			              		 <td><input type="button" name="admEmpList" value="사원 매칭" onClick="openEmpList(${dto.moIdx})"></td>
+			             	</c:otherwise>
+			              </c:choose>
 			             </tr>
+			        </c:forEach>
 		           </tbody>
 		         </table>
 		       </div>
@@ -101,7 +128,7 @@ table{
 	</div>
 </div>
 <div class="page">
-	 페이징하는 자리 
+	 ${pageStr } 
 </div>
   <%@include file="../footer.jsp" %>
 </body>

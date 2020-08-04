@@ -3,45 +3,51 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fp.info">
-	<insert id="userInsert" parameterType="fp.info.model.UserInfoDTO">
-		insert into 
-			user_Info
-		values(
-			user_Info_uIdx.nextval,
-			#{usId},
-			#{uPwd},
-			#{uName},
-			#{uTel},
-			#{uBirth},
-			#{uEmail},
-			#{uAddr}
-		)
-	</insert>
-	<select id="idCheck" resultType="int">
-		select count(*) from user_Info where usId=#{usId}
-	</select>
-	<select id="userIdSelect" parameterType="String" resultType="String">
+   <insert id="userInsert" parameterType="fp.info.model.UserInfoDTO">
+      insert into 
+         user_Info
+      values(
+         user_Info_uIdx.nextval,
+         #{usId},
+         #{uPwd},
+         #{uName},
+         #{uTel},
+         #{uBirth},
+         #{uEmail},
+         #{uAddr}
+      )
+   </insert>
+   <select id="idCheck" resultType="int">
+      select count(*) from user_Info where usId=#{usId}
+   </select>
+   <select id="userIdSelect" parameterType="String" resultType="String">
        select uPwd from user_Info where usId=#{usId}
     </select>
     <select id="userInfoForSession" parameterType="String" resultType="fp.info.model.UserInfoDTO">
        select * from user_Info where usId=#{usId}
     </select>
+    <select id="moveCoSearch" parameterType="String" resultType="fp.info.model.ComInfoDTO">
+      select * from com_Info where coName like '%' || #{mo_search} || '%' or coAddrDetail1 like '%' || #{mo_search} || '%' or coAddrDetail2 like '%' || #{mo_search} || '%' or coAddr like '%' || #{mo_search} || '%' and coType=1
+   </select>
     <select id="infoCheck" parameterType="map" resultType="int">
-    	select uIdx from user_Info where (select uPwd from user_Info where usId=#{usId})=#{uPwd}
+       select uIdx from user_Info where (select uPwd from user_Info where usId=#{usId})=#{uPwd} and usId=#{usId}
     </select>
     <select id="userEst" parameterType="int" resultType="fp.estimate.model.MoveEstimateDTO" >
-    	select * from move_est where uIdx=#{uIdx} order by moDate desc
+       select * from move_est where uIdx=#{uIdx} order by moDate desc
+    </select>
+     <select id="userEstView" parameterType="int" resultType="fp.estimate.model.MoveEstimateDTO" >
+       select * from move_est where moIdx=#{moIdx}
     </select>
     <select id="userInfo" parameterType="int" resultType="fp.info.model.UserInfoDTO">
        select * from user_Info where uIdx=#{uIdx}
     </select>
     <select id="pwdCheck" parameterType="int" resultType="String">
-    	select uPwd from user_Info where uIdx=#{uIdx}
+       select uPwd from user_Info where uIdx=#{uIdx}
     </select>
     <update id="userUpdate" parameterType="fp.info.model.UserInfoDTO">
-    	update user_Info set uName=#{uName}, uPwd=#{uPwd}, uTel=#{uTel},uBirth=#{uBirth},uAddr=#{uAddr},uEmail=#{uEmail} where uIdx=#{uIdx}
+       update user_Info set uName=#{uName}, uPwd=#{uPwd}, uTel=#{uTel},uBirth=#{uBirth},uAddr=#{uAddr},uEmail=#{uEmail} where uIdx=#{uIdx}
     </update>
     <insert  id="reviewInsert" parameterType="fp.bbs.model.ReviewBbsDTO" >
-    	insert into review_bbs values(review_bbs_revIdx.nextval,#{revType},#{coIdx},sysdate,'이사type','청소service',#{revWriter},#{revSubject},#{revContent},#{revImg},#{revRate}) 
-    	</insert>
+       insert into review_bbs values(review_bbs_revIdx.nextval,#{revType},#{coIdx},sysdate,'이사type','청소service',#{revWriter},#{revSubject},#{revContent},#{revImg},#{revRate}) 
+    </insert>
 </mapper>

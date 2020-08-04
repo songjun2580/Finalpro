@@ -21,21 +21,9 @@
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+<link rel="stylesheet" href="css/selectbox.css">
 <style>
-header {
-   position: fixed;
-   width: 1155px;
-   z-index: 9999;
-   top: 0;
-   background-color: white;
-   margin: 0px auto;
-}
-body{
-	padding-top:85px;
-	width:1155px;
-	margin:0px auto;
-	font-family:sans-serif;
-}
+
 table{
    height:200px;
    margin: 0px auto;
@@ -44,21 +32,13 @@ td{
     height:100px;
 }
 </style>
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-  $( document ).ready( function() {
-    var jbText = $( 'div' ).text();
-    alert( jbText );
-  } );
-</script>
 <script>
 function checkFile(Inputobj){
 	var imageType = /image.*/;
 	if(File&&FileReader){
 		if (Inputobj.files && Inputobj.files[0]) {
 			var files=Inputobj.files
-			alert(Inputobj);
-			alert(Inputobj.value);
+			
 			var preview_con= document.getElementById("preview_con"); 
 	        var preview = document.getElementById("preview"); 
             var newDivNode = document.createElement('div');
@@ -113,7 +93,7 @@ function checkFile(Inputobj){
 <br><br>
    <section>
       <article>
-	      <form name="bbsTipWrite" id="reviewForm" action="userReviewWriteSubmit.do" method="post" enctype="multipart/form-data">
+	      <form name="review" id="reviewForm" action="userReviewWriteSubmit.do" method="post" enctype="multipart/form-data">
 		      <h2 style="text-align: left;">리뷰 작성</h2>
 	            <table border="1">
 	               <tr>

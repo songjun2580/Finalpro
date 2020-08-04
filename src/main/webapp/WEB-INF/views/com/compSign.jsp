@@ -122,7 +122,7 @@
 	
   </script>
  </head>
- <%@include file="comp_Header.jsp" %>
+ <%@include file="../header.jsp" %>
  <body>
  <article>
 	<section>

@@ -18,7 +18,7 @@
             <a class="nav-link" href="emp_Year.do" style="font-size: 22px;">실적 관리</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="emp_MoveCustomerList.do" style="font-size: 22px;">업체조회</a>
+            <a class="nav-link" href="emp_MoveCustomerList.do" style="font-size: 22px;">고객조회</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="empLogout.do" style="font-size: 22px;">로그아웃</a>

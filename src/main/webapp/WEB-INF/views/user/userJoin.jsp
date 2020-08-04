@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,23 +8,38 @@
 <title>회원 가입</title>
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
 <style>
-header {
-   position: fixed;
-   width: 1155px;
-   z-index: 9999;
-   top: 0;
-   background-color: white;
-   margin: 0px auto;
+h3,th{
+	font-family: Georgia, "Malgun Gothic", sans-serif;
+
 }
-body{
-	padding-top:85px;
-	width:1155px;
-	margin:0px auto;
+
+/*add full-width input fields*/
+input[type=text],
+input[type=password],
+input[type=tel],
+input[type=date]{
+	width: 100%;
+	padding:5px 14px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
 }
-td{
-	padding-bottom: 15px;
-	
+
+input[type=button]{
+	width: 30%;
+	padding: 5px 14px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
 }
+button[type=submit]{
+	width: 100%;
+	padding:5px 14px;
+	margin: 8px 0;
+	box-sizing: border-box;
+}
+
+
 </style>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script>
@@ -47,7 +63,7 @@ function pwdCheck(){
 	if(pwd1!=pwd2){
 		document.all.pwdCheckMsg.innerHTML='<span style="color:red;">패스워드가 동일하지 않습니다.</span>';
 	}else{
-		document.all.pwdCheckMsg.innerHTML=null;
+		document.all.pwdCheckMsg.innerHTML='<span style="color:blue;">패스워드가 일치합니다.</span>';
 	}
 }
 function emailAuth(){
@@ -78,13 +94,12 @@ function emailNumResult(){
 		}
 	}	
 }
-
 </script>
 </head>
 <body>
 <%@include file="../header.jsp" %>
 <form name="userAdd" action="userAdd.do"  method="POST">
-	<table style="width:480px; margin:0px auto;">
+	<table style="margin:0px auto; margin-bottom:20px;">
 		<tr>
 			<td style="text-align:center"><h3>회원정보 입력</h3></td>
 		</tr>
@@ -121,7 +136,7 @@ function emailNumResult(){
 			<td><input type="text" name="uName" size="40" placeholder="이름을 입력해 주세요"></td>
 		</tr>
 		<tr>
-			<th>휴대전화 ( - 를 포함해서 입력해주세요)</th>
+			<th>휴대전화 ( - 포함)</th>
 		</tr>
 		<tr>
 			<td><input type="tel" name="uTel" size="40" placeholder="휴대폰 번호를 입력해 주세요" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"></td>
@@ -137,15 +152,17 @@ function emailNumResult(){
 			<th>이메일</th>
 		</tr>
 		<tr>
-			<td><input type="text" name="uEmail1" size="8"> @
-			<input type="text" name="uEmail2" size="8">
+			<td><input type="text" name="uEmail1" style="width:26%;"> @
+			<input type="text" name="uEmail2" style="width:39%;">
 			<input type="button" value="이메일 인증하기" onclick="emailAuth();">
 			<span id="ckEmailMsg"></span>
 			<input type="hidden" name="uEmail" value="${sessionScope.email}">
 			</td>
 		</tr>
 		<tr>
-			<td><b>이메일 인증번호:</b> <input type="text" name="userkey" size="7">
+			<td><b>이메일 인증번호</b>
+			<br>
+			<input type="text" name="userkey" style="width:26%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="인증확인" onclick="emailNumAuth();"><br>
 			<span id="ckEmailNumMsg"></span>
 			</td>
@@ -158,8 +175,11 @@ function emailNumResult(){
 			<td><input type="text" name="uAddr" placeholder="주소를 입력해주세요"></td>
 		</tr>
 		<tr>
-			<td style="text-align:center"><button type="submit" class="btn btn-primary" style="width:300px; height:35px;">가입 완료하기</button></td>
-		</tr>	
+			<td style="text-align:center">
+			<button type="submit" class="btn btn-primary" style="padding: 2%;">가입 완료하기</button>
+		</td>
+		</tr>
+
 	</table>
 </form>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
