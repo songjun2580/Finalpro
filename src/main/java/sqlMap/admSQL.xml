@@ -6,4 +6,49 @@
  	<select id="admIdSelect" parameterType="String" resultType="String">
 		select adPwd from adm_Info where adId=#{adId}
     </select>
+    <!-- 파견직원 등록하기 -->
+    <insert id="empAdd" parameterType="fp.info.model.EmpInfoDTO">
+    	insert into emp_Info values(emp_Info_empIdx.nextval,#{empId},#{empName},#{empPwd},#{empTel},#{empEmail})
+    </insert>
+    <!-- 업체 승인대기 목록 -->
+    <select id="admCompWaitList" parameterType="map" resultType="fp.info.model.ComInfoDTO">
+    select * from(select rownum as rnum,a.* from(select * from com_Info where coverify=0 order by coIdx desc)a)b
+	  where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end} 
+    </select>
+    <select id="getTotalCntCompWait" resultType="int">
+	  select count(*) from com_Info where coverify=0
+	  </select>
+	  
+    <!-- 업체 승인하기 -->
+	  <update id="admCompAccept" parameterType="int">
+	  UPDATE com_Info SET coverify = 1 where coIdx=#{coIdx} 
+	  </update>
+	  
+	  <!-- 업체 목록 -->
+	  <select id="admCompList" parameterType="map" resultType="fp.info.model.ComInfoDTO">
+    select * from(select rownum as rnum,a.* from(select * from com_Info where coverify=1 and coWrg<![CDATA[<]]>3 order by coIdx desc)a)b
+	  where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end} 
+    </select>
+    <select id="getTotalCntComp" resultType="int">
+	  select count(*) from com_Info where coverify=1 and coWrg<![CDATA[<]]>3
+	  </select>
+	  
+	  <!-- 경고 3회이상 업체 목록 -->
+	  <select id="admWrgList" parameterType="map" resultType="fp.info.model.ComInfoDTO">
+    select * from(select rownum as rnum,a.* from(select * from com_Info where coverify=1 and coWrg=3 order by coIdx desc)a)b
+	  where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end} 
+    </select>
+    <select id="TotalCntWrg" resultType="int">
+	  select count(*) from com_Info where coverify=1 and coWrg=3
+	  </select>
+	  
+	  <!-- 업체 경고하기 -->
+	  <update id="wrgUp" parameterType="int">
+	  UPDATE com_info SET coWrg = coWrg + 1 WHERE coIdx = #{coIdx}
+	  </update>
+	  
+	  <!-- 업체 경고시작시간,종료시간 -->
+	  <update id="wrgTime" parameterType="int">
+	  UPDATE com_info SET wrgTime=sysdate, wrgEnd = sysdate+30 WHERE coIdx = #{coIdx} and cowrg=3
+	  </update>
   </mapper>

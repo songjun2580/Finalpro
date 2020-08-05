@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import fp.estimate.model.MoveEstimateDAO;
 import fp.estimate.model.MoveEstimateDTO;
 import fp.info.model.AdmInfoDAO;
+import fp.info.model.ComInfoDAO;
 import fp.info.model.EmpInfoDTO;
 
 @Controller
@@ -26,6 +27,9 @@ public class AdmController {
 	
 	@Autowired
 	private MoveEstimateDAO moveEstimateDao;
+	
+	@Autowired
+	private ComInfoDAO comInfoDao;
 	
 	/**관리자 로그인 폼 이동 메서드*/
 	@RequestMapping(value="admLogin.do", method = RequestMethod.GET)
@@ -43,17 +47,83 @@ public class AdmController {
 	public String admProfit() {
 		return "adm/admProfit";
 	}
-	
-	/**업체관리 관련 메서드*/
-	@RequestMapping("admCoManage.do")
-	public String admCoManage() {
-		return "adm/admCoManage";
+	/**업체 경고메서드*/
+	@RequestMapping("/wrgUp.do")
+	public ModelAndView wrgUp(int coIdx) {
+		
+		int result2=admInfoDao.wrgTime(coIdx);
+		int result=admInfoDao.wrgUp(coIdx);
+		ModelAndView mav=new ModelAndView();
+		String url = "redirect:/admCoManage.do";
+		return new ModelAndView(url);
 	}
 	
+	/**업체 삭제메서드*/
+	@RequestMapping("/compDelete.do")
+	public ModelAndView compDelete(int coIdx) {
+		int result=admInfoDao.compDelete(coIdx);
+		ModelAndView mav=new ModelAndView();
+		String url = "redirect:/admCoManage.do";
+		return new ModelAndView(url);
+	}
+	
+	
+	/**업체관리 관련 메서드*/
+	@RequestMapping("/admCoManage.do")
+	public ModelAndView admCoManage(
+			@RequestParam(value="cp",defaultValue = "1")int cp,
+			@RequestParam(value="cp2",defaultValue = "1")int cp2) {
+		
+		int totalCnt=admInfoDao.getTotalCntComp();
+		int totalCnt2=admInfoDao.TotalCntWrg();
+		int listSize=3;
+		int pageSize=3;
+		int listSize2=3;
+		int pageSize2=3;
+		
+		List admCompList=admInfoDao.admCompList(cp, listSize);
+		List admWrgList=admInfoDao.admWrgList(cp2, listSize2);
+		String pageStr=page.PageModule.pageMake("admCoManage.do", totalCnt, listSize, pageSize, cp);
+		String pageStr2=page.PageModule2.pageMake2("admCoManage.do", totalCnt2, listSize2, pageSize2, cp2);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("pageStr", pageStr);
+		mav.addObject("pageStr2", pageStr2);
+		mav.addObject("admCompList",admCompList);
+		mav.addObject("admWrgList",admWrgList);
+		mav.setViewName("adm/admCoManage");
+		return mav;
+	}
+	
+	/**경고업체 관리 메서드*/
+	
+	
 	/**업체 신청 목록 관련 메서드*/
-	@RequestMapping("admCoAdd.do")
-	public String admCoAdd() {
-		return "adm/admCoAdd";
+	@RequestMapping("/admCoAdd.do")
+	public ModelAndView admCoAdd(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		
+		int totalCnt=admInfoDao.getTotalCntCompWait();
+		int listSize=5;
+		int pageSize=5;
+		
+		List admCompWaitList=admInfoDao.admCompWaitList(cp, listSize);
+		String pageStr=page.PageModule.pageMake("admCoAdd.do", totalCnt, listSize, pageSize, cp);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("pageStr", pageStr);
+		mav.addObject("admCompWaitList",admCompWaitList);
+		mav.setViewName("adm/admCoAdd");
+		return mav;
+	}
+	
+	/**업체 승인 관련 메서드*/
+	@RequestMapping("/admCompAccept.do")
+	public ModelAndView admCompAccept(int coIdx) {
+		int result=admInfoDao.admCompAccept(coIdx);
+		String msg=result>0?"승인이 완료되었습니다":"승인이 실패하였습니다";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.setViewName("adm/admComMsg");
+		return mav;
 	}
 	
 	/**사원관리 관련 메서드*/
@@ -68,11 +138,22 @@ public class AdmController {
 		return "adm/admEmpUpd";
 	}
 	
-	/**사원등록 페이지 관련 메서드*/
-	@RequestMapping(value="admEmpAdd.do", method = RequestMethod.GET)
+	/**사원등록 페이지이동 메서드*/
+	@RequestMapping("admEmpAdd.do")
 	public String admEmpAddForm() {
 		return "adm/admEmpAdd";
-	}	
+	}
+	
+	/**사원 등록 메서드*/
+	@RequestMapping("/empAdd.do")
+	public ModelAndView empAdd(EmpInfoDTO dto) {
+		int result=admInfoDao.empAdd(dto);
+		ModelAndView mav=new ModelAndView();
+		String msg=result>0?"사원등록이 완료되었습니다":"사원등록에 실패하였습니다";
+		mav.addObject("msg",msg);
+		mav.setViewName("adm/admMsg");
+		return mav;
+	}
 	
 	/**이사견적서 총 목록 메서드*/
 	@RequestMapping("/admMest.do")
@@ -243,6 +324,7 @@ public class AdmController {
 			@RequestParam("adPwd") String adPwd,
 			HttpSession session
 			) {
+		System.out.println("dfs");
 		ModelAndView mav=new ModelAndView();
 		String Pwd=admInfoDao.admLogin(adId);
 		String msg=null;
@@ -253,7 +335,6 @@ public class AdmController {
 		}else {
 			msg="관리자만 사용할 수 있습니다.";
 			mav.addObject("msg",msg);
-			mav.addObject("gopage","index.do");
 			mav.setViewName("adm/admMsg");
 			return mav;
 		}

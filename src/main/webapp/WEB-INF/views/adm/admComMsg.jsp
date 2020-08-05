@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 <script>
 	window.alert('${msg}');
-	location.href="admEmpSel.do";
+	location.href="admCoAdd.do";
 </script>

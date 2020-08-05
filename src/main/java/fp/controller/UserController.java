@@ -345,17 +345,11 @@ public class UserController {
     /**견적서 제출 관련 메서드*/
 	@RequestMapping("/movingEstimateWrite.do")	
 	public ModelAndView moveestAdd(
-			MoveEstimateDTO dto,
-			HttpSession session){
+			MoveEstimateDTO dto){
 		
-		String uIdx_s=session.getAttribute("uIdx").toString();
-		if(uIdx_s==null||uIdx_s.equals("")) {
-			uIdx_s="0";
-		}
-		int uIdx=Integer.parseInt(uIdx_s);
 		moveEstimateDao.moveestAdd(dto); 
 		
-		MoveEstimateDTO dto2=moveEstimateDao.moIdxMax(uIdx);
+		MoveEstimateDTO dto2=moveEstimateDao.moIdxMax(dto.getuIdx());
 		int motempPrice=0;
 		
 		//가족 수 비용 계산

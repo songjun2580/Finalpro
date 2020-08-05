@@ -28,7 +28,34 @@ body{
 .col-6{
     margin:0px auto;
 }
+th,td{
+	text-align:center;
+}
 </style>
+<script>
+function wrgUp(coIdx){	//경고
+	location.href='wrgUp.do?coIdx='+coIdx;	
+}
+function compDelete(coIdx){	//업체삭제
+	var result = confirm("경고::정말 삭제하시겠습니까?");
+	if(result){
+	    alert("삭제되었습니다");
+	    location.href='compDelete.do?coIdx='+coIdx;
+	}else{
+	    alert("삭제에 실패하였습니다");
+	}
+}
+
+function doOpenCheck(chk){	//체크박스 1개만 선택 함수
+	var obj = document.getElementsByName("coIdx");
+	for(var i=0; i<obj.length; i++){
+	if(obj[i] != chk){
+	obj[i].checked = false;
+		}
+	}
+}
+
+</script>
 </head>
 
 <body>
@@ -47,7 +74,7 @@ body{
       </div>
     </div>
   </header>
-  
+  <form name="admCoManage">
     <div class="row">
     <div class="col-2">
        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -61,7 +88,7 @@ body{
         <div class="card bg-secondary text-white shadow">
             <div class="card-body"> 
                 <div class="text-white-50 small"></div>
-                    가입 신청 업체 목록           
+                    등록된 업체 목록           
                     </div>
                   </div>
     
@@ -70,74 +97,138 @@ body{
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th></th>
                       <th>NO.</th>
                       <th>업체명</th>
-                      <th>업체 연락처</th>
                       <th>담당자</th>
                       <th>담장자 연락처</th>
                       <th>업체 이메일</th>
                       <th>사업자 등록증</th>
+                      <th>법인등록번호</th>
                       <th>경고횟수</th>
-                      <th>영업상태</th>
+                      <th>경고</th>
+                      <th>삭제</th>
+                      <th>상태</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>1
-                      </td>
-                      <td>좋은이사</td>
-                      <td>02)7892-4524</td>
-                      <td>홍길동</td>
-                      <td>010-1224-5144</td>
-                      <td>hong@naver.com</td>
-                      <td><a href="#">등록증</button></a></td>
-                      <td>2/3</td>
-                      <td>영업(파란색)</td>
-                    </tr>
-                    <tr>
-                       <td><input type="checkbox"></td>
-                      <td>1</td>
-                      <td>좋은이사</td>
-                      <td>02)7892-4524</td>
-                      <td>홍길동</td>
-                      <td>010-1224-5144</td>
-                      <td>hong@naver.com</td>
-                      <td><a href="#">등록증</a></td>
-                      <td>3/3</td>
-                      <td>영업중지(빨간색)</td>
-                    </tr>
+                  <c:if test="${empty admCompList }">
+		             <tr>
+						<td colspan="11" align="center">
+							등록된 업체가 없습니다.
+						</td>
+					</tr>
+					</c:if>	
+                    <c:forEach var="dto" items="${admCompList}">
+                    <c:set var="coIdx" value="${dto.coIdx }"></c:set>
+			               <tr>
+			               <td>${dto.coIdx }</td>
+			               <td>${dto.coName }</td>
+		                   <td>${dto.coRep }</td>
+		                   <td>${dto.coTel }</td>
+			               <td>${dto.coEmail }</td> 
+			               <td>${dto.coBsNum}</td>
+			               <td>${dto.coCorNum }</td>
+			               <td>${dto.coWrg }/3</td>
+			               <td><button type="button" class="btn btn-primary" onClick="wrgUp(${dto.coIdx})">경고</button></td>
+			              <td><button type="button" class="btn btn-danger" onClick="compDelete(${dto.coIdx})">업체삭제</button></td>
+			               <c:choose>
+			               <c:when test="${dto.coWrg le 2}">
+			               <td>정상</td>
+			               </c:when>
+			               <c:otherwise>
+			              <td>경고 배너</td>
+			               </c:otherwise>
+			               </c:choose>			          
+			             </tr>
+			        </c:forEach>
                   </tbody>
                 </table>
                 <div>
-                	<div align="right">
-                	<button type="button" class="btn btn-primary">경고</button>
-                	<button type="button" class="btn btn-warning">정지</button>
-                	<button type="button" class="btn btn-danger">업체삭제</button>
-                	</div>
                      <!-- 페이징 -->
-			     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-			     <ul class="pagination" style="margin-left: 33%">
-				     <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-				     <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-				     </li><li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-				     </li><li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">다음</a>
-				     </li>
-			     </ul>
+                     <div class="page" align="center">
+	 					${pageStr } 
+						</div>
 			     </div>
-                </div>
-                
+                </div>     
+                          
               </div>
             </div>
           </div>
+    </form>
     
+    <!-- ---------------------------------------------------------------------- -->
+    
+    <form name="compWrg">
+    <div class="row">
+    <div class="col-2">
+       <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+       
+         <a class="nav-link " id="v-pills-home-tab"  href="#" role="tab" aria-controls="v-pills-home">&nbsp;</a>
+         <a class="nav-link " id="v-pills-home-tab"  href="#" role="tab" aria-controls="v-pills-home">&nbsp;</a>
+       </div>
     </div>
+    
+    <div class="col-lg-9 mb-4">
+        <div class="card bg-danger text-white shadow">
+            <div class="card-body"> 
+                <div class="text-white-50 small"></div>
+                     경고업체          
+                    </div>
+                  </div>
+    
+     <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>NO.</th>
+                      <th>업체명</th>
+                      <th>담당자</th>
+                      <th>담장자 연락처</th>
+                      <th>업체 이메일</th>
+                      <th>사업자 등록증</th>
+                      <th>법인등록번호</th>
+                      <th>경고횟수</th>
+                      <th>경고시작 날짜</th>
+                      <th>경고종료 날짜</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <c:if test="${empty admWrgList }">
+		             <tr>
+						<td colspan="11" align="center">
+							경고업체가 없습니다
+						</td>
+					</tr>
+					</c:if>	
+                    <c:forEach var="dto2" items="${admWrgList}">
+			               <tr>
+			               <td>${dto2.coIdx }</td>
+			               <td>${dto2.coName }</td>
+		                   <td>${dto2.coRep }</td>
+		                   <td>${dto2.coTel }</td>
+			               <td>${dto2.coEmail }</td> 
+			               <td>${dto2.coBsNum}</td>
+			               <td>${dto2.coCorNum }</td>
+			               <td>${dto2.coWrg }/3</td>
+			               <td>${dto2.wrgTime }</td>
+			               <td>${dto2.wrgEnd }</td>			                        
+			             </tr>
+			        </c:forEach>
+                  </tbody>
+                </table>
+                <div>
+                     <!-- 페이징 -->
+                     <div class="page" align="center">
+	 					${pageStr2 } 
+						</div>
+			     </div>
+                </div>     
+                          
+              </div>
+            </div>
+          </div>
+    </form>
   <hr>
   <%@include file="../footer.jsp" %>
   </body>

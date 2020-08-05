@@ -134,7 +134,7 @@ body{
               <form name="comLogin" action="comLogin.do">
                 <div class="form-group">
                   <label for="exampleDropdownFormEmail1">이메일</label><br>
-                  <input type="text" name="email_1" maxlength="8" size="9" placeholder="moveclean">@
+                  <input type="text" name="email_1" maxlength="20" size="9" placeholder="moveclean">@
                         <select name="email_2">
                             <option>naver.com</option>
                             <option>daum.net</option>
@@ -165,7 +165,7 @@ body{
       </div>
    </div>
    <div class="mainImg" style="float:right; width:800; height:373;" >
-      <img src="<%=request.getContextPath()%>/resources/img/mainImg.jpg" style="width:850px; height:373px;" onclick="test()" usemap="#Map">
+      <img src="<%=request.getContextPath()%>/resources/img/mainImg.png" style="width:850px; height:373px;" onclick="test()" usemap="#Map">
       <map name="Map">
          <area shape="rect" coords="257,230,392,297" href="http://www.naver.com" target="_blank"> 
          <area shape="rect" coords="424,230,561,298" href="http://www.google.com" target="_blank"> 

@@ -6,4 +6,5 @@ public interface EmpInfoDAO {
 	public String empLogin(String empId);
 	public EmpInfoDTO empInfoForSession(String empId);
 	public List getMoveest(int empIdx);
+	public List userMatch(int cp,int ls, String empName);
 }

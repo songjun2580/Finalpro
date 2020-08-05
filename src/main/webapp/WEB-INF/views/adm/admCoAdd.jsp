@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>emp_header</title>
+  <title>업체 승인페이지</title>
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -27,6 +27,10 @@ body{
 }
 .col-6{
     margin:0px auto;
+}
+.page{
+	text-align:center;
+	padding:20px;
 }
 </style>
 </head>
@@ -47,7 +51,7 @@ body{
       </div>
     </div>
   </header>
-  
+  <form name="admCompAccept" action="admCompAccept.do">
     <div class="row">
     <div class="col-2">
        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -73,63 +77,52 @@ body{
                       <th></th>
                       <th>NO.</th>
                       <th>업체명</th>
-                      <th>업체 연락처</th>
                       <th>담당자</th>
                       <th>담장자 연락처</th>
                       <th>업체 이메일</th>
                       <th>사업자 등록증</th>
+                      <th>법인등록번호</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>1
-                      </td>
-                      <td>좋은이사</td>
-                      <td>02)7892-4524</td>
-                      <td>홍길동</td>
-                      <td>010-1224-5144</td>
-                      <td>hong@naver.com</td>
-                      <td><a href="#">등록증</button></a></td>
-                    </tr>
-                    <tr>
-                       <td><input type="checkbox"></td>
-                      <td>1</td>
-                      <td>좋은이사</td>
-                      <td>02)7892-4524</td>
-                      <td>홍길동</td>
-                      <td>010-1224-5144</td>
-                      <td>hong@naver.com</td>
-                      <td><a href="#">등록증</button></a></td>
-                    </tr>
+                  <c:if test="${empty admCompWaitList }">
+		             <tr>
+						<td colspan="8" align="center">
+							승인대기중인 업체가 없습니다.
+						</td>
+					</tr>
+					</c:if>
+					<c:forEach var="dto" items="${admCompWaitList}">
+			               <tr>
+			               <td><input type="checkbox" value="${dto.coIdx }" name="coIdx"></td>
+			               <td>${dto.coIdx }</td>
+			               <td>${dto.coName }</td>
+		                   <td>${dto.coRep }</td>
+		                   <td>${dto.coTel }</td>
+			               <td>${dto.coEmail }</td> 
+			               <td>${dto.coBsNum}</td>
+			               <td>${dto.coCorNum }</td>
+			             </tr>
+			        </c:forEach>
                   </tbody>
                 </table>
                 <div>
                 	<div align="right">
-                	<button type="button" class="btn btn-primary">업체승인</button>
+                	<button type="submit" class="btn btn-primary">업체승인</button>
                 	</div>
                      <!-- 페이징 -->
-			     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-			     <ul class="pagination" style="margin-left: 33%">
-				     <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-				     <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-				     </li><li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-				     </li><li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-				     </li><li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">다음</a>
-				     </li>
-			     </ul>
-			     </div>
+			     <div class="page">
+	 				${pageStr } 
+				</div>
                 </div>
                 
+                <!-- ------------------------------------------------------------------------ -->
               </div>
             </div>
           </div>
     
     </div>
+    </form>
   <hr>
   <%@include file="../footer.jsp" %>
   </body>
