@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="fp.info">
+  <insert parameterType="fp.info.model.ComInfoDTO" id="coInsert">
+  insert into com_Info values (com_info_coIdx.nextval,#{coType},#{coName},#{coEmail},#{coPwd},#{coTel},#{coRep},#{coBsNum},#{coCorNum},#{coAddr},0,0,#{coAddrDetail1},#{coAddrDetail2} ,0,sysdate,sysdate,0,0) </insert> 
+ 	<select id="comEmailSelect" parameterType="String" resultType="String">
+		select coPwd from com_Info where coEmail=#{coEmail}
+    </select>
+    <select id="comInfoForSession" parameterType="String" resultType="fp.info.model.ComInfoDTO">
+       select * from com_Info where coEmail=#{coEmail}
+    </select>
+    <select id="comLIstSelect" parameterType="int" resultType="fp.info.model.ComListDTO">
+    select x.*, y.mbMoney, y.mbIdx from com_Info x, move_bid y where x.coIdx=y.coIdx and moIdx=#{moIdx}
+    </select>
+    <delete parameterType="int" id="compDelete">delete from com_info where coIdx=#{coIdx} </delete>
+    <select id="contract" >
+    select * from move_bid left join move_est on move_bid.moIdx=move_est.moIdx left join com_Info on move_bid.coIdx=com_Info.coIdx where mbIdx=#{mbIdx}
+    </select>
+        <update id="blogContentUpdate" parameterType="fp.company.model.BlogContentDTO">
+       update blog_content 
+          set bcSubject1 = #{bcSubject1},
+         bcSubject2 =#{bcSubject2} ,
+         bcSubject3 =#{bcSubject3},
+         bcImg1=#{bcImg1},
+         bcImg2=#{bcImg2},
+         bcImg3 =#{bcImg3}
+         where coIdx=#{coIdx}
+    </update>
+    <select id="blogContentGet" parameterType="int" resultType="fp.company.model.BlogContentDTO">
+       select * from blog_content where coIdx=#{coIdx}
+    </select>
+     <!-- coIdx로 회사 정보 가져오기 -->
+    <select id="selectCoInfo" parameterType="int" resultType="fp.info.model.ComInfoDTO">
+       select * from com_Info where coIdx=#{coIdx}
+    </select>
+    <insert id="defaultBlogContent" parameterType="int">
+       insert into blog_content values(blog_content_bcidx.nextval,#{coIdx},'','','','','','')
+    </insert>
+    <select id="getCoIdx" resultType="int">
+       select max(coIdx) from com_Info
+    </select>
+    <select id="getReview" parameterType="int" resultType="fp.info.model.ReviewDTO">
+       select * from (select m.coIdx,r.uName,r.revSubject,r.revContent,r.revImg,r.revRate,r.revDate,m.moSaddr,m.moEaddr from review_bbs r, move_est m where r.moIdx=m.moIdx) a where a.coIdx=#{coIdx} order by revDate desc, revRate desc
+    </select>
+    <select id="getBestReview" parameterType="int" resultType="fp.info.model.BestReviewDTO">
+       select rownum,a.* from (select m.coIdx, r.uName,r.revContent,r.revImg,r.revRate from review_bbs r, move_est m where r.moIdx=m.moIdx order by revDate desc) a where a.coIdx=#{coIdx} and rownum=1 and revRate=(select max(revRate)from (select m.coIdx,r.uName,r.revSubject,r.revContent,r.revImg,r.revRate,r.revDate,m.moSaddr,m.moEaddr from review_bbs r, move_est m where r.moIdx=m.moIdx) a where a.coIdx=#{coIdx})
+    </select>
+    <select id="getAvgRate" parameterType="int" resultType="double">
+       select nvl(AVG(revRate),0)from (select * from review_bbs r, move_est m where r.moIdx=m.moIdx) a where a.coIdx=#{coIdx}
+    </select>
+    
+  </mapper>

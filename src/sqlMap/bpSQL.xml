@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fp.bp">
+	<!-- 업체 실적 내역  -->
+	<select id="empBpSelect" parameterType="int" resultType="fp.bp.model.EmpBpDTO">
+	select z.moName,q.coName, z.moconfirmPrice, y.mctDate from move_bid x left join move_contract y
+	on x.mbIdx=y.mbIdx 
+	left join move_est z
+	on x.moIdx=z.moIdx 
+	left join com_Info q
+	on z.coIdx=q.coIdx where empIdx=#{empIdx} and q.coIdx!=0
+	</select>
+	
+	<!-- 업체 거래완료 견적개수  -->
+	<select id="empBpCountedSelect" parameterType="int" resultType="int">
+	select nvl(count(*),0) from move_bid x left join move_contract y
+	on x.mbIdx=y.mbIdx 
+	left join move_est z
+	on x.moIdx=z.moIdx 
+	left join com_Info q
+	on z.coIdx=q.coIdx
+	where empIdx=#{empIdx} and substr(mctDate,6,1)=8
+	</select>
+	
+	<!-- 업체 진행중인 계약 견적 개수 -->
+	<select id="empBpCountingSelect" parameterType="int" resultType="int">
+	select nvl(count(*),0) from move_ESt where empIdx=#{empIdx} and coIdx=0 and substr(moDate,5,1)=8
+	</select>
+	
+	<!-- 업체 총 거래금액 -->
+	<select id="empBpSumMoney" parameterType="int" resultType="int">
+	select nvl(sum(moconfirmPrice),0)
+	from move_est
+	where empIdx=#{empIdx} and final2=1
+	</select>
+	
+	<!-- 관리자 업체 실적 내역 -->
+	   <!-- 관리자 업체 실적 내역 -->
+   <select id="admBpSelect" resultType="fp.bp.model.AdmBpDTO">
+   select z.moName, z.moIdx,q.coName,q.coIdx, z.moconfirmPrice, z.moconfirmPrice*0.9 as goMoney, y.mctDate from move_bid x left join move_contract y
+   on x.mbIdx=y.mbIdx 
+   left join move_est z
+   on x.moIdx=z.moIdx 
+   left join com_Info q
+   on z.coIdx=q.coIdx where q.coIdx!=0 and z.realfinal=0
+   </select>
+	
+	<!-- 관리자 거래완료 견적개수-->
+	<select id="admBpCountedSelect" parameterType="int" resultType="int">
+	select nvl(count(*),0) from move_bid x left join move_contract y
+	on x.mbIdx=y.mbIdx 
+	left join move_est z
+	on x.moIdx=z.moIdx 
+	left join com_Info q
+	on z.coIdx=q.coIdx
+	where substr(mctDate,6,1)=8
+	</select>
+	
+	<!-- 관리자 진행중인 계약 견적 개수 -->
+	<select id="admBpCountingSelect" parameterType="int" resultType="int">
+	select nvl(count(*),0) from move_ESt where coIdx=0 and substr(moDate,5,1)=8
+	</select>
+	
+	<!-- 관리자 총 거래금액 -->
+	<select id="admBpSumMoney" parameterType="int" resultType="int">
+	select nvl(sum(moconfirmPrice),0)
+	from move_est
+	where final2=1
+	</select>
+	<!-- 송금하기 -->
+    <update id="coBankbook" parameterType="Map">
+     update com_info set coBankbook=coBankbook+#{goMoney} where coIdx=#{coIdx}
+    </update>
+    <update id="realfinal" parameterType="int">
+    update move_est set realfinal=1 where moIdx=#{moIdx}
+    </update>
+    
+    <!-- 업체 송금까지완료된 최종 견적서 목록 -->
+    <select id="admRealFinalList" resultType="fp.bp.model.AdmBpDTO">
+   select z.moName, z.moIdx,q.coName,q.coIdx, z.moconfirmPrice, z.moconfirmPrice*0.9 as goMoney, y.mctDate from move_bid x left join move_contract y
+   on x.mbIdx=y.mbIdx 
+   left join move_est z
+   on x.moIdx=z.moIdx 
+   left join com_Info q
+   on z.coIdx=q.coIdx where q.coIdx!=0 and z.realfinal=1 order by y.mctDate
+   </select>
+</mapper>

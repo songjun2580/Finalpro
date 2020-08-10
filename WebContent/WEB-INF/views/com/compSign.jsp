@@ -1,0 +1,293 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
+  <title>Document</title>
+  <style>
+
+.signInfo{
+	text-align: right; 
+	font-size: 10px;
+ }
+ .signTable{
+ 	background-color: rgb(199, 199, 199);
+ 	height: 200px;
+	margin: 0px auto; 
+
+ }
+ .signTableName{
+ 	margin-left:2%;
+ 	font-size: 13px;
+	width: 120px;  
+	color: rgb(102, 102, 102); 
+	background-color: rgb(235, 235, 235);
+ }
+ .signTableInput{
+ 	width: 760px; 
+ 	height: 30px;
+ 	background-color: rgb(255, 255, 255); 
+ 	color: rgb(102, 102, 102)" 
+ }
+ .signInputBox{
+ 	margin-left:2%;
+ 	padding-top:1px;
+ 	padding-bottm:1px;
+ 	
+ }
+  </style>
+  <script type="text/javascript" src="js/httpRequest.js"></script>
+  <script>
+  //이메일 중복검사
+  function emailCheck(){
+	 	var uEmail2=document.getElementById('email_sub').value;
+		var uEmail1=document.getElementById('email_main').value;
+		var param="uEmail1="+uEmail1+"&uEmail2="+uEmail2;
+		sendRequest('emailCheck.do',param,idCheckResult,'GET');
+	}
+	function idCheckResult(){
+		if(XHR.readyState==4){
+			if(XHR.status==200){
+					alert('이메일 증복검사 끝');
+					var data1=XHR.responseText;
+					 data1=eval('('+data1+')');
+					var a= data1.Emailresult;
+					
+					if(a){
+						emailAuth();
+					}else{
+						alert('중복된 이메일 입니다');
+					}
+			}
+		}
+	}
+
+  // 이메일 직접입력폼
+  function emailInput(){
+	  var e_sub_val=document.getElementById('email_sub_val');
+	  var e_sub=document.getElementById('email_sub');
+	  e_sub.value=e_sub_val.value;
+	  if(e_sub.value != ''){
+		  e_sub.setAttribute('readonly','readonly');
+	  }else{
+		  e_sub.removeAttribute('readonly');
+	  }
+  }
+  //인증 이메일 보내기
+  function emailAuth(){
+		var uEmail2=document.getElementById('email_sub').value;
+		var uEmail1=document.getElementById('email_main').value;
+		var param="uEmail1="+uEmail1+"&uEmail2="+uEmail2;
+		
+		sendRequest('emailAuth.do',param,emailResult,'GET');
+		alert('인증메시지를 보냈습니다.');
+	}
+	function emailResult(){
+		if(XHR.readyState==4){
+			if(XHR.status==200){
+				var data=XHR.responseText;
+				document.all.ckEmailMsg.innerText=data;
+				
+			}
+		}	
+	}
+	function emailNumAuth(){
+		var userkey=document.getElementById('userkey').value;
+		param="userkey="+userkey;
+		sendRequest('emailNumAuth.do',param,emailNumResult,'GET');
+	}
+	function emailNumResult(){
+		if(XHR.readyState==4){
+			if(XHR.status==200){
+				var data=XHR.responseText;
+				document.all.ckEmailNumMsg.innerHTML=data;
+				var a =document.getElementById('Email_check').value;
+				var uEmail2=document.getElementById('email_sub').value;
+				var uEmail1=document.getElementById('email_main').value;
+				if(a==1 || a=='1'){
+					document.join.coEmail.value=uEmail1+"@"+uEmail2;
+				}
+			}
+		}	
+	}
+  
+  //업체타입
+  function cotype1(){
+	  var cotype=document.getElementById('cotype');
+	  var showtype=document.getElementById('showType');
+	  showtype.value=cotype.options[cotype.selectedIndex].text;
+  }
+  //핸드폰 번호 자동이동
+  function telMove(){
+	   var telSize=document.getElementById('ptel2').value.length;
+	   if(telSize==4){
+	      document.getElementById('ptel').focus();
+	   }
+  }
+	// 주소 팝업
+  	function goPopup(){	
+		var pop = window.open("jusoPopupCo.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	}
+  	// 주소 값  가져오기
+	function jusoCallBack(coSaddr, cozipNo, coRaddr, corDaddr,coAddrDetail1,coAddrDetail2){	//출발지 주소
+		var addr=coSaddr+coRaddr;
+		document.getElementById('moSaddr').value=addr;
+		document.getElementById('szipNo').value=cozipNo;
+		document.getElementById('deAddr').value=corDaddr;
+		document.join.coAddr.value=coSaddr+' , '+corDaddr;
+		document.join.coAddrDetail1.value=coAddrDetail1;
+		document.join.coAddrDetail2.value=coAddrDetail2;
+	}
+  	
+	onsubmit=function(){
+		var b=document.getElementById('ptel2').value;
+		var c=document.getElementById('ptel').value;
+		var a=document.getElementById('ptel1').value;
+		document.join.coTel.value=a+'-'+b+'-'+c;
+	}
+
+	
+  </script>
+ </head>
+ <%@include file="../header.jsp" %>
+ <body>
+ <article>
+	<section>
+	<form name="join" action="comSignSubmit.do">
+	<input type="hidden" value="${email_duplicate }">
+	<input type="hidden" value="${param.email_duplicate }">
+ 	<p/>
+ 	 <h3>기업회원 정보 입력</h3>
+ 	 <p class="signInfo" align="right">정보를 입력하신 후 가입완료 버튼을 눌러주십시오.</p>
+ 	 <hr>
+	   <p/>
+	   <table class="signTable"  border="0" cellpadding="0" cellspacing="1">
+	   	<tbody>
+		<tr>
+		<td class="signTableName"><p>&nbsp;*회사명</p>
+		</td>
+			<td class="signTableInput" colspan="3" rowspan="1">
+			<!-- input Box -->
+			<p><input type="text" class="signInputBox" size="25" name="coName"></p> 
+			</td>
+		</tr>
+		<tr>
+		<td class="signTableName"><p>&nbsp;*업체 종류</p>
+		</td>
+			<td class="signTableInput" colspan="3" rowspan="1">
+			<!-- input Box -->
+			<p>
+			<input type="text" class="signInputBox" size="10" id="showType" readonly value="이사업체">
+			<select name="coType" id="cotype" onchange="cotype1()">
+				<option value="1" selected>이사업체</option>
+				<option value="2">청소업체</option>
+			</select>
+			</p> 			
+			</td>
+		</tr>
+		<tr><td class="signTableName"><p>&nbsp;*대표자명</p></td>
+		<td class="signTableInput" colspan="3" rowspan="1">
+		<p><input type="text" class="signInputBox" size="25" name="coRep"></p></td>
+		
+		
+		</tr>
+		<tr><td class="signTableName"><p>&nbsp;*사업자등록번호&nbsp;</p></td>
+		<td class="signTableInput" colspan="3" rowspan="1">
+		<p><input type="text" class="signInputBox" size="25" name="coBsNum"></p>
+		</td>
+		
+		
+		</tr>
+			<tr>
+			<td class="signTableName"><p>&nbsp;&nbsp;법인 등록번호</p></td>
+			<td class="signTableInput" colspan="3" rowspan="1">
+		<p>
+			<input type="text" class="signInputBox" size="25" name="coCorNum">
+		</p>
+		</td>
+		
+		
+		</tr>
+		<tr>
+			<td class="signTableName" rowspan="2" colspan="1"><p>&nbsp;*회사주소&nbsp;</p></td>
+			<td class="signTableInput" colspan="3" rowspan="1">
+			<p>
+			<input type="text" id="szipNo" size="15" placeholder="우편번호"  class="signInputBox" readonly required>
+			<input type="text" id="moSaddr" size="50" placeholder="주소입력" class="signInputBox" readonly required>
+			 &nbsp;&nbsp;&nbsp; <input type="button" value="주소 검색" onclick="goPopup()">
+			 <input type="hidden" name="coAddr">
+			 <input type="hidden" name="coAddrDetail1">
+			 <input type="hidden" name="coAddrDetail2">
+			</p>
+		</td>
+		</tr>
+		<tr>
+		<td class="signTableInput" colspan="3" rowspan="1">
+		<p><input type="text" class="signInputBox" size="50" id="deAddr" placeholder="상세주소입력" name=><br></p>
+		</td>
+		</tr>
+			<tr>
+			<td class="signTableName" rowspan="2" colspan="1"><p>&nbsp;*이메일</p></td>
+			<td class="signTableInput" colspan="3" rowspan="1">
+			<p> <input type="text" class="signInputBox" id="email_main" size="25"> @
+				<input type="text" class="signInputBox"  id="email_sub">
+				<select id="email_sub_val" class="signInputBox" onchange="emailInput()">
+				<option value="naver.com">naver.com</option>
+				<option value="daum.net">daum.net</option>
+				<option value="gmail.com">gmail.com</option>
+				<option value="" selected>직접입력</option>
+				</select>
+				<input type="button" value="이메일 인증하기" onclick="emailCheck()" class="signInputBox">
+				<span id="ckEmailMsg"></span>
+				</p></td>
+			</tr>
+			<tr>
+				<td class="signTableInput" colspan="3" rowspan="1">
+				
+					<p><b class="signInputBox">이메일 인증번호:</b> <input type="text" id="userkey" size="7">
+						<input type="button" value="인증확인" onclick="emailNumAuth();" class="signInputBox" ><br>
+						<span id="ckEmailNumMsg"></span>
+						<input type="hidden" id="email" name="coEmail" value="${sessionScope.email}">
+					</p>
+				</td>
+			</tr>	
+			</p>
+			</td>
+			<tr>
+				<td class="signTableName" rowspan="1" colspan="1"><p>&nbsp;*휴대폰번호</p>
+			</td>
+				<td class="signTableInput" colspan="3" rowspan="1">
+			<p>
+				<select id="ptel1" class="signInputBox">
+                  <option value="010" selected>010
+                  <option value="011">011
+                  <option value="012">012
+               </select>&nbsp;-&nbsp;
+               <input type="text"  id="ptel2" onkeyup="telMove()" size="5" maxlength="4" required class="signInputBox">&nbsp;-&nbsp;
+               <input type="text"  id="ptel" size="5" maxlength="4" required class="signInputBox">
+               <input type="hidden" name="coTel">     
+			</p>
+			</td>			
+			</tr>
+			<tr>
+			<td class="signTableName" rowspan="1" colspan="1"><p>&nbsp;*비밀번호</p>
+			</td>
+			<td class="signTableInput" colspan="3" rowspan="1">
+			<p><input type="password" class="signInputBox" size="25" name="coPwd"></p>
+			</td>
+			</tr>
+		</tbody>
+		</table>
+		<p/>
+		<p/>
+		
+			<button type="submit" id="sub_btn" class="btn btn-secondary btn-lg" style="margin-left:40%;" >가입완료</button>
+		</form>	
+  </section>
+ </article>
+</body>
+  <%@include file="../footer.jsp" %>
+</html>

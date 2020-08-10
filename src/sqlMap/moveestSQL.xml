@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="fp.estimate">
+	  <!-- 이사견적서 추가 -->
+     <insert id='moveestInsert' parameterType="fp.estimate.model.MoveEstimateDTO">
+     insert into move_est 
+     values(move_est_moIdx.nextval,#{uIdx},TO_DATE(#{moDate}, 'YYYY-MM-DD'),#{moName},
+     #{moTel},#{moConsult},#{moFamily},#{szipNo},#{moSaddr},#{moSfloor},#{moZim},#{moType},#{moSize},
+     #{ezipNo},#{moEaddr},#{moEfloor},#{moService1},#{moService2},'승인대기',0,0,0,0,0,0)
+     </insert>
+	  <select id="moIdxMax" resultType="fp.estimate.model.MoveEstimateDTO">
+	  select * from move_est where moIdx=(select max(moIdx) from move_est)
+	  </select>
+	  <update id="updateTemp" parameterType="int">
+	  update move_est set motempPrice=#{motempPrice} where moIdx=(select max(moIdx) from move_est)
+	  </update>
+	  <select id='tempPrice' parameterType="int" resultType="fp.estimate.model.MoveEstimateDTO">
+	  select * from move_est where uIdx=#{uIdx}
+	  </select>
+	  <!-- 전체 견적서 목록 및 페이징 -->
+	  <select id="moveEstList" parameterType="map" resultType="fp.estimate.model.MoveEstimateDTO">
+	  select * from(select rownum as rnum,a.* from
+	  (select * from move_est order by moIdx desc)a)b 
+	  where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end} 
+	  </select>
+	  <select id="totalCnt" resultType="int">
+	  	select count(*) from move_est
+	  </select>
+	  
+	       <!-- 승인대기 견적서 목록 및 페이징 -->
+     <select id="moveEstWait" parameterType="map" resultType="fp.estimate.model.MoveEstimateDTO">
+     select * from(select rownum as rnum,a.* from(select * from move_est where moStatus='승인대기' order by moIdx desc)a)b
+     where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end} 
+     </select>
+     
+     <select id="totalCntwait" resultType="int">
+     select count(*) from move_est where moStatus='승인대기' 
+     </select>
+     
+     <!-- 승인완료 견적서 목록 및 페이징 -->
+     <select parameterType="Map" id="moveEstConfirm" resultType="fp.estimate.model.MoveEstimateDTO">
+      select B.* from(select rownum as rnum,a.* from
+      (select X.*, Y.empName from move_est X, emp_info Y where X.empIdx = Y.empIdx(+) and moStatus='승인완료' order by moIdx desc) a) b where rnum <![CDATA[>=]]>#{start} and rnum <![CDATA[<=]]>#{end} 
+     </select>
+	  
+	  <select id="totalCntConfirm" resultType="int">
+	  select count(*) from move_est where moStatus='승인완료' 
+	  </select>
+	  <!-- 이사견적서 보기 -->
+	  <select parameterType="int" id="moveEstimate" resultType="fp.estimate.model.MoveEstimateDTO"> 
+	  select * from move_est where moIdx=#{moIdx} 
+	  </select>
+
+	  <!-- 이사견적서 승인하기 -->
+	  <update parameterType="int" id="moveEstimateAccept">
+	  UPDATE move_est SET moStatus = '승인완료' where moIdx=#{moIdx} 
+	  </update>
+	 <!-- 사원 매칭하기 -->
+	 <update parameterType="int" id="moveEstimateMatch">
+	 update move_est set empIdx=#{empIdx} where moIdx=#{moIdx} 
+	 </update>
+	 <select id="getMoveest" parameterType="int" resultType="fp.estimate.model.MoveEstimateDTO">
+	 	select * from move_est where empIdx=#{empIdx}
+	 </select>
+	 <update id="updateCoidx" parameterType="map">
+	 update move_est set coIdx=(select coIdx from move_bid where mbIdx=#{mbIdx}), moconfirmPrice=#{mctPrice} where moIdx=(select moIdx from move_bid where mbIdx=#{mbIdx})
+	 
+	 </update>
+	 <select id="selectCoidx" parameterType="int" resultType="int">
+	 select coIdx from move_Est where moIdx=#{moIdx}
+	 </select>
+	 
+	 <select id="confirmMoveest" parameterType="int" resultType="fp.estimate.model.MoveEstimateDTO">
+	 select * from move_est where coIdx=#{coIdx}
+	 </select>
+
+  </mapper>

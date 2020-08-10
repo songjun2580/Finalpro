@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="fp.manage">
+  
+     <!-- 확정하기 클릭 후 계약서내용 -->
+  	<select id="finalContract" parameterType="int" resultType="fp.manage.model.MoveContractDTO">
+	select a.mbIdx, a.moIdx, a.mbMoney, b.uIdx, b.moDate, b.moName, b.moTel, b.moConsult, b.MoSaddr,b.moEaddr,b.moSfloor,b.moType,b.moSize,b.moService1, b.moService2, b.empIdx,b.coIdx,b.motempPrice,b.final2,c.coName, c.coEmail,c.coTel,c.coRep,c.coBsnum,c.coCornum,c.coAddr from move_bid a left join move_est b on a.moIdx=b.moIdx
+	left join com_Info c on a.coIdx=c.coIdx where mbIdx=#{mbIdx}
+	</select>
+	<select id="getContract" parameterType="int" resultType="fp.manage.model.MoveContractWriteDTO">
+	select * from move_contract where mbIdx=#{mbIdx}
+	</select>
+	<!-- 계약서 우선 0으로 세팅함 -->
+	<insert id="zeroSet" parameterType="fp.manage.model.MoveContractWriteDTO">
+	 insert into move_contract values(
+		move_contract_mctIdx.nextval,
+		#{mbIdx},0,0,0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0)
+	 </insert>
+  	 <!-- 최종 계약서 작성하기 -->
+	 <update id="confirmWriteMoveest" parameterType="fp.manage.model.MoveContractWriteDTO">
+	 update move_contract set mctPrice=#{mctPrice}, mctDate=#{mctDate}, wardrobe1=#{wardrobe1},wardrobe2=#{wardrobe2},wardrobe3=#{wardrobe3},wardrobe4=#{wardrobe4},
+	 bedSingle1=#{bedSingle1},bedSingle2=#{bedSingle2},bedSingle3=#{bedSingle3},bedSingle4=#{bedSingle4},
+	 bedDouble1=#{bedDouble1},bedDouble2=#{bedDouble2},bedDouble3=#{bedDouble3},bedDouble4=#{bedDouble4},
+	 tv1=#{tv1}, tv2=#{tv2}, tv3=#{tv3}, tv4=#{tv4},
+	 dressTable1=#{dressTable1}, dressTable2=#{dressTable2}, dressTable3=#{dressTable3}, dressTable4=#{dressTable4},
+	 desk1=#{desk1},desk2=#{desk2},desk3=#{desk3},desk4=#{desk4},built1=#{built1},built2=#{built2},built3=#{built3},built4=#{built4},
+	 chiffo1=#{chiffo1},chiffo2=#{chiffo2},chiffo3=#{chiffo3},chiffo4=#{chiffo4},ride1=#{ride1},ride2=#{ride2},ride3=#{ride3},ride4=#{ride4},
+	 sofaone=#{sofaone},sofatwo=#{sofatwo},sofathird=#{sofathird},wallTv=#{wallTv},fit=#{fit},piano=#{piano},aircon=#{aircon},aqua=#{aqua},
+	 showcase=#{showcase},frige=#{frige},kimchiFrige=#{kimchiFrige},cooktable=#{cooktable},chair=#{chair},cleaner=#{cleaner},fan=#{fan},porch=#{porch},
+	 bath=#{bath} where mbIdx=#{mbIdx}
+	</update>
+  </mapper>

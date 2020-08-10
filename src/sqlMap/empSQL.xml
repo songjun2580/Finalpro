@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="fp.info"> 
+ 	<select id="empEmailSelect" parameterType="String" resultType="String">
+		select empPwd from emp_Info where empId=#{empId}
+    </select>
+    <select id="empInfoForSession" parameterType="String" resultType="fp.info.model.EmpInfoDTO">
+       select * from emp_Info where empId=#{empId}
+    </select>
+    <!-- 매칭 사원 목록 출력 -->
+    <select id="admEmpList" resultType="fp.info.model.EmpInfoDTO">
+	   select * from emp_info 
+	</select>
+	<!-- 사원이름 가져오기 -->
+	<select parameterType="int" id="empName" resultType="fp.info.model.EmpInfoDTO">
+	   select empName from emp_info where empIdx=#{empIdx}
+	</select>
+	<select resultType="fp.estimate.model.MoveEstimateDTO" parameterType="map" id="matchInfo">
+		select B.* from(select rownum as rnum,a.* from(select X.*, Y.empName from move_est X, emp_info Y where X.empIdx = Y.empIdx and empName=#{empName} and x.final2=0) A) B where rnum 
+		<![CDATA[>=]]>#{start} and rnum 
+		<![CDATA[<=]]>#{end} 
+	</select>
+	<select id="empBp">
+	select 
+	</select>
+  </mapper>
