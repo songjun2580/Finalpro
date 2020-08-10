@@ -88,7 +88,7 @@ function popUp(mbIdx){
 				<c:forEach var="dto" items="${list }">
 					<tr>
 					<td><ngb-highligh>${dto.mbIdx }</ngb-highligh></td>
-					<th scope="row"><a href="userBlogView.do?coIdx=${dto.coIdx}">${dto.coName }</a></th>
+					<th scope="row"><a href="empBlogView.do?coIdx=${dto.coIdx}">${dto.coName }</a></th>
 					<td><ngb-highligh>${dto.coRep}</ngb-highlight></td>
 					<td><ngb-highlight>${dto.coTel }</ngb-highlight></td>
 					<td><ngb-highlight>${dto.coAddr}</ngb-highlight></td>

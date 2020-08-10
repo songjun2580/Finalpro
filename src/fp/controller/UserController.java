@@ -140,7 +140,7 @@ public class UserController {
 	         String msg=result>0?"불만사항이 접수되었습니다. 불편을 드려 죄송합니다.":"오류가 발생했습니다.";
 	         mav.addObject("msg", msg);
 	         mav.addObject("gopage", "endPriceList.do");
-	         mav.setViewName("user/Msg");
+	         mav.setViewName("user/userMsg");
 		return mav ;
 	}
 	
@@ -249,7 +249,7 @@ public class UserController {
 	         }else {
 	            mav.addObject("msg","실패");
 	         }
-	         mav.addObject("gopage", "userMoveList.do");
+	         mav.addObject("gopage", "endPriceList.do");
 	         mav.setViewName("user/userMsg");
 	         return mav;
 	      }

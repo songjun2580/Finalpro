@@ -395,6 +395,25 @@ public class AdmController {
 		mav.setViewName("adm/admCplContent");
 		return mav;
 	}
+	/**불만사항 확인*/
+	@RequestMapping("admCplConfirm.do")
+	public ModelAndView admCplRealConfirm(@RequestParam("cplIdx")int cplIdx) {
+		ModelAndView mav= new ModelAndView();
+		int result=CplDao.cplConfirm(cplIdx);
+		System.out.println("cplConfirm result="+result);
+		mav.addObject("msg", result>0?"확인처리 했습니다.":"오류가 발생했습니다.");
+		mav.setViewName("redirect:admCplSubList.do");
+		return mav;
+	}
+	
+	/**불만사항 답글 이동*/
+	@RequestMapping("admReply.do")
+	public ModelAndView admCplReply(int cplIdx) {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("cplIdx", cplIdx);
+		mav.setViewName("adm/admCplReply");
+		return mav;
+	}
 	
 	/**자주묻는 질문 관련 메서드*/
 	@RequestMapping("admBbsQnA.do")

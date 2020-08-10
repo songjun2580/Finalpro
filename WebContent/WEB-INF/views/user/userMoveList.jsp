@@ -71,9 +71,7 @@ function payPopup(moName,moTel,moSaddr,moconfirmPrice,moIdx){
 							<th>상담유형</th>
 							<th>예상가격</th>
 							<th>확정가격</th>	
-							<th>견적서 조희</th>
-							<th>리뷰작성</th>	
-							<th>불만신고</th>	
+							<th>견적서 조희</th>	
 							<th>결제</th>								
 						</tr>
 					</thead>
@@ -117,22 +115,10 @@ function payPopup(moName,moTel,moSaddr,moconfirmPrice,moIdx){
 							<td>미정</td>
 							</c:if>
 							<td><button type="button" class="btn btn-warning" onclick="javascript:estimatePopup(${dto.moIdx });">조회</button></td>						
-							<c:if test="${dto.moconfirmPrice!=0}">
-							<td>
-								<button type="button" class="btn btn-primary" disabled="disabled" onclick="location.href='userReviewWrite.do?moIdx=${dto.moIdx}'" >리뷰</button>
-						    </td>
-						    <td>
-								<a href="userCompWrite.do?moIdx=${dto.moIdx }"><button type="button" class="btn btn-danger" disabled="disabled" style="margin-top: 2px;">신고</button></a>
-							</td>
+							<c:if test="${dto.moconfirmPrice!=0}">		
 							<td><button type="button" class="btn btn-success" style="margin-top: 2px;" onclick="payPopup('${dto.moName}','${dto.moTel }','${dto.moSaddr}','${dto.moconfirmPrice}','${dto.moIdx }')">결제</button></td>
 							</c:if>
 							<c:if test="${dto.moconfirmPrice==0}">
-							<td>
-								<button type="button" class="btn btn-primary" onclick="location.href='userReviewWrite.do?moIdx=${dto.moIdx}'" disabled="disabled">리뷰</button>
-						    </td>
-						    <td>
-								<a href="userCompWrite.do?moIdx=${dto.moIdx }"><button type="button" class="btn btn-danger" style="margin-top: 2px;" disabled="disabled">신고</button></a>
-							</td>
 							<td><button type="button" class="btn btn-success" style="margin-top: 2px;" disabled="disabled">결제</button></td>
 							</c:if>
 							

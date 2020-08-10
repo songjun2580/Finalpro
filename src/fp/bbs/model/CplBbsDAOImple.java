@@ -2,6 +2,7 @@ package fp.bbs.model;
 
 import java.util.*;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 public class CplBbsDAOImple implements CplBbsDAO {
@@ -13,6 +14,12 @@ public class CplBbsDAOImple implements CplBbsDAO {
 		this.sst = sst;
 	}
 	
+	 @Override
+	public int cplSelCom(int coIdx) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	 
 	@Override
 	public int cplWrite(CplBbsDTO dto) {
 		sst.insert("cplInsert", dto);
@@ -60,6 +67,19 @@ public class CplBbsDAOImple implements CplBbsDAO {
 
          }
          return imgList;
+	}
+	@Override
+	public int cplConfirm(int cplIdx) {
+		int result=sst.update("cplConfirm", cplIdx);		
+		return result;
+	}
+	@Override
+	public int cplReply(int cplIdx, String cplReply) {
+		Map map=new HashedMap();
+		map.put("cplIdx", cplIdx);
+		map.put("cplReply", cplReply);
+		sst.update("cplReply", map);
+		return 0;
 	}
 	
 }

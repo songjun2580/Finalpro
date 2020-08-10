@@ -8,4 +8,9 @@ public interface CplBbsDAO {
 	 public List NoConfirmList();
 	 public CplBbsDTO cplContent(int cplIdx);
 	 public List cplImgs(CplBbsDTO dto);
+	 public int cplConfirm(int cplIdx);
+	 public int cplReply(int cplIdx, String cplReply);
+	 public int cplSelCom(int coIdx);
+	 
+	 
 }

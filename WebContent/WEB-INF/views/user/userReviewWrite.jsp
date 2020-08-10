@@ -20,6 +20,7 @@
   <!-- Custom styles for this template -->
    <link href="css/clean-blog.min.css" rel="stylesheet">
    <link rel="stylesheet" href="css/selectbox.css">
+   <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
 <style>
 
 table{
@@ -129,13 +130,13 @@ stars.slice(val,5).attr("class" , "far fa-fw fa-star" );
 <%@include file="../header.jsp" %>
     <div class="row">
     <div class="col-2">
-
-   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="location.href='userInfoCheck.do'">정보수정</a>
-      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="location.href='userMoveList.do'">이사내역 조회</a>
-      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="location.href='userCleanChoice.do'">청소업체 선정</a>
-      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="location.href='userCleanList.do'">청소내역 조회</a>
-   </div>
+  <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+		<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="location.href='userInfoCheck.do'">정보수정</a>
+		<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true" onclick="location.href='userMoveList.do'">이사내역 조회</a>
+		<a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true" onclick="location.href='endPriceList.do'">결제내역 조회</a>
+		<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="location.href='userCleanChoice.do'">청소업체 선정</a>
+		<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="location.href='userCleanList.do'">청소내역 조회</a>
+	</div>
     </div>
     <div class="col-9">
 <br><br>
@@ -186,7 +187,7 @@ stars.slice(val,5).attr("class" , "far fa-fw fa-star" );
                      <td colspan="2" >별점
                         <div class="container pt-1 mt-3">
                       <div class="row py-2 bg-light border">
-                      <div class="col-2 ml-auto">
+                      <div class="col-3 ml-auto">
                          <div id="starrate" class="starrate mt-3" data-val="2.5" data-max="5">
                             <span class="ctrl"></span>
                               <span class="cont m-1">

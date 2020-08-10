@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fp.bp.model.EmpBpDAO;
+import fp.company.model.BlogContentDAO;
+import fp.company.model.BlogContentDTO;
 import fp.estimate.model.MoveEstimateDAO;
 import fp.info.model.*;
 import fp.manage.model.MoveContractDTO;
@@ -33,13 +35,36 @@ public class EmpController {
 	@Autowired
 	private EmpBpDAO EmpBpDao;
 	
+	@Autowired
+	private BlogContentDAO blogContentDao;
+	
 	/**파견직원 로그인 관련 메서드*/
 	@RequestMapping(value="empLogin.do", method = RequestMethod.GET)
 	public String empLogin() {
 		return "emp/emp_Login";
 	}
 	
-	
+	 /**업체 블로그 조회(by 파견직원)*/
+	   @RequestMapping("empBlogView.do")
+	   public ModelAndView userBlogView(int coIdx) {
+	      ModelAndView mav=new ModelAndView();
+	      
+	      BlogContentDTO dto=blogContentDao.getBlogContent(coIdx);//현장스토리 이미지 가져오기
+	      ComInfoDTO com_dto=blogContentDao.getCoInfo(coIdx);//업체정보 가져오기 (블로그 출력용)
+	      
+	      List review_lists=blogContentDao.getCompReview(coIdx);//리뷰 관련 정보 가져오기
+	      BestReviewDTO best_review=blogContentDao.getBestReview(coIdx);//베스트 리뷰가져오기(평점 가장 높고 & 가장 최근 리뷰)
+	      double avgRate=blogContentDao.getAvgRate(coIdx);//업체 리뷰 평점 평균 가져오기
+	      mav.addObject("dto", dto);
+	      mav.addObject("com_dto", com_dto);
+	      mav.addObject("review_lists", review_lists);
+	      mav.addObject("best_review", best_review);   
+	      mav.addObject("avgRate", avgRate);
+	      
+	      mav.setViewName("emp/empBlogView");
+	      return mav;
+	   }
+	   
 	@RequestMapping("/emp_Mypage.do")
 	public String emp_Mypage() {
 		return "emp/emp_Mypage";

@@ -57,7 +57,12 @@
 	<select id="cplContent" resultType="fp.bbs.model.CplBbsDTO" parameterType="int">
 		select * from cpl_bbs where cplIdx=#{cplIdx}
 	</select>
-	
+	<update id="cplConfirm" parameterType="int">
+		update cpl_bbs set cplConfirm=1 where cplIdx=#{cplIdx}
+	</update>
+	<update id="cplReply" parameterType="map">
+		update cpl_bbs set cplReply=#{cplReply} where cplIdx=#{cplIdx}
+	</update>
 	<!-- 경고 3회이상 업체 목록 -->
 	<select resultType="fp.info.model.ComInfoDTO" parameterType="map" id="admWrgList">
 	select * from(select rownum as rnum,a.* from(select * from com_Info where coverify=1 and coWrg=3 order by coIdx desc)a)b where rnum 

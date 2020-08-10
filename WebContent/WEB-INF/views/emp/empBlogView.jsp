@@ -139,20 +139,12 @@ $.fn.stars = function() {
 </head>
 <body>
 <div id="fb-root"></div>
-<%@include file="../header.jsp" %>   
+<%@include file="../header.jsp" %>
+   
 <div class="row">
-<div class="left-nav" style="width: 300px;">
-	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" style="width: 300px;" aria-orientation="vertical">
-		<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="location.href='userInfoCheck.do'">정보수정</a>
-		<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true" onclick="location.href='userMoveList.do'">이사내역 조회</a>
-		<a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true" onclick="location.href='endPriceList.do'">결제내역 조회</a>
-		<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="location.href='userCleanChoice.do'">청소업체 선정</a>
-		<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="location.href='userCleanList.do'">청소내역 조회</a>
-	</div>
-</div>
 <!-- 업체블로그 -->
-      <div class="right-content" style="float:left;  margin-left: 16%; ">
-		 <div class="alert alert-secondary" role="alert" style="height: 100px;">${com_dto.coName}&nbsp;&nbsp;&nbsp;
+      <div style="margin:0px auto;">
+          <div class="alert alert-secondary" role="alert" style="height: 100px; ">${com_dto.coName}&nbsp;&nbsp;&nbsp;
           <div class="gogo">
           <c:choose>
           <c:when test="${com_dto.coWrg==3}">
@@ -351,7 +343,7 @@ $.fn.stars = function() {
              
                <br>
                   <!-- 페이징 -->
-              <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate" style="margin-left:25%;">
+              <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate" style="margin-left:45%;">
                  <ul class="pagination">
                     <li class="paginate_button page-item previous disabled" id="dataTable_previous">
                        <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>

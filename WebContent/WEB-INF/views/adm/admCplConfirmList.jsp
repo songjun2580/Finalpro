@@ -68,26 +68,30 @@ body{
 </div><br>
 <div class="row">
     <div class="table-responsive">
-	           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	          <table class="table table-bordered" id="dataTable" width="100%">
 	             <thead>
 	                 <tr>
 	                  <th>번호</th>
-				      <th>업체명</th>
-			          <th>불만사항 누적수</th>
-			          <th>경고횟수</th>
-			          <th>업체경고</th>
+	                  <th>업체명</th>
+				      <th>제목</th>
+			          <th>작성자</th>
+			          <th>날짜</th>
+			          <th>답글쓰기</th>
 	                  </tr>
 	             </thead>
 				 <tfoot>
 	             </tfoot>
 	             <tbody>
+	             <c:forEach var="dto" items="${dto }">
 		               <tr>
-		               <td>Name</td>
-		               <td><a href="admCplSubList.do">업체명</a></td>
-	                   <td>Office</td>
-		               <td>Age</td>
-		               <td><input type="button" value="업체경고"></td>
+		               <td>${dto.cplIdx }</td>
+		               <td><a href="admCplList.do">${dto.coName }</a></td>
+		               <td><a href="admCplContent.do?cplIdx=${dto.cplIdx }">${dto.cplSubject }</a></td>
+	                   <td>${dto.uName }</td>
+		               <td>${dto.cplDate }</td>
+		               <td><a href="admReply.do?cplIdx=${dto.cplIdx }"><button>답글쓰기</button></a></td>
 		             </tr>
+		       </c:forEach>
 	           </tbody>
 	         </table>
 	       </div>

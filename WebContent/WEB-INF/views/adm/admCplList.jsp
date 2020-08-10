@@ -31,6 +31,10 @@ body{
 	text-align:center;
 	padding:20px;
 }
+.liset{
+display: inline;
+padding: 25px;
+}
 </style>
 </head>
 <body>
@@ -62,21 +66,25 @@ body{
 	               <span>이사업체 불만사항 신고목록</span>
 	      </div>
       </div><br>
-<div class="search">
-		<input type="text" name="search">
-		<input type="button" value="검색">
+<div class="search" style="display: inline;">
+	<ul style="display: inline; list-style: none;">
+		<li class="liset">업체명:<span>이사모아</span></li>
+		<li class="liset">불만사항 누적수:<span>5</span></li>
+		<li class="liset">경고횟수:<span>1</span></li>
+		<li class="liset"><input type="text" name="serch">
+		<input type="button" value="검색"></li>
+	</ul>
 </div><br>
 <div class="row">
     <div class="table-responsive">
-	           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	           <table class="table table-bordered" id="dataTable" width="100%" >
 	             <thead>
 	                 <tr>
 	                  <th>번호</th>
-				      <th>업체명</th>
-			          <th>불만사항 누적수</th>
-			          <th>경고횟수</th>
-			          <th>업체경고</th>
-	                  </tr>
+				      <th>작성자</th>
+			          <th>제목 </th>
+			          <th>관리자 확인</th>
+			          </tr>
 	             </thead>
 				 <tfoot>
 	             </tfoot>
@@ -84,10 +92,9 @@ body{
 		               <tr>
 		               <td>Name</td>
 		               <td>업체명</td>
-	                   <td>Office</a></td>
+	                   <td>Office/td>
 		               <td>Age</td>
-		               <td><input type="button" value="업체경고"></td>
-		             </tr>
+		               </tr>
 	           </tbody>
 	         </table>
 	       </div>

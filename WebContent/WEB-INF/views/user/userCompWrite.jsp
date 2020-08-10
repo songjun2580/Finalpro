@@ -22,20 +22,6 @@
   <link href="css/clean-blog.min.css" rel="stylesheet">
 <link rel="stylesheet" href="./webjars/bootstrap/4.3.1/css/bootstrap.css">
 <style>
-header {
-   position: fixed;
-   width: 1155px;
-   z-index: 9999;
-   top: 0;
-   background-color: white;
-   margin: 0px auto;
-}
-body{
-	padding-top:85px;
-	width:1155px;
-	margin:0px auto;
-	font-family:sans-serif;
-}
 table{
    height:200px;
    margin: 0px auto;
@@ -93,69 +79,60 @@ function checkFile(Inputobj){
     <div class="row">
     <div class="col-2">
 		<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="location.href='userInfoCheck.do'">정보수정</a>
-			<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="location.href='userMoveList.do'">이사내역 조회</a>
-			<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="location.href='userCleanChoice.do'">청소업체 선정</a>
-			<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="location.href='userCleanList.do'">청소내역 조회</a>
-		</div>
+		<a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false" onclick="location.href='userInfoCheck.do'">정보수정</a>
+		<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true" onclick="location.href='userMoveList.do'">이사내역 조회</a>
+		<a class="nav-link active" id="v-pills-profile-ta b" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true" onclick="location.href='endPriceList.do'">결제내역 조회</a>
+		<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="location.href='userCleanChoice.do'">청소업체 선정</a>
+		<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="location.href='userCleanList.do'">청소내역 조회</a>
+	</div>
     </div>
     <div class="col-9">
-<form name="complaint" action="#">
 <br><br>
    <section>
       <article>
-            <form name="cpl" id="compForm" action="userCompWriteSubmit.do" method="post" enctype="multipart/form-data">
-         <br><br>
-                <h2 style="text-align: left;">불편사항 신고</h2>
-                     <table border="1">
-                    
-                        <tr>
-                           <td>
-                              <input type="text" name="uName" value="${sessionScope.uName}" readonly="readonly">
-                              <span><br>업체명 :${dto2.coName }</span>
-                              <input type="hidden" name="moIdx" value=${param.moIdx }><!-- 넘겨온 견적서 moIdx로 무족권 변경해주기!! -->
-                              <input type="text" name="coIdx" value=${dto2.coIdx }>
-                           </td>
-                           <td>
-                              	<span>출발지:${dto.moSaddr }  &rarr; <br>도착지:${dto.moEaddr }</span>
-                           </td>
+               <h2 style="text-align: left;">불편사항 신고</h2>
+               <form name="cpl" id="compForm" action="userCompWriteSubmit.do" method="post" enctype="multipart/form-data">
+                    <table border="1">
+                       <tr>
+                          <td>
+                             <input type="text" name="uName" value="${sessionScope.uName}" readonly="readonly">
+                             <span><br>업체명 :${dto2.coName }</span>
+                             <input type="hidden" name="moIdx" value=${param.moIdx }><!-- 넘겨온 견적서 moIdx로 무족권 변경해주기!! -->
+                             <input type="text" name="coIdx" value=${dto2.coIdx }>
+                          </td>
+                          <td>
+                             	<span>출발지:${dto.moSaddr }  &rarr; <br>도착지:${dto.moEaddr }</span>
+                          </td>
+                       </tr>
+                       <tr>
+                             <td colspan="2">사진 첨부하기 <input type="file" id="cplImg1" name="cplImgs"  style="float: right; marign-right: 150px;" onchange="checkFile(this)" multiple="multiple">
+                       </tr>
+                       <tr>
+                          <td  colspan="2" id="preview_con">
+                   			 <div id="preview" style="width: 200px; height: 200px; display: inline;"></div>	 
+                		  </td>
                         </tr>
-                        <tr>
-                              <td colspan="2">사진 첨부하기 <input type="file" id="cplImg1" name="cplImgs"  style="float: right; marign-right: 150px;" onchange="checkFile(this)" multiple="multiple">
-                        </tr>
-                        <tr>
-                             <td  colspan="2" id="preview_con">
-	                   	 <div id="preview" style="width: 200px; height: 200px; display: inline;">
-	                   	
-	                   	 </div>	 
-	                  </td>
-	                  
-                         </tr>
-                        <tr>
-                           <td>제목</td>
-                           <td><input type="text" name="cplSubject" required size="80"></td>
-                        </tr>
-                        <tr>
-                           
-                        </tr>
-                        <tr>
-                           <td colspan="2" >내용</td>
-                        </tr>
-                        <tr>
-                           <td colspan="2" >
-                               <textarea rows="10" cols="115" placeholder="내용을 작성 해주세요" name="cplContent" style="resize:none"></textarea>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td colspan="2" style="text-align: center;">
-                              <input type="submit" value="작성 완료"> <input type="reset" value="다시 작성하기">
-                           </td>
-                        </tr>
-                     </table>
-		         </form>   
+                       <tr>
+                          <td>제목</td>
+                          <td><input type="text" name="cplSubject" required size="80"></td>
+                       </tr>
+                       <tr>
+                          <td colspan="2" >내용</td>
+                       </tr>
+                       <tr>
+                          <td colspan="2" >
+                              <textarea rows="10" cols="115" placeholder="내용을 작성 해주세요" name="cplContent" style="resize:none"></textarea>
+                          </td>
+                       </tr>
+                       <tr>
+                          <td colspan="2" style="text-align: center;">
+                             <input type="submit" value="작성 완료"> <input type="reset" value="다시 작성하기">
+                          </td>
+                       </tr>
+                    </table>
+	         </form>   
       </article>
-   </section>
-</form>   
+   </section> 
 </div>
 </div>
 <hr>

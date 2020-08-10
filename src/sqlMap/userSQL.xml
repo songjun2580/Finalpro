@@ -56,9 +56,6 @@
     <update id="userUpdate" parameterType="fp.info.model.UserInfoDTO">
     	update user_Info set uName=#{uName}, uPwd=#{uPwd}, uTel=#{uTel},uBirth=#{uBirth},uAddr=#{uAddr},uEmail=#{uEmail} where uIdx=#{uIdx}
     </update>
-    <insert  id="reviewInsert" parameterType="fp.bbs.model.ReviewBbsDTO" >
-       insert into review_bbs values(review_bbs_revIdx.nextval,#{moIdx},#{uName},sysdate,#{revSubject},#{revContent},#{revImg},#{revRate}) 
-    </insert>
     <update parameterType="int" id="payInsert">UPDATE adm_info SET bankbook = bankbook + #{moconfirmPrice} </update>
 
 	<select parameterType="int" id="endPriceList" resultType="fp.bp.model.UserBpDTO">
@@ -67,7 +64,7 @@
 	left join move_est z
 	on x.moIdx=z.moIdx 
 	left join com_Info q
-	on z.coIdx=q.coIdx where uIdx=#{uIdx} and q.coIdx!=0
+	on z.coIdx=q.coIdx where uIdx=#{uIdx} and q.coIdx!=0 and Final2=1
 	</select>
 	<update parameterType="int" id="final2Update">update move_est set final2 = 1 where moIdx=#{moIdx} </update>
 </mapper>

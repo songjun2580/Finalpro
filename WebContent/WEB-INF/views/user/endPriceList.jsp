@@ -101,7 +101,7 @@ function estimatePopup(moIdx){
 							
 							<td>${dto.moName }</td>
 							<td>${dto.mctDate }</td>
-							<td><a href="compBlog.do?coIdx=${dto.coIdx }">${dto.coName }</a></td>
+							<td><a href="userBlogView.do?coIdx=${dto.coIdx }">${dto.coName }</a></td>
 							<td>${dto.moSaddr }</td>
 							<td>${dto.moconfirmPrice}원</td>
 							<td><button type="button" class="btn btn-warning" onclick="javascript:estimatePopup(${dto.moIdx });">조회</button></td>

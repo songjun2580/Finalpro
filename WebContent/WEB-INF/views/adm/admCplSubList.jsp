@@ -46,10 +46,12 @@ table{
 
 </style>
 <script>
-function confirm(cplIdx){
-	alert('cplIdx='+cplIdx);
-	location.href='';
+onload=function(){
+	if(${msg}.exist){
+		alert('${msg}');
+	}
 }
+
 function replyWrite(cplIdx){
 	alert('cplIdx='+cplIdx);
 }
@@ -83,16 +85,10 @@ function replyWrite(cplIdx){
 	                     <span>이사 업체 신고 목록</span>
 	      </div>
       </div><br>
-	<ul>
-		<li>업체명:<span>이사모아</span></li>
-		<li>불만사항 누적수:<span>5</span></li>
-		<li>경고횟수:<span>1</span></li>
-		<li><input type="text" name="serch">
-		<input type="button" value="검색"></li>
-	</ul>
+	
 	<div class="row">
     <div class="table-responsive">
-	           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	           <table class="table table-bordered" id="dataTable" width="100%">
 	             <thead>
 	                 <tr>
 	                  <th>번호</th>
@@ -114,8 +110,8 @@ function replyWrite(cplIdx){
 		               <td><a href="admCplContent.do?cplIdx=${dto.cplIdx }">${dto.cplSubject }</a></td>
 	                   <td>${dto.uName }</td>
 		               <td>${dto.cplDate }</td>
-		               <td><button onclick="replyWrite(${dto.cplIdx})" >답글쓰기</button></td>
-		               <td><button onclick="confirm(${dto.cplIdx})" >답변확인</button></td>
+		               <td><a href="admReply.do?cplIdx=${dto.cplIdx }"><button>답글쓰기</button></a></td>
+		               <td><a href="admCplConfirm.do?cplIdx=${dto.cplIdx }"><button onclick="confirm(${dto.cplIdx})" >답변확인</button></a></td>
 		             </tr>
 		       </c:forEach>
 	           </tbody>
