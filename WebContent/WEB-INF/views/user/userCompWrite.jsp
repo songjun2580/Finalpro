@@ -105,7 +105,8 @@ function checkFile(Inputobj){
                           </td>
                        </tr>
                        <tr>
-                             <td colspan="2">사진 첨부하기 <input type="file" id="cplImg1" name="cplImgs"  style="float: right; marign-right: 150px;" onchange="checkFile(this)" multiple="multiple">
+                             <td colspan="2">사진 첨부하기
+                              <input type="file" id="cplImg1" name="cplImgs"  style="float: right; marign-right: 150px;" onchange="checkFile(this)" multiple="multiple" accept="image/*">
                        </tr>
                        <tr>
                           <td  colspan="2" id="preview_con">

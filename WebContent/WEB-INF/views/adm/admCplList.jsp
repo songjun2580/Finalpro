@@ -68,9 +68,9 @@ padding: 25px;
       </div><br>
 <div class="search" style="display: inline;">
 	<ul style="display: inline; list-style: none;">
-		<li class="liset">업체명:<span>이사모아</span></li>
-		<li class="liset">불만사항 누적수:<span>5</span></li>
-		<li class="liset">경고횟수:<span>1</span></li>
+		<li class="liset">업체명:<span>${dto2.coName }</span></li>
+		<li class="liset">불만사항 누적수:<span>${dto2.coCpl }</span></li>
+		<li class="liset">경고횟수:<span>${dto2.coWrg }</span></li>
 		<li class="liset"><input type="text" name="serch">
 		<input type="button" value="검색"></li>
 	</ul>
@@ -89,12 +89,24 @@ padding: 25px;
 				 <tfoot>
 	             </tfoot>
 	             <tbody>
+	             <c:forEach var="dto" items="${dto }">
 		               <tr>
-		               <td>Name</td>
-		               <td>업체명</td>
-	                   <td>Office/td>
-		               <td>Age</td>
-		               </tr>
+		               <c:if test="${empty dto }">
+		               	<td colspan="4">등록된 불만사항이 없습니다.</td>
+		               </c:if>
+		               <td>${dto.cplIdx }</td>
+		               <td>${dto.uName }</td>
+		               <td><a href="admCplContent.do?cplIdx=${dto.cplIdx }">${dto.cplSubject }</a></td>
+		                <td>
+			               <c:if test="${dto.cplConfirm==0 }">
+			              	<a href="admCplConfirm.do?cplIdx=${dto.cplIdx }"><button onclick="confirm(${dto.cplIdx})" >답변확인</button></a>
+			               </c:if>
+			               <c:if test="${dto.cplConfirm==1 }">
+			               <span>확인됨</span>
+			               </c:if>
+		               </td>
+		             </tr>
+		       </c:forEach>
 	           </tbody>
 	         </table>
 	       </div>

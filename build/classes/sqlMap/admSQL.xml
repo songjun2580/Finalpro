@@ -35,22 +35,26 @@
 	
 	<!-- 불만사항 가져오기 -->
 	<select id="selectCpl" resultType="fp.bbs.model.CplBbsDTO">
-		select distinct
-		cplIdx,coName,cplSubject,Uname,cplDate,coIdx
+		select 	cplIdx,coName,cplSubject,Uname,cplDate,coIdx,cplConfirm
 		from 
-		(select * from cpl_bbs cpl, com_info com, (select coIdx as cd from cpl_bbs cpl2, move_est mov where cpl2.moidx = mov.moidx)a )b 
-		where 
-			cplConfirm=0 and cd=coIdx 
+		(select coName,coIdx ,a.* from com_info com, 
+        (select coIdx as cd ,cplDate,Uname,cplSubject,cplIdx,cplConfirm from cpl_bbs cpl2, move_est mov where cpl2.moidx = mov.moidx and cplConfirm=0 )a where cd=coIdx)b
 		order by 
 			cplIdx desc
 	</select>
 	<select id="selectCplConfirm" resultType="fp.bbs.model.CplBbsDTO">
-		select distinct
-		cplIdx,coName,cplSubject,Uname,cplDate,coIdx
+		select 	cplIdx,coName,cplSubject,Uname,cplDate,coIdx,cplConfirm
 		from 
-		(select * from cpl_bbs cpl, com_info com, (select coIdx as cd from cpl_bbs cpl2, move_est mov where cpl2.moidx = mov.moidx)a )b 
-		where 
-			cplConfirm=1 and cd=coIdx 
+		(select coName,coIdx ,a.* from com_info com, 
+        (select coIdx as cd ,cplDate,Uname,cplSubject,cplIdx,cplConfirm from cpl_bbs cpl2, move_est mov where cpl2.moidx = mov.moidx and cplConfirm=1 )a where cd=coIdx)b
+		order by 
+			cplIdx desc
+	</select>
+	<select id="selectComCpl" resultType="fp.bbs.model.CplBbsDTO" parameterType="int">
+		select 	cplIdx,coName,cplSubject,Uname,cplDate,coIdx,cplConfirm
+		from 
+		(select coName,coIdx ,a.* from com_info com, 
+        (select coIdx as cd ,cplDate,Uname,cplSubject,cplIdx,cplConfirm from cpl_bbs cpl2, move_est mov where cpl2.moidx = mov.moidx )a where coIdx=#{coIdx} and cd=coIdx)b
 		order by 
 			cplIdx desc
 	</select>

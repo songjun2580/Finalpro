@@ -12,9 +12,7 @@
           <value>10485760</value>
        </property>
     </bean>
-
-<bean class="fp.view.DownloadView" id="fileDown"/>
-
+    
 <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" id="yongJson"/>
 
 <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>

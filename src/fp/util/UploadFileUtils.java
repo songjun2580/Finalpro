@@ -13,40 +13,23 @@ public class UploadFileUtils {
    //파일 업로드
       public String uploadFile(MultipartFile file, HttpServletRequest request) {
          
-         try {
-            
-         
+         try { 
          String originalFileName=file.getOriginalFilename(); //file name
          byte[] fileData = file.getBytes(); //file data
-         
          //파일명 중복 방지 처리
          String uuidFileName=getUuidFileName(originalFileName);
-         
          // 파일 업로드 경로 설정
          String rootPath = getRootPath(originalFileName, request);  //기본경로 추출
          makeDir(rootPath,request);
-          
          // 서버에 파일 저장
          File target = new File(rootPath,uuidFileName);
          FileCopyUtils.copy(fileData, target);
-         
-         
-         /* String uploadedFileName = null;
-         // 이미지파일일 경우 썸네일이미지 생성
-         if(MediaUtils.getMediaType(originalFileName)!=null) {
-            uuidFileName=makeThumbnail(rootPath, datePath, uuidFileName);
-         }*/
-         
          //파일 저장 경로 치환
          return uuidFileName;
-         
          } catch (Exception e) {
             e.printStackTrace();
             return "e.printStackTrace()";
          }
-         
-         
-         
       }
       
       //기본 경로 추출
@@ -111,9 +94,6 @@ public class UploadFileUtils {
             dirPath.mkdir();
          }else {
             dirRootPath.mkdir();
-            if(dirPath.exists()){
-               return;      
-            }
             dirPath.mkdir();
          }
          

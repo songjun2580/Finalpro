@@ -76,7 +76,6 @@ body{
 				      <th>제목</th>
 			          <th>작성자</th>
 			          <th>날짜</th>
-			          <th>답글쓰기</th>
 	                  </tr>
 	             </thead>
 				 <tfoot>
@@ -85,11 +84,10 @@ body{
 	             <c:forEach var="dto" items="${dto }">
 		               <tr>
 		               <td>${dto.cplIdx }</td>
-		               <td><a href="admCplList.do">${dto.coName }</a></td>
+		              <td><a href="admCplList.do?coIdx=${dto.coIdx }">${dto.coName }</a></td>
 		               <td><a href="admCplContent.do?cplIdx=${dto.cplIdx }">${dto.cplSubject }</a></td>
 	                   <td>${dto.uName }</td>
 		               <td>${dto.cplDate }</td>
-		               <td><a href="admReply.do?cplIdx=${dto.cplIdx }"><button>답글쓰기</button></a></td>
 		             </tr>
 		       </c:forEach>
 	           </tbody>

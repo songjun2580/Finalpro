@@ -15,12 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fp.bbs.model.*;
 import fp.bp.model.AdmBpDAO;
+import fp.company.model.BlogContentDAO;
 import fp.estimate.model.CleanEstimateDAO;
 import fp.estimate.model.CleanEstimateDTO;
 import fp.estimate.model.MoveEstimateDAO;
 import fp.estimate.model.MoveEstimateDTO;
 import fp.info.model.AdmInfoDAO;
 import fp.info.model.ComInfoDAO;
+import fp.info.model.ComInfoDTO;
 import fp.info.model.EmpInfoDTO;
 
 @Controller
@@ -43,6 +45,9 @@ public class AdmController {
 	
 	@Autowired
 	private CplBbsDAO CplDao;
+	
+	@Autowired
+	private BlogContentDAO blogContentDao;
 	
 	
 	/**관리자 로그인 폼 이동 메서드*/
@@ -358,8 +363,13 @@ public class AdmController {
 	
 	/**업체별 불만사항 목록 관련 메서드*/
 	@RequestMapping("admCplList.do")
-	public ModelAndView admCpl() {
+	public ModelAndView admCpl(@RequestParam(value="coIdx",defaultValue = "0")int coIdx) {
 		ModelAndView mav = new ModelAndView();
+		List dto= CplDao.cplSelCom(coIdx);
+		ComInfoDTO dto2=blogContentDao.getCoInfo(coIdx);
+		mav.addObject("dto", dto);
+		mav.addObject("dto2", dto2);
+		mav.setViewName("adm/admCplSubList");
 		mav.setViewName("adm/admCplList");
 		return mav;
 	}
@@ -412,6 +422,15 @@ public class AdmController {
 		ModelAndView mav= new ModelAndView();
 		mav.addObject("cplIdx", cplIdx);
 		mav.setViewName("adm/admCplReply");
+		return mav;
+	}
+	/**불만사항 답글작성*/
+	@RequestMapping("admReplySubmit.do")
+	public ModelAndView admCplReplySubmit(int cplIdx) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", "답글을 정삭적으로 작성하였습니다.");
+		mav.addObject("gopage", "admReply.do");
+		mav.setViewName("adm/admMsg");
 		return mav;
 	}
 	

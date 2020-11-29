@@ -64,9 +64,6 @@ th,td{
                   </div>
     
      <div class="card-body">
-		     <div style="padding-bottom: 15px;">
-		     	<button type="button" class="btn btn-warning" style="font-weight:bolder;">고객 조회</button>
-		     </div>
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>

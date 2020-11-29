@@ -116,11 +116,12 @@ public class UserController {
 		      return mav;
 	}
 	@RequestMapping("/userCompWriteSubmit.do")
-	public ModelAndView userCompWriteSubmit(@RequestParam(value = "cplImgs" ,required = false ) List<MultipartFile> file , 
+	public ModelAndView userCompWriteSubmit(
+			@RequestParam(value = "cplImgs" ,required = false ) 
+			List<MultipartFile> file , 
             CplBbsDTO dto,
             HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		  System.out.println("불만사항 메서드 들어옴!");
 		UploadFileUtils upLoad = new UploadFileUtils();
 	         String originName="";
 	         String dbName="";
@@ -225,9 +226,7 @@ public class UserController {
 	            @RequestParam(value = "revImgs" ,required = false ) List<MultipartFile> file , 
 	            ReviewBbsDTO dto,
 	            HttpServletRequest req) {
-	      System.out.println("리뷰작성 메서드 들어옴!");
-	      
-	       
+		   
 	         UploadFileUtils upLoad = new UploadFileUtils();
 	         String originName="";
 	         String dbName="";
@@ -351,6 +350,7 @@ public class UserController {
     		HttpSession session
     		) {
     	session.invalidate();
+    	System.out.println("유저 로그인 들어옴");
     	return "index";
     } 
     

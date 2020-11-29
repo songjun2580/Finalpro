@@ -15,15 +15,15 @@ public class CplBbsDAOImple implements CplBbsDAO {
 	}
 	
 	 @Override
-	public int cplSelCom(int coIdx) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List cplSelCom(int coIdx) {
+		List dto=sst.selectList("selectComCpl", coIdx);
+		return dto;
 	}
 	 
 	@Override
 	public int cplWrite(CplBbsDTO dto) {
-		sst.insert("cplInsert", dto);
-		return 0;
+		int result=sst.insert("cplInsert", dto);
+		return result;
 	}
 	
 	@Override

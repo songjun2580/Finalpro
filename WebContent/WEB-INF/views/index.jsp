@@ -199,7 +199,7 @@
       </nav>
         <div class="tab-content" id="nav-tabContent">   
           <div class="tab-pane fade active show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-         <label class="welcome"> 매일이사님 환영합니다.</label>
+         <label class="welcome"> ${sessionScope.coName}님 환영합니다.</label>
            <button type="button" class="btn btn-primary" id="mpbt" onclick="location.href='compMypage.do'">마이페이지</button>
            <button type="button" class="btn btn-secondary" onclick="location.href='comlogout.do'" id="lobt">로그아웃</button>
           </div>

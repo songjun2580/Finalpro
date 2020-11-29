@@ -45,17 +45,6 @@ table{
 }
 
 </style>
-<script>
-onload=function(){
-	if(${msg}.exist){
-		alert('${msg}');
-	}
-}
-
-function replyWrite(cplIdx){
-	alert('cplIdx='+cplIdx);
-}
-</script>
 </head>
 <body>
 <%@ include file="adm_header.jsp" %>
@@ -96,7 +85,6 @@ function replyWrite(cplIdx){
 				      <th>제목</th>
 			          <th>작성자</th>
 			          <th>날짜</th>
-			          <th>답글쓰기</th>
 			          <th>답변확인</th>
 	                  </tr>
 	             </thead>
@@ -106,11 +94,10 @@ function replyWrite(cplIdx){
 	             <c:forEach var="dto" items="${dto }">
 		               <tr>
 		               <td>${dto.cplIdx }</td>
-		               <td><a href="admCplList.do">${dto.coName }</a></td>
+		               <td><a href="admCplList.do?coIdx=${dto.coIdx }">${dto.coName }</a></td>
 		               <td><a href="admCplContent.do?cplIdx=${dto.cplIdx }">${dto.cplSubject }</a></td>
 	                   <td>${dto.uName }</td>
 		               <td>${dto.cplDate }</td>
-		               <td><a href="admReply.do?cplIdx=${dto.cplIdx }"><button>답글쓰기</button></a></td>
 		               <td><a href="admCplConfirm.do?cplIdx=${dto.cplIdx }"><button onclick="confirm(${dto.cplIdx})" >답변확인</button></a></td>
 		             </tr>
 		       </c:forEach>
